@@ -1,5 +1,6 @@
 import React from 'react'
 import {StyleSheet, View, Text, TextInput, Button} from 'react-native'
+import * as Font from 'expo-font'
 import books from '../Helpers/books'
 
 class Search extends React.Component{
@@ -10,7 +11,18 @@ class Search extends React.Component{
       this.searched_edition = ""
 
       this._searchBooks = this._searchBooks.bind(this)
+
+      state = {
+        assetsLoaded: false,
+      };
   }
+
+  async componentDidMount() {
+        await Font.loadAsync({
+            'lobster-regular': require('../assets/fonts/Lobster-Regular.ttf')
+        });
+        this.setState({ assetsLoaded: true });
+    }
 
   _onChangedInput(text, input){
     switch(input){
@@ -104,7 +116,7 @@ const styles = StyleSheet.create({
   },
   title : {
     fontSize : 35,
-    fontFamily : 'Lobster-Regular'
+    fontFamily : 'lobster-regular'
   },
   search_item_container : {
     flex : 4,
