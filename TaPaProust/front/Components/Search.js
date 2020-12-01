@@ -21,6 +21,18 @@ class Search extends React.Component{
         await Font.loadAsync({
             'lobster-regular': require('../assets/fonts/Lobster-Regular.ttf')
         });
+        await Font.loadAsync({
+            'dancing-bold' : require('../assets/fonts/DancingScript-Bold.ttf')
+        });
+        await Font.loadAsync({
+            'dancing-medium' : require('../assets/fonts/DancingScript-Medium.ttf')
+        });
+        await Font.loadAsync({
+            'dancing-regular' : require('../assets/fonts/DancingScript-Regular.ttf')
+        });
+        await Font.loadAsync({
+            'dancing-semibold' : require('../assets/fonts/DancingScript-SemiBold.ttf')
+        });
         this.setState({ assetsLoaded: true });
     }
 
@@ -115,7 +127,8 @@ const styles = StyleSheet.create({
     justifyContent : 'center',
   },
   title : {
-    fontSize : 35,
+    fontSize : 45,
+    color : '#ffc000',
     fontFamily : 'lobster-regular'
   },
   search_item_container : {
@@ -126,6 +139,7 @@ const styles = StyleSheet.create({
     height : 100
   },
   search_item_text : {
+    fontFamily : 'dancing-regular',
     fontSize : 25,
     marginBottom : 5
   },
