@@ -1,5 +1,5 @@
 import React from 'react'
-import {StyleSheet, View, Text, TextInput, Button} from 'react-native'
+import {StyleSheet, View, Text, TextInput, Button, TouchableOpacity} from 'react-native'
 import * as Font from 'expo-font'
 import books from '../Helpers/books'
 
@@ -98,13 +98,12 @@ class Search extends React.Component{
               onChangeText = {(text) => this._onChangedInput(text, inputs.EDITION)}>
             </TextInput>
           </View>
-          <View style = { styles.button_box}>
-            <Button
-              style = {styles.button}
-              title = {"Rechercher"}
-              onPress = {() => {this._searchBooks()}}>
-            </Button>
-          </View>
+          <TouchableOpacity
+            style = { styles.button_box}
+            onPress = {() => {this._searchBooks()}}>
+            <Text style = {styles.button_text}>Rechercher
+            </Text>
+          </TouchableOpacity>
         </View>
       </View>
     )
@@ -127,33 +126,43 @@ const styles = StyleSheet.create({
     justifyContent : 'center',
   },
   title : {
-    fontSize : 45,
-    color : '#ffc000',
-    fontFamily : 'lobster-regular'
+    fontSize : 55,
+    fontFamily : 'lobster-regular',
+    //color : '#ffc000'
   },
   search_item_container : {
-    flex : 4,
+    flex : 5,
     margin : 10
   },
   search_item_box : {
-    height : 100
+    height : 110
   },
   search_item_text : {
     fontFamily : 'dancing-regular',
-    fontSize : 25,
+    fontSize : 35,
+    paddingLeft : 10,
     marginBottom : 5
   },
   text_input : {
     height : 40,
-    paddingLeft: 5,
+    paddingLeft: 15,
+    fontFamily : 'dancing-regular',
     borderColor: '#000000',
     borderWidth: 1,
   },
   button_box : {
-    flex :1
+    backgroundColor : 'black',
+    height : 50,
+    marginTop : 10,
+    marginBottom : 10,
+    marginLeft : 20,
+    marginRight :20
   },
-  button: {
-
+  button_text: {
+    fontSize :35,
+    textAlign : 'center',
+    fontFamily : 'dancing-bold',
+    color : '#ffffff'
   }
 })
 

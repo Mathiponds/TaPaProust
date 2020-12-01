@@ -1,9 +1,11 @@
 import React from 'react'
 import {View, Text, FlatList, StyleSheet} from 'react-native'
 import BookItem from './BookItem'
+import * as Font from 'expo-font'
 
 
 class BookList extends React.Component{
+
 
   _displayDetailForBook = (book) => {
     this.props.navigation.navigate('Détail du livre', { book : book})
@@ -58,10 +60,11 @@ const styles = StyleSheet.create({
     margin :5
   },
   header_title :{
+    //fontFamily : 'lobster-regular',
     fontSize : 24
   },
   entry_text : {
-    fontWeight : 'bold'
+    //fontFamily : 'dancing-regular'
   },
   text : {
     fontSize : 20,

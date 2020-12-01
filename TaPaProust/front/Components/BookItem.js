@@ -1,5 +1,6 @@
 import React from 'react'
 import {View, Text, Image, StyleSheet, TouchableOpacity} from 'react-native'
+import * as Font from 'expo-font'
 
 class BookItem extends React.Component{
 
@@ -57,9 +58,10 @@ const styles = StyleSheet.create({
     flex : 2
   },
   entry_text : {
-    fontWeight : 'bold'
+    //fontFamily : 'dancing-regular'
   },
   text : {
+    //fontFamily : 'raleway',
     fontSize : 16,
   }
 })
