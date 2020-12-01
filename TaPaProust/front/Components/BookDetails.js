@@ -2,6 +2,10 @@ import React from 'react'
 import {View, Text, Image, StyleSheet, Button, TouchableOpacity} from 'react-native'
 
 class BookDetails extends React.Component{
+  async componentDidMount() {
+    this.props.navigation.setOptions({headerTitleStyle : {
+      fontFamily : 'lobster-regular', fontSize : 30}})
+  }
 
   _contactSeller(book){
 

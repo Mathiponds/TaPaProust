@@ -33,6 +33,8 @@ class Search extends React.Component{
         await Font.loadAsync({
             'dancing-semibold' : require('../assets/fonts/DancingScript-SemiBold.ttf')
         });
+        this.props.navigation.setOptions({headerTitleStyle : {
+          fontFamily : 'lobster-regular', fontSize : 30}})
         this.setState({ assetsLoaded: true });
     }
 
@@ -158,6 +160,7 @@ const styles = StyleSheet.create({
   text_input : {
     height : 40,
     paddingLeft: 15,
+    fontSize : 20,
     fontFamily : 'dancing-regular',
     borderColor: '#000000',
     borderWidth: 1,

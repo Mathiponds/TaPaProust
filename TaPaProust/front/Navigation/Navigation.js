@@ -14,9 +14,13 @@ const SearchStackNavigator = createStackNavigator()
 function MySearchStackNavigator(){
   return(
     <SearchStackNavigator.Navigator>
-      <SearchStackNavigator.Screen name = "Recherche" component={Search}/>
+      <SearchStackNavigator.Screen
+        name = "Recherche"
+        component={Search}
+        options = {{headerTitleStyle : {fontSize : 30}}}/>
       <SearchStackNavigator.Screen name = "Résultat" component={BookList}/>
-      <SearchStackNavigator.Screen name = "Détail du livre" component={BookDetails}/>
+      <SearchStackNavigator.Screen name = "Détail du livre" component={BookDetails}
+        options = {{headerTitleStyle : {fontSize : 20}}}/>
     </SearchStackNavigator.Navigator>
   )
 }

@@ -5,6 +5,13 @@ import * as Font from 'expo-font'
 
 
 class BookList extends React.Component{
+  async componentDidMount() {
+    this.props.navigation.setOptions({headerTitleStyle : {
+      fontFamily : 'lobster-regular', fontSize : 30}})
+      this.setState({changedNav : true})
+
+  }
+
   _displayDetailForBook = (book) => {
     this.props.navigation.navigate('Détail du livre', { book : book})
   }
@@ -62,9 +69,10 @@ const styles = StyleSheet.create({
     fontSize : 32
   },
   entry_text : {
-    fontFamily : 'dancing-regular'
+    fontFamily : 'lobster-regular'
   },
   text : {
+    fontFamily : 'dancing-regular',
     fontSize : 20,
   }
 })
