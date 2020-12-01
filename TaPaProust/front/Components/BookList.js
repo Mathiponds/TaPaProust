@@ -5,8 +5,6 @@ import * as Font from 'expo-font'
 
 
 class BookList extends React.Component{
-
-
   _displayDetailForBook = (book) => {
     this.props.navigation.navigate('Détail du livre', { book : book})
   }
@@ -60,11 +58,11 @@ const styles = StyleSheet.create({
     margin :5
   },
   header_title :{
-    //fontFamily : 'lobster-regular',
-    fontSize : 24
+    fontFamily : 'lobster-regular',
+    fontSize : 32
   },
   entry_text : {
-    //fontFamily : 'dancing-regular'
+    fontFamily : 'dancing-regular'
   },
   text : {
     fontSize : 20,

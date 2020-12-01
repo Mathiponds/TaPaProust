@@ -1,5 +1,5 @@
 import React from 'react'
-import {StyleSheet, View, Text, TextInput, Button, TouchableOpacity} from 'react-native'
+import {StyleSheet, View, Text, TextInput, Button, TouchableOpacity,ActivityIndicator} from 'react-native'
 import * as Font from 'expo-font'
 import books from '../Helpers/books'
 
@@ -12,7 +12,7 @@ class Search extends React.Component{
 
       this._searchBooks = this._searchBooks.bind(this)
 
-      state = {
+      this.state = {
         assetsLoaded: false,
       };
   }
@@ -56,8 +56,16 @@ class Search extends React.Component{
     //this.props.navigation.navigate('BookList', {books :
     //getBooksFromApi(this.searched_title,this.searched_author,this.search_edition)})
   }
+  _displayLoading() {
+    return (
+      <View style={styles.loading_container}>
+        <ActivityIndicator size='large' />
+      </View>
+    )
+  }
 
   render(){
+    if(this.state.assetsLoaded) {
     return (
       <View style = {styles.main_container}>
         <View style = { styles.title_box}>
@@ -107,7 +115,11 @@ class Search extends React.Component{
         </View>
       </View>
     )
+  }else {
+    return this._displayLoading()
   }
+  }
+
 }
 const inputs = {
   TITLE : 'title',
@@ -163,6 +175,17 @@ const styles = StyleSheet.create({
     textAlign : 'center',
     fontFamily : 'dancing-bold',
     color : '#ffffff'
+  },
+  loading_container: {
+    position: 'absolute',
+    left: 0,
+    right: 0,
+    top: 0,
+    bottom: 0,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor : 'white',
+    opacity : 0.5
   }
 })
 
