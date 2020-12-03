@@ -1,5 +1,5 @@
 import React from 'react'
-import {View, Text, Image, StyleSheet, Button, TouchableOpacity} from 'react-native'
+import {View, Text, Image, StyleSheet, Button, TouchableOpacity, Linking} from 'react-native'
 
 class BookDetails extends React.Component{
   async componentDidMount() {
@@ -8,6 +8,19 @@ class BookDetails extends React.Component{
   }
 
   _contactSeller(book){
+    whatsAppMsg = 'Message envoyé depuis *TaPaProust* \n' +
+                    'Bonjour! \n Je serais intéressé par le livre _' +book.title+ '_ de _' +book.author+ '_.\n'+
+                    'Est-il toujours disponible? Si oui, pourrions nous nous rencontrez pour l\'échange?'
+
+    mobileNumber = '41794351907'
+    let url =
+      'whatsapp://send?text=' +
+       whatsAppMsg +
+      '&phone=' + mobileNumber;
+    Linking.openURL(url)
+      .catch(() => {
+        alert('Make sure Whatsapp installed on your device');
+      });
 
   }
   render(){
@@ -28,7 +41,7 @@ class BookDetails extends React.Component{
           <Text style = {styles.text}><Text style = {styles.entry_text}>Vendu par: </Text>{book.sold_by}</Text>
           <TouchableOpacity
               style = {styles.button_box}
-              onPress = {() =>{_contactSeller(book)}}>
+              onPress = {() => {this._contactSeller(book)}}>
             <Text style = {styles.button_text}>Contacter le vendeur</Text>
           </TouchableOpacity>
         </View>
