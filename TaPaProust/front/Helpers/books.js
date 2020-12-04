@@ -8,7 +8,6 @@ export default data = [
       picture_path:"",
       price : 7.2,
       state : "neuf",
-      publication_date :"2017-12-13",
       sold_by : "Manon"
    },
    {
@@ -20,7 +19,6 @@ export default data = [
      picture_path:"",
      price : 5,
      state : "stabilo",
-     publication_date :"2017-12-13",
      sold_by : "Manon"
   },
   {
@@ -32,7 +30,6 @@ export default data = [
     picture_path:"",
     price : 2,
     state : "neuf",
-    publication_date :"2017-12-13",
     sold_by : "Jean"
  }
 ]

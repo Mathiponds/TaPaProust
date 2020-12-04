@@ -8,7 +8,6 @@ class BookList extends React.Component{
   async componentDidMount() {
     this.props.navigation.setOptions({headerTitleStyle : {
       fontFamily : 'lobster-regular', fontSize : 30}})
-      this.setState({changedNav : true})
 
   }
 
