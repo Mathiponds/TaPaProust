@@ -1,7 +1,11 @@
 import React from 'react'
-import {StyleSheet, View, Text, TextInput, Button, TouchableOpacity} from 'react-native'
+import {StyleSheet, View, Text, TextInput, Button, TouchableOpacity,ActivityIndicator} from 'react-native'
 import * as Font from 'expo-font'
+
+import MyTextInput from './MyTextInput'
+import MyButton from './MyButton'
 import books from '../Helpers/books'
+import inputs from '../Helpers/global.js'
 
 class Search extends React.Component{
   constructor(props){
@@ -11,8 +15,9 @@ class Search extends React.Component{
       this.searched_edition = ""
 
       this._searchBooks = this._searchBooks.bind(this)
+      this._onChangedInput = this._onChangedInput.bind(this)
 
-      state = {
+      this.state = {
         assetsLoaded: false,
       };
   }
@@ -33,6 +38,8 @@ class Search extends React.Component{
         await Font.loadAsync({
             'dancing-semibold' : require('../assets/fonts/DancingScript-SemiBold.ttf')
         });
+        this.props.navigation.setOptions({headerTitleStyle : {
+          fontFamily : 'lobster-regular', fontSize : 30}})
         this.setState({ assetsLoaded: true });
     }
 
@@ -56,8 +63,38 @@ class Search extends React.Component{
     //this.props.navigation.navigate('BookList', {books :
     //getBooksFromApi(this.searched_title,this.searched_author,this.search_edition)})
   }
+  _displayLoading() {
+    return (
+      <View style={styles.loading_container}>
+        <ActivityIndicator size='large' />
+      </View>
+    )
+  }
+
+  _searchedItemBox(){
+    return (
+      <View style = { styles.search_item_container}>
+        <MyTextInput
+          title = {'Titre'} placeholder = {'Titre'} input = {inputs.TITLE}
+          onChangedInput = {this._onChangedInput}
+          />
+        <MyTextInput
+          title = {'Auteur'} placeholder = {'Auteur'} input = {inputs.AUTHOR}
+          onChangedInput = {this._onChangedInput}
+          />
+        <MyTextInput
+          title = {'Edition'} placeholder = {'Edition'} input = {inputs.EDITION}
+          onChangedInput = {this._onChangedInput}
+          />
+        <MyButton
+          onPress = {this._searchBooks}
+          title = {'Rechercher'}/>
+      </View>
+    )
+  }
 
   render(){
+    if(this.state.assetsLoaded) {
     return (
       <View style = {styles.main_container}>
         <View style = { styles.title_box}>
@@ -65,54 +102,15 @@ class Search extends React.Component{
             TaPaProust
           </Text>
         </View>
+        {this._searchedItemBox()}
 
-        <View style = { styles.search_item_container}>
-          <View style = { styles.search_item_box}>
-            <Text style = {styles.search_item_text}>
-              Titre
-            </Text>
-            <TextInput
-              style = {styles.text_input}
-              placeholder = 'Titre'
-              onChangeText = {(text) => this._onChangedInput(text, inputs.TITLE)}
-              >
-            </TextInput>
-          </View>
-          <View style = { styles.search_item_box}>
-            <Text style = {styles.search_item_text}>
-              Auteur
-            </Text>
-            <TextInput
-              style = {styles.text_input}
-              placeholder = 'Auteur'
-              onChangeText = {(text) => this._onChangedInput(text, inputs.AUTHOR)}>
-            </TextInput>
-          </View>
-          <View style = { styles.search_item_box}>
-            <Text style = {styles.search_item_text}>
-              Edition
-            </Text>
-            <TextInput
-              style = {styles.text_input}
-              placeholder = 'Edition'
-              onChangeText = {(text) => this._onChangedInput(text, inputs.EDITION)}>
-            </TextInput>
-          </View>
-          <TouchableOpacity
-            style = { styles.button_box}
-            onPress = {() => {this._searchBooks()}}>
-            <Text style = {styles.button_text}>Rechercher
-            </Text>
-          </TouchableOpacity>
-        </View>
       </View>
     )
+  }else {
+    return this._displayLoading()
   }
-}
-const inputs = {
-  TITLE : 'title',
-  AUTHOR : 'author',
-  EDITION : 'edition'
+  }
+
 }
 
 const styles = StyleSheet.create({
@@ -128,41 +126,21 @@ const styles = StyleSheet.create({
   title : {
     fontSize : 55,
     fontFamily : 'lobster-regular',
-    //color : '#ffc000'
   },
   search_item_container : {
     flex : 5,
     margin : 10
   },
-  search_item_box : {
-    height : 110
-  },
-  search_item_text : {
-    fontFamily : 'dancing-regular',
-    fontSize : 35,
-    paddingLeft : 10,
-    marginBottom : 5
-  },
-  text_input : {
-    height : 40,
-    paddingLeft: 15,
-    fontFamily : 'dancing-regular',
-    borderColor: '#000000',
-    borderWidth: 1,
-  },
-  button_box : {
-    backgroundColor : 'black',
-    height : 50,
-    marginTop : 10,
-    marginBottom : 10,
-    marginLeft : 20,
-    marginRight :20
-  },
-  button_text: {
-    fontSize :35,
-    textAlign : 'center',
-    fontFamily : 'dancing-bold',
-    color : '#ffffff'
+  loading_container: {
+    position: 'absolute',
+    left: 0,
+    right: 0,
+    top: 0,
+    bottom: 0,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor : 'white',
+    opacity : 0.5
   }
 })
 

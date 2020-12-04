@@ -3,7 +3,6 @@ import {View, Text, Image, StyleSheet, TouchableOpacity} from 'react-native'
 import * as Font from 'expo-font'
 
 class BookItem extends React.Component{
-
   render(){
     const book = this.props.book
     return (
@@ -39,18 +38,20 @@ const styles = StyleSheet.create({
     flex :1,
   },
   image : {
-    backgroundColor : 'blue',
+    backgroundColor : 'grey',
     flex :1
   },
   price : {
     borderWidth : 1,
     borderColor : 'black',
     position : 'absolute',
+    textAlign : 'right',
+    paddingRight :3,
     right : 0,
     bottom : 0,
     width : 50,
     backgroundColor : 'white',
-    paddingLeft :3
+    fontFamily : 'dancing-regular'
   },
   text_box :{
     flexDirection : 'column',
@@ -58,10 +59,11 @@ const styles = StyleSheet.create({
     flex : 2
   },
   entry_text : {
-    //fontFamily : 'dancing-regular'
+    fontFamily : 'lobster-regular',
+    fontSize : 18
   },
   text : {
-    //fontFamily : 'raleway',
+    fontFamily : 'dancing-regular',
     fontSize : 16,
   }
 })

@@ -1,9 +1,26 @@
 import React from 'react'
-import {View, Text, Image, StyleSheet, Button} from 'react-native'
+import {View, Text, Image, StyleSheet, Button, TouchableOpacity, Linking} from 'react-native'
 
 class BookDetails extends React.Component{
+  async componentDidMount() {
+    this.props.navigation.setOptions({headerTitleStyle : {
+      fontFamily : 'lobster-regular', fontSize : 30}})
+  }
 
   _contactSeller(book){
+    whatsAppMsg = 'Message envoyé depuis *TaPaProust* \n' +
+                    'Bonjour! \n Je serais intéressé par le livre _' +book.title+ '_ de _' +book.author+ '_.\n'+
+                    'Est-il toujours disponible? Si oui, pourrions nous nous rencontrez pour l\'échange?'
+
+    mobileNumber = '41794351907'
+    let url =
+      'whatsapp://send?text=' +
+       whatsAppMsg +
+      '&phone=' + mobileNumber;
+    Linking.openURL(url)
+      .catch(() => {
+        alert('Make sure Whatsapp installed on your device');
+      });
 
   }
   render(){
@@ -17,16 +34,16 @@ class BookDetails extends React.Component{
           <View style = {styles.price_box}>
             <Text style = {styles.price}>{book.price} Frs</Text>
           </View>
-          <View style = {styles.button_to_contact_box}>
-            <Button style = {styles.button_to_contact}
-                    title = {"Contacter le vendeur"}
-                    onPress = {() =>{_contactSeller(book)}}/>
-          </View>
           <Text style = {styles.text}><Text style = {styles.entry_text}>Title: </Text>{book.title}</Text>
           <Text style = {styles.text}><Text style = {styles.entry_text}>Author: </Text>{book.author}</Text>
           <Text style = {styles.text}><Text style = {styles.entry_text}>Edition: </Text>{book.edition}</Text>
           <Text style = {styles.text}><Text style = {styles.entry_text}>Etat: </Text>{book.state}</Text>
           <Text style = {styles.text}><Text style = {styles.entry_text}>Vendu par: </Text>{book.sold_by}</Text>
+          <TouchableOpacity
+              style = {styles.button_box}
+              onPress = {() => {this._contactSeller(book)}}>
+            <Text style = {styles.button_text}>Contacter le vendeur</Text>
+          </TouchableOpacity>
         </View>
       </View>
     )
@@ -44,7 +61,7 @@ const styles = StyleSheet.create({
   },
   image : {
     flex :1,
-    backgroundColor : 'blue',
+    backgroundColor : 'grey',
   },
   price_box:{
     alignItems : 'center',
@@ -52,20 +69,32 @@ const styles = StyleSheet.create({
   },
   price : {
     fontSize : 20,
-    fontWeight : 'bold',
-    alignItems : 'center'
+    alignItems : 'center',
+    fontFamily : 'lobster-regular'
   },
-  button_to_contact_box : {
-    marginBottom :10
+  button_box : {
+    backgroundColor : 'black',
+    height : 50,
+    marginTop : 30,
+    marginBottom : 10,
+    marginLeft : 20,
+    marginRight :20
+  },
+  button_text: {
+    fontSize :35,
+    textAlign : 'center',
+    fontFamily : 'dancing-bold',
+    color : '#ffffff'
   },
   text_box :{
     flexDirection : 'column'
   },
   entry_text : {
-    fontWeight : 'bold'
+    fontFamily : 'lobster-regular'
   },
   text : {
     fontSize : 20,
+    fontFamily : 'dancing-regular'
   }
 })
 export default BookDetails
