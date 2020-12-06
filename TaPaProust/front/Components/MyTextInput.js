@@ -5,19 +5,33 @@ import inputs from '../Helpers/global.js'
 class MyTextInput extends React.Component{
 
   render(){
-    return (
-      <View style = { styles.search_item_box}>
-        <Text style = {styles.search_item_text}>
-          {this.props.title}
-        </Text>
-        <TextInput
-          style = {styles.text_input}
-          placeholder = {this.props.placeholder}
-          onChangeText = {(text) => this.props.onChangedInput(text, this.props.input)}
-          >
-        </TextInput>
-      </View>
-    )
+    if(this.props.modify){
+      return(
+        <View style = { styles.search_item_box}>
+          <Text style = {styles.search_item_text}>
+            {this.props.title}
+          </Text>
+          <TextInput
+            style = {styles.text_input}
+            defaultValue = {""+this.props.placeholder}
+            onChangeText = {(text) => this.props.onChangedInput(text, this.props.input)}>
+          </TextInput>
+        </View>
+      )
+    }else{
+      return (
+        <View style = { styles.search_item_box}>
+          <Text style = {styles.search_item_text}>
+            {this.props.title}
+          </Text>
+          <TextInput
+            style = {styles.text_input}
+            placeholder = {this.props.placeholder}
+            onChangeText = {(text) => this.props.onChangedInput(text, this.props.input)}>
+          </TextInput>
+        </View>
+      )
+    }
   }
 }
 

@@ -5,7 +5,7 @@ import inputs from '../Helpers/global.js'
 import MyTextInput from './MyTextInput'
 import MyButton from './MyButton'
 
-class AddBook extends React.Component{
+class ModifyBook extends React.Component{
   constructor(props){
     super(props)
     this.title = ""
@@ -52,32 +52,33 @@ class AddBook extends React.Component{
   _verifyBook(){
     this.props.navigation.navigate('Vérification', {title :this.title,
       author : this.author, edition : this.edition, language : this.language,
-      price : this.price, state : this.state, modify : false})
+      price : this.price, state : this.state, modify : true})
   }
 
   render(){
+      console.log(this.props)
       return (
         <ScrollView style = {styles.main_container}>
           <View style = { styles.search_item_container}>
-            <MyTextInput  title = {'Titre'} placeholder = {'Titre'} 
+            <MyTextInput  title = {'Titre'} placeholder = {this.props.route.params.title}
               input = {inputs.TITLE} onChangedInput = {this._onChangedInput}
-              modify = {false}/>
-            <MyTextInput  title = {'Auteur'} placeholder = {'Auteur'}
+              modify = {true}/>
+            <MyTextInput  title = {'Auteur'} placeholder = {this.props.route.params.author}
               input = {inputs.AUTHOR} onChangedInput = {this._onChangedInput}
-              modify = {false}/>
-            <MyTextInput  title = {'Edition'} placeholder = {'Edition'}
+              modify = {true}/>
+            <MyTextInput  title = {'Edition'} placeholder = {this.props.route.params.edition}
               input = {inputs.EDITION} onChangedInput = {this._onChangedInput}
-              modify = {false}/>
-            <MyTextInput  title = {'Langue'} placeholder = {'Langue'}
+              modify = {true}/>
+            <MyTextInput  title = {'Langue'} placeholder = {this.props.route.params.language}
               input = {inputs.LANGUAGE} onChangedInput = {this._onChangedInput}
-              modify = {false}/>
-            <MyTextInput  title = {'Prix'} placeholder = {'Prix'}
+              modify = {true}/>
+            <MyTextInput  title = {'Prix'} placeholder = {this.props.route.params.price}
               input = {inputs.PRICE} onChangedInput = {this._onChangedInput}
-              modify = {false}/>
-            <MyTextInput  title = {'Etat'} placeholder = {'Etat'}
+              modify = {true}/>
+            <MyTextInput  title = {'Etat'} placeholder = {this.props.route.params.state}
               input = {inputs.STATE} onChangedInput = {this._onChangedInput}
-              modify = {false}/>
-            <MyButton onPress = {this._verifyBook} title = {'Ajouter ce livre'}/>
+              modify = {true}/>
+            <MyButton onPress = {this._verifyBook} title = {'Modifier le livre'}/>
           </View>
         </ScrollView>
     )
@@ -93,4 +94,4 @@ const styles = StyleSheet.create({
   }
 })
 
-export default AddBook
+export default ModifyBook

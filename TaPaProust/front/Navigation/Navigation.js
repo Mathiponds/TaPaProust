@@ -11,6 +11,7 @@ import BookDetails from '../Components/BookDetails'
 import AddBook from '../Components/AddBook'
 import VerifyBook from '../Components/VerifyBook'
 import UsersBooks from '../Components/UsersBooks'
+import ModifyBook from '../Components/ModifyBook'
 
 const SearchStackNavigator = createStackNavigator()
 
@@ -54,6 +55,10 @@ function MyBooksStackNavigator(){
         name = "Mes livres" component={UsersBooks}/>
       <BooksStackNavigator.Screen
         name = "Détail du livre" component={BookDetails}/>
+      <BooksStackNavigator.Screen
+        name = "Modifier un livre" component={ModifyBook}/>
+      <BooksStackNavigator.Screen
+        name = "Vérification" component={VerifyBook}/>
     </BooksStackNavigator.Navigator>
   )
 }

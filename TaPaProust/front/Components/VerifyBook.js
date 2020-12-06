@@ -15,15 +15,20 @@ class VerifyBook extends React.Component{
   }
 
   _confirmBook(){
+    const text = this.props.modify ? "Votre livre a bien été ajouté" : "Votre livre a bien été modifié"
     Alert.alert(
       "Confirmation",
-      "Votre livre a bien été ajouté",
+      text,
       [
         { text: "OK"}
       ],
       { cancelable: true }
     );
-    this.props.navigation.navigate('Ajouter un livre')
+    if(this.props.modify){
+      this.props.navigation.navigate('Mes livres')
+    }else{
+      this.props.navigation.navigate('Ajouter un livre')
+    }
   }
 
   render(){

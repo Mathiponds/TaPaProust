@@ -40,6 +40,10 @@ class BookDetails extends React.Component{
   }
 
   _modify(){
+    this.props.navigation.navigate('Modifier un livre',
+      {title :this.book.title, author : this.book.author, edition : this.book.edition,
+        language : this.book.language, price : this.book.price, state : this.book.state,
+        modify : false})
 
   }
   _getButton(){
