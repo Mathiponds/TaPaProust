@@ -56,7 +56,6 @@ class ModifyBook extends React.Component{
   }
 
   render(){
-      console.log(this.props)
       return (
         <ScrollView style = {styles.main_container}>
           <View style = { styles.search_item_container}>

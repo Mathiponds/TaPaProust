@@ -24,7 +24,7 @@ class VerifyBook extends React.Component{
       ],
       { cancelable: true }
     );
-    if(this.props.modify){
+    if(this.props.route.params.modify){
       this.props.navigation.navigate('Mes livres')
     }else{
       this.props.navigation.navigate('Ajouter un livre')
