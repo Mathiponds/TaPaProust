@@ -1,18 +1,33 @@
 import React from 'react'
 import {View, Text, Image, StyleSheet, Button, TouchableOpacity, Linking} from 'react-native'
 
+import MyButton from './MyButton'
+
 class BookDetails extends React.Component{
+  constructor(props){
+    super(props)
+    this.comeFromSearch = this.props.route.params.comeFromSearch
+    this.book = this.props.route.params.book
+
+    this._contactSeller = this._contactSeller.bind(this)
+    this._modify = this._modify.bind(this)
+  }
   async componentDidMount() {
-    this.props.navigation.setOptions({headerTitleStyle : {
-      fontFamily : 'lobster-regular', fontSize : 30}})
+    if(this.comeFromSearch){
+      this.props.navigation.setOptions({headerTitleStyle : {
+        fontFamily : 'lobster-regular', fontSize : 30}})
+    }else{
+      this.props.navigation.setOptions({title : 'Mon Livre', headerTitleStyle : {
+        fontFamily : 'lobster-regular', fontSize : 30}})
+    }
   }
 
-  _contactSeller(book){
-    whatsAppMsg = 'Message envoyé depuis *TaPaProust* \n' +
-                    'Bonjour! \n Je serais intéressé par le livre _' +book.title+ '_ de _' +book.author+ '_.\n'+
+  _contactSeller(){
+    const whatsAppMsg = 'Message envoyé depuis *TaPaProust* \n' +
+                    'Bonjour! \n Je serais intéressé par le livre _' +this.book.title+ '_ de _' +this.book.author+ '_.\n'+
                     'Est-il toujours disponible? Si oui, pourrions nous nous rencontrez pour l\'échange?'
 
-    mobileNumber = '41794351907'
+    const mobileNumber = '41794351907'
     let url =
       'whatsapp://send?text=' +
        whatsAppMsg +
@@ -23,8 +38,22 @@ class BookDetails extends React.Component{
       });
 
   }
+
+  _modify(){
+
+  }
+  _getButton(){
+    if(this.comeFromSearch){
+      return(
+        <MyButton title = {'Contacter le vendeur'}
+        onPress = {() => {this._contactSeller()}}/>)
+    }else{
+      return(
+        <MyButton title = {'Modifier'}
+        onPress = {() => {this._modify()}}/>)
+    }
+  }
   render(){
-    const book = this.props.route.params.book
     return (
       <View style = {styles.main_container}>
         <View style = {styles.image_box}>
@@ -32,18 +61,14 @@ class BookDetails extends React.Component{
         </View>
         <View style = {styles.text_box}>
           <View style = {styles.price_box}>
-            <Text style = {styles.price}>{book.price} Frs</Text>
+            <Text style = {styles.price}>{this.book.price} Frs</Text>
           </View>
-          <Text style = {styles.text}><Text style = {styles.entry_text}>Title: </Text>{book.title}</Text>
-          <Text style = {styles.text}><Text style = {styles.entry_text}>Author: </Text>{book.author}</Text>
-          <Text style = {styles.text}><Text style = {styles.entry_text}>Edition: </Text>{book.edition}</Text>
-          <Text style = {styles.text}><Text style = {styles.entry_text}>Etat: </Text>{book.state}</Text>
-          <Text style = {styles.text}><Text style = {styles.entry_text}>Vendu par: </Text>{book.sold_by}</Text>
-          <TouchableOpacity
-              style = {styles.button_box}
-              onPress = {() => {this._contactSeller(book)}}>
-            <Text style = {styles.button_text}>Contacter le vendeur</Text>
-          </TouchableOpacity>
+          <Text style = {styles.text}><Text style = {styles.entry_text}>Title: </Text>{this.book.title}</Text>
+          <Text style = {styles.text}><Text style = {styles.entry_text}>Author: </Text>{this.book.author}</Text>
+          <Text style = {styles.text}><Text style = {styles.entry_text}>Edition: </Text>{this.book.edition}</Text>
+          <Text style = {styles.text}><Text style = {styles.entry_text}>Etat: </Text>{this.book.state}</Text>
+          <Text style = {styles.text}><Text style = {styles.entry_text}>Vendu par: </Text>{this.book.sold_by}</Text>
+          {this._getButton()}
         </View>
       </View>
     )

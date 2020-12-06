@@ -1,78 +1,30 @@
 import React from 'react'
-import {View, Text, FlatList, StyleSheet} from 'react-native'
+import {FlatList, StyleSheet} from 'react-native'
 import BookItem from './BookItem'
-import * as Font from 'expo-font'
 
 
 class BookList extends React.Component{
-  async componentDidMount() {
-    this.props.navigation.setOptions({headerTitleStyle : {
-      fontFamily : 'lobster-regular', fontSize : 30}})
 
-  }
-
-  _displayDetailForBook = (book) => {
-    this.props.navigation.navigate('Détail du livre', { book : book})
-  }
-
-  _displayHeader(){
-      return (
-        <View style = {styles.header_container}>
-          <Text style = {styles.header_title}>Recherche pour : </Text>
-          <Text style = {styles.text}><Text style = {styles.entry_text}>Title: </Text>{this.props.route.params.title}</Text>
-          <Text style = {styles.text}><Text style = {styles.entry_text}>Author: </Text>{this.props.route.params.author}</Text>
-          <Text style = {styles.text}><Text style = {styles.entry_text}>Edition: </Text>{this.props.route.params.edition}</Text>
-        </View>
-      )
-  }
-
-  _displayListBooks(){
+  render(){
     return (
       <FlatList
         style={styles.list}
-        data={this.props.route.params.books}
+        data={this.props.books}
         keyExtractor={(item) => item.id.toString()}
         renderItem = {({item}) => (
           <BookItem
             book = {item}
-            displayDetailForBook = {this._displayDetailForBook}
+            displayDetailForBook = {this.props.displayDetailForBook}
           />
         )}
       />
     )
   }
-
-  render(){
-    return (
-      <View style={styles.main_container}>
-        {this._displayHeader()}
-        {this._displayListBooks()}
-      </View>
-    )
-  }
 }
 
 const styles = StyleSheet.create({
-  main_container: {
-    flex: 1
-  },
   list: {
     flex: 1
-  },
-  header_container : {
-    alignItems : 'center',
-    margin :5
-  },
-  header_title :{
-    fontFamily : 'lobster-regular',
-    fontSize : 32
-  },
-  entry_text : {
-    fontFamily : 'lobster-regular'
-  },
-  text : {
-    fontFamily : 'dancing-regular',
-    fontSize : 20,
   }
 })
 
