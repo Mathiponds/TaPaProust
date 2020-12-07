@@ -14,7 +14,8 @@ class BookDetails extends React.Component{
     this._modify = this._modify.bind(this)
   }
   async componentDidMount() {
-    if(this.lastScreen === screens.RESULT_OF_SEARCH){
+    if(this.lastScreen === screens.RESULT_OF_SEARCH ||
+        this.lastScreen === screens.FAVORITES){
       this.props.navigation.setOptions({headerTitleStyle : {
         fontFamily : 'lobster-regular', fontSize : 30}})
     }else{
@@ -48,7 +49,8 @@ class BookDetails extends React.Component{
 
   }
   _getButton(){
-    if(this.lastScreen === screens.RESULT_OF_SEARCH){
+    if(this.lastScreen === screens.RESULT_OF_SEARCH ||
+        this.lastScreen === screens.FAVORITES){
       return(
         <MyButton title = {'Contacter le vendeur'}
         onPress = {() => {this._contactSeller()}}/>)

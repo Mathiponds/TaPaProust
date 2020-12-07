@@ -5,27 +5,26 @@ import BookList from './BookList'
 import books from '../Helpers/books'
 import {screens} from '../Helpers/global'
 
-class UsersBooks extends React.Component {
+class Favorites extends React.Component {
   async componentDidMount() {
     this.props.navigation.setOptions({headerTitleStyle : {
       fontFamily : 'lobster-regular', fontSize : 30}})
   }
 
-  _getMyBooks(){
+  _getMyFavoritesBooks(){
     return books
     //return API._getMyBooks
   }
 
   _displayDetailForBook = (book) => {
-    this.props.navigation.navigate('Détail du livre', { book : book, lastScreen : screens.USERS_BOOK})
+    this.props.navigation.navigate('Détail du livre', { book : book, lastScreen : screens.FAVORITES})
   }
 
   render(){
     return(
       <View style={styles.main_container}>
-
         <BookList
-          books = {this._getMyBooks()}
+          books = {this._getMyFavoritesBooks()}
           displayDetailForBook = {this._displayDetailForBook}/>
       </View>
     )
@@ -38,4 +37,4 @@ const styles = StyleSheet.create({
   }
 })
 
-export default UsersBooks
+export default Favorites

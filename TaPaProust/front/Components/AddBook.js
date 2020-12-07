@@ -1,6 +1,6 @@
 import React from 'react'
 import {View, Text, StyleSheet, TextInput, TouchableOpacity, ScrollView} from 'react-native'
-import inputs from '../Helpers/global.js'
+import {inputs} from '../Helpers/global.js'
 
 import MyTextInput from './MyTextInput'
 import MyButton from './MyButton'
@@ -59,7 +59,7 @@ class AddBook extends React.Component{
       return (
         <ScrollView style = {styles.main_container}>
           <View style = { styles.search_item_container}>
-            <MyTextInput  title = {'Titre'} placeholder = {'Titre'} 
+            <MyTextInput  title = {'Titre'} placeholder = {'Titre'}
               input = {inputs.TITLE} onChangedInput = {this._onChangedInput}
               modify = {false}/>
             <MyTextInput  title = {'Auteur'} placeholder = {'Auteur'}
