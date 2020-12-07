@@ -3,6 +3,7 @@ import {View, StyleSheet} from 'react-native'
 
 import BookList from './BookList'
 import books from '../Helpers/books'
+import {screens} from '../Helpers/global'
 
 class UsersBooks extends React.Component {
   async componentDidMount() {
@@ -16,7 +17,7 @@ class UsersBooks extends React.Component {
   }
 
   _displayDetailForBook = (book) => {
-    this.props.navigation.navigate('Détail du livre', { book : book, comeFromSearch : false})
+    this.props.navigation.navigate('Détail du livre', { book : book, lastScreen : screens.USERS_BOOK})
   }
   render(){
     return(

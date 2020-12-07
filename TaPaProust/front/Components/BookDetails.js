@@ -2,18 +2,19 @@ import React from 'react'
 import {View, Text, Image, StyleSheet, Button, TouchableOpacity, Linking} from 'react-native'
 
 import MyButton from './MyButton'
+import {screens} from '../Helpers/global'
 
 class BookDetails extends React.Component{
   constructor(props){
     super(props)
-    this.comeFromSearch = this.props.route.params.comeFromSearch
+    this.lastScreen = this.props.route.params.lastScreen
     this.book = this.props.route.params.book
 
     this._contactSeller = this._contactSeller.bind(this)
     this._modify = this._modify.bind(this)
   }
   async componentDidMount() {
-    if(this.comeFromSearch){
+    if(this.lastScreen === screens.RESULT_OF_SEARCH){
       this.props.navigation.setOptions({headerTitleStyle : {
         fontFamily : 'lobster-regular', fontSize : 30}})
     }else{
@@ -47,7 +48,7 @@ class BookDetails extends React.Component{
 
   }
   _getButton(){
-    if(this.comeFromSearch){
+    if(this.lastScreen === screens.RESULT_OF_SEARCH){
       return(
         <MyButton title = {'Contacter le vendeur'}
         onPress = {() => {this._contactSeller()}}/>)

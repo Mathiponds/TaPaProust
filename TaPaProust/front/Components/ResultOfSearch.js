@@ -4,6 +4,8 @@ import BookItem from './BookItem'
 import BookList from './BookList'
 import * as Font from 'expo-font'
 
+import {screens} from '../Helpers/global'
+
 
 class ResultOfSearch extends React.Component{
   async componentDidMount() {
@@ -12,7 +14,7 @@ class ResultOfSearch extends React.Component{
   }
 
   _displayDetailForBook = (book) => {
-    this.props.navigation.navigate('Détail du livre', { book : book, comeFromSearch : true})
+    this.props.navigation.navigate('Détail du livre', { book : book, lastScreen : screens.RESULT_OF_SEARCH})
   }
 
   _displayHeader(){

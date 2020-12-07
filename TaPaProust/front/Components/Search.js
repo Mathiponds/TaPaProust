@@ -5,7 +5,7 @@ import * as Font from 'expo-font'
 import MyTextInput from './MyTextInput'
 import MyButton from './MyButton'
 import books from '../Helpers/books'
-import inputs from '../Helpers/global.js'
+import {inputs} from '../Helpers/global.js'
 
 class Search extends React.Component{
   constructor(props){
