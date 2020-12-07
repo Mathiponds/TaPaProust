@@ -12,6 +12,7 @@ import AddBook from '../Components/AddBook'
 import VerifyBook from '../Components/VerifyBook'
 import UsersBooks from '../Components/UsersBooks'
 import ModifyBook from '../Components/ModifyBook'
+import Favorites from '../Components/Favorites'
 
 const SearchStackNavigator = createStackNavigator()
 
@@ -28,7 +29,7 @@ function MySearchStackNavigator(){
     </SearchStackNavigator.Navigator>
   )
 }
-
+/*||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||| */
 const AddBookStackNavigator = createStackNavigator()
 
 function MyAddBookStackNavigator(){
@@ -44,24 +45,43 @@ function MyAddBookStackNavigator(){
   )
 }
 
-const BooksStackNavigator = createStackNavigator()
+/*||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||| */
+const UsersBooksStackNavigator = createStackNavigator()
 
-function MyBooksStackNavigator(){
+function MyUsersBooksStackNavigator(){
   return(
-    <BooksStackNavigator.Navigator
+    <UsersBooksStackNavigator.Navigator
       initialRouteName = {'Mes livres'}
       options = {{headerTitleStyle : {fontSize : 30}}}>
-      <BooksStackNavigator.Screen
+      <UsersBooksStackNavigator.Screen
         name = "Mes livres" component={UsersBooks}/>
-      <BooksStackNavigator.Screen
+      <UsersBooksStackNavigator.Screen
         name = "Détail du livre" component={BookDetails}/>
-      <BooksStackNavigator.Screen
+      <UsersBooksStackNavigator.Screen
         name = "Modifier un livre" component={ModifyBook}/>
-      <BooksStackNavigator.Screen
+      <UsersBooksStackNavigator.Screen
         name = "Vérification" component={VerifyBook}/>
-    </BooksStackNavigator.Navigator>
+    </UsersBooksStackNavigator.Navigator>
   )
 }
+
+/*||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||| */
+const FavoritesStackNavigator = createStackNavigator()
+
+function MyFavoritesStackNavigator(){
+  return(
+    <FavoritesStackNavigator.Navigator
+      initialRouteName = {'Mes favoris'}
+      options = {{headerTitleStyle : {fontSize : 30}}}>
+      <FavoritesStackNavigator.Screen
+        name = "Mes favoris" component={Favorites}/>
+      <FavoritesStackNavigator.Screen
+        name = "Détail du livre" component={BookDetails}/>
+    </FavoritesStackNavigator.Navigator>
+  )
+}
+
+/*||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||| */
 
 const BooksTabNavigator = createBottomTabNavigator()
 
@@ -98,7 +118,7 @@ function MyBooksTabNavigator(){
          )
        }}
       />
-      <BooksTabNavigator.Screen name = "Mes Livres" component={MyBooksStackNavigator}
+      <BooksTabNavigator.Screen name = "Mes Livres" component={MyUsersBooksStackNavigator}
        options= {{
         tabBarIcon : () => (
           <View>
@@ -106,6 +126,18 @@ function MyBooksTabNavigator(){
               resizeMode = 'contain'
               style={styles.favorite_image}
               source={require('../Images/user_book_inv.png')}/>
+          </View>
+          )
+        }}
+      />
+      <BooksTabNavigator.Screen name = "Mes favoris" component={MyFavoritesStackNavigator}
+       options= {{
+        tabBarIcon : () => (
+          <View>
+            <Image
+              resizeMode = 'contain'
+              style={styles.favorite_image}
+              source={require('../Images/favori_inv.png')}/>
           </View>
           )
         }}
