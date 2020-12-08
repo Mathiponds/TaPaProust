@@ -4,7 +4,10 @@ export const inputs = {
   EDITION : 'edition',
   LANGUAGE : 'language',
   PRICE : 'price',
-  STATE : 'state'
+  STATE : 'state',
+  MAIL : 'mail',
+  NAME : 'name',
+  PHONE : 'phone'
 }
 
 export const screens = {

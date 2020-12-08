@@ -6,9 +6,9 @@ class MyButton extends React.Component{
   render(){
     return (
       <TouchableOpacity
-        style = { styles.button_box}
+        style = {[styles.button_box, this.props.longText ? styles.button_box_long_text : {}]}
         onPress = {() => {this.props.onPress()}}>
-        <Text style = {styles.button_text}>{this.props.title}
+        <Text style = {[styles.button_text, this.props.longText? styles.button_long_text: {}]}>{this.props.title}
         </Text>
       </TouchableOpacity>
     )
@@ -24,11 +24,20 @@ const styles = StyleSheet.create({
     marginLeft : 20,
     marginRight :20
   },
+  button_box_long_text : {
+    height : 35,
+    marginTop : 5,
+    marginBottom : 5,
+  },
   button_text: {
-    fontSize :35,
+    fontSize : 35,
     textAlign : 'center',
+    justifyContent : 'center',
     fontFamily : 'dancing-bold',
     color : '#ffffff'
+  },
+  button_long_text: {
+    fontSize : 25
   }
 })
 

@@ -13,6 +13,7 @@ import VerifyBook from '../Components/VerifyBook'
 import UsersBooks from '../Components/UsersBooks'
 import ModifyBook from '../Components/ModifyBook'
 import Favorites from '../Components/Favorites'
+import Profil from '../Components/Profil'
 
 const SearchStackNavigator = createStackNavigator()
 
@@ -82,6 +83,20 @@ function MyFavoritesStackNavigator(){
 }
 
 /*||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||| */
+const ProfileStackNavigator = createStackNavigator()
+
+function MyProfileStackNavigator(){
+  return(
+    <ProfileStackNavigator.Navigator
+      initialRouteName = {'Mon Profil'}
+      options = {{headerTitleStyle : {fontSize : 30}}}>
+      <ProfileStackNavigator.Screen
+        name = "Mon Profil" component={Profil}/>
+    </ProfileStackNavigator.Navigator>
+  )
+}
+
+/*||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||| */
 
 const BooksTabNavigator = createBottomTabNavigator()
 
@@ -138,6 +153,18 @@ function MyBooksTabNavigator(){
               resizeMode = 'contain'
               style={styles.favorite_image}
               source={require('../Images/favori_inv.png')}/>
+          </View>
+          )
+        }}
+      />
+      <BooksTabNavigator.Screen name = "Mon profil" component={MyProfileStackNavigator}
+       options= {{
+        tabBarIcon : () => (
+          <View>
+            <Image
+              resizeMode = 'contain'
+              style={styles.favorite_image}
+              source={require('../Images/user_inv.png')}/>
           </View>
           )
         }}
