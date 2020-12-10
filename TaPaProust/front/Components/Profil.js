@@ -13,7 +13,8 @@ class Profil extends React.Component{
     this.mail = ''
 
     this._onChangedInput = this._onChangedInput.bind(this)
-    this._modifyProfil = this._modifyProfil.bind(this)
+    this._modifyPW = this._modifyPW.bind(this)
+    this._modifyNumber = this._modifyNumber.bind(this)
   }
 
   async componentDidMount() {
@@ -48,7 +49,6 @@ class Profil extends React.Component{
   }
 
   _modifyPW(){
-    
   }
 
   _sendPW(){

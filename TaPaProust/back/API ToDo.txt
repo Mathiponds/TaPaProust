@@ -1,0 +1,18 @@
+// get all users with a certain title, author and edition
+// essayer de faire en sorte que si une entrée est vide ça soit pas un problème
+// et que s'il y a une petite faute d'ortographe ce soit pas grave
+getBooks(String title, String author, string edition)
+
+// lien pour enlever le livre dans le message 
+booksold(long bookId, long secureBookId)
+
+
+addBook(String title, String author, String edition, String language, String price, String state)
+
+modifyBook(bookId, String title, String author, String edition, String language, String price, String state)
+
+addToFavorites(long bookId)
+removeFromFavorites(long bookId)
+
+modifyNumber(Principal principal)
+modifyPassWord(Principal principal)
