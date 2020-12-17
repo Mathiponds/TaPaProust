@@ -67,6 +67,7 @@ public class Book {
     public long getSold_by() {
         return sold_by_id;
     }
+
     ///////////////////////////////////////
     //////////      Setters      //////////
     ///////////////////////////////////////
