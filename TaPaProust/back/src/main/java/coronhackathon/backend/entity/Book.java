@@ -1,5 +1,7 @@
 package coronhackathon.backend.entity;
 
+import org.springframework.web.bind.annotation.RequestParam;
+
 import javax.persistence.*;
 
 @Entity
@@ -29,9 +31,31 @@ public class Book {
     @Column(nullable = false)
     private String price;
 
-    public void setId(long id) {
-        this.id = id;
+    public Book(String title, String author, String edition,
+                String state, String language, long sold_by_id,
+                String price){
+        this.title = title;
+        this.author = author;
+        this.edition = edition;
+        this.state = state;
+        this.language = language;
+        this.sold_by_id = sold_by_id;
+        this.price = price;
+
     }
+    ///////////////////////////////////////
+    //////////     Methodes      //////////
+    ///////////////////////////////////////
+
+    public void update(Book bookUpdate){
+        this.title = bookUpdate.title;
+        this.author = bookUpdate.author;
+        this.edition = bookUpdate.edition;
+        this.state = bookUpdate.state;
+        this.language = bookUpdate.language;
+        this.price = bookUpdate.price;
+    }
+
     ///////////////////////////////////////
     //////////      Getters      //////////
     ///////////////////////////////////////
@@ -71,6 +95,10 @@ public class Book {
     ///////////////////////////////////////
     //////////      Setters      //////////
     ///////////////////////////////////////
+
+    public void setId(long id) {
+        this.id = id;
+    }
 
     public void setAuthor(String author) {
         this.author = author;
