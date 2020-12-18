@@ -9,12 +9,12 @@ import MyButton from './MyButton'
 class ModifyBook extends React.Component{
   constructor(props){
     super(props)
-    this.title = ""
-    this.author = ""
-    this.edition = ""
-    this.price = 0
-    this.bookState = ""
-    this.language = ""
+    this.title = this.props.route.params.title
+    this.author = this.props.route.params.author
+    this.edition = this.props.route.params.edition
+    this.price = this.props.route.params.price
+    this.bookState = this.props.route.params.bookState
+    this.language = this.props.route.params.language
 
     this._onChangedInput = this._onChangedInput.bind(this)
     this._verifyBook = this._verifyBook.bind(this)
@@ -51,6 +51,7 @@ class ModifyBook extends React.Component{
   }
 
   _verifyBook(){
+    console.log(this.language)
     this.props.navigation.navigate('Vérification', {title :this.title,
       author : this.author, edition : this.edition, language : this.language,
       price : this.price, state : this.bookState, modify : true})
