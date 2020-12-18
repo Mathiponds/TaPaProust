@@ -1,5 +1,6 @@
 import React from 'react'
-import {View, Text, StyleSheet, TextInput, TouchableOpacity, ScrollView} from 'react-native'
+import {View, Text, StyleSheet, TextInput, TouchableOpacity, ScrollView, Picker} from 'react-native'
+import DropDownPicker from 'react-native-dropdown-picker';
 import {inputs} from '../Helpers/global.js'
 
 import MyTextInput from './MyTextInput'
@@ -11,9 +12,10 @@ class AddBook extends React.Component{
     this.title = ""
     this.author = ""
     this.edition = ""
-    this.language = ""
     this.price = 0
-    this.state = ""
+    this.bookState = ""
+    this.language = ""
+
 
     this._onChangedInput = this._onChangedInput.bind(this)
     this._verifyBook = this._verifyBook.bind(this)
@@ -35,14 +37,8 @@ class AddBook extends React.Component{
       case inputs.EDITION :
         this.edition = text
         break;
-      case inputs.LANGUAGE :
-        this.language = text
-        break;
       case inputs.PRICE :
         this.price = text
-        break;
-      case inputs.STATE :
-        this.state = text
         break;
       default :
         console.log("error addbook")
@@ -52,7 +48,7 @@ class AddBook extends React.Component{
   _verifyBook(){
     this.props.navigation.navigate('Vérification', {title :this.title,
       author : this.author, edition : this.edition, language : this.language,
-      price : this.price, state : this.state, modify : false})
+      price : this.price, state : this.bookState, modify : false})
   }
 
   render(){
@@ -68,14 +64,48 @@ class AddBook extends React.Component{
             <MyTextInput  title = {'Edition'} placeholder = {'Edition'}
               input = {inputs.EDITION} onChangedInput = {this._onChangedInput}
               modify = {false}/>
-            <MyTextInput  title = {'Langue'} placeholder = {'Langue'}
-              input = {inputs.LANGUAGE} onChangedInput = {this._onChangedInput}
-              modify = {false}/>
+            <View style = {styles.picker_container}>
+              <Text style = {styles.search_item_text}>
+                {'Langue'}
+              </Text>
+              <DropDownPicker
+                items={[
+                    {label: 'Français', value: 'item1'},
+                    {label: 'Anglais', value: 'Anglais'},
+                    {label: 'Allemand', value: 'Allemand'},
+                    {label: 'Italien', value: 'Italien'},
+                    {label: 'Espagnol', value: 'Espagnol'},
+                    {label: 'Latin', value: 'Latin'},
+                    {label: 'Grec', value: 'Grec'}
+                ]}
+                placeholder ={"Choisir une langue"}
+                defaultIndex={0}
+                labelStyle={styles.text_input}
+                style = {styles.dropdownStyle}
+                containerStyle={styles.dropdownPicker}
+                onChangeItem={item => {this.language = item.label}}
+              />
+            </View>
+            <View style = {styles.picker_container}>
+              <Text style = {styles.search_item_text}>
+                {'Etat'}
+              </Text>
+              <DropDownPicker
+                items={[
+                    {label: 'Neuf', value: 'Neuf'},
+                    {label: 'En bon état', value: 'En bon état'},
+                    {label: 'Bien utilisé', value: 'Bien utilisé'}
+                ]}
+                placeholder ={"Choisir l'état du livre"}
+                defaultIndex={0}
+                labelStyle={styles.text_input}
+                style = {styles.dropdownStyle}
+                containerStyle={styles.dropdownPicker}
+                onChangeItem={item => {this.bookState = item.label}}
+              />
+            </View>
             <MyTextInput  title = {'Prix'} placeholder = {'Prix'}
               input = {inputs.PRICE} onChangedInput = {this._onChangedInput}
-              modify = {false}/>
-            <MyTextInput  title = {'Etat'} placeholder = {'Etat'}
-              input = {inputs.STATE} onChangedInput = {this._onChangedInput}
               modify = {false}/>
             <MyButton onPress = {this._verifyBook} title = {'Ajouter ce livre'}/>
           </View>
@@ -86,10 +116,31 @@ class AddBook extends React.Component{
 
 const styles = StyleSheet.create({
   main_container : {
-    flex : 1
+    flex : 1,
+    paddingBottom : 100
   },
   search_item_container : {
     margin : 10
+  },
+  search_item_text : {
+    fontFamily : 'dancing-regular',
+    fontSize : 35,
+    paddingLeft : 10,
+    marginBottom : 5
+  },
+  picker_container : {
+    height : 110
+  },
+  dropdownPicker :{
+    height : 40
+  },
+  dropdownStyle : {
+      borderColor: '#000000',
+      borderWidth: 1,
+  },
+  text_input : {
+    fontSize : 20,
+    fontFamily : 'dancing-regular',
   }
 })
 

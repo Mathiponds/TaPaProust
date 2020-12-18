@@ -52,6 +52,7 @@ const styles = StyleSheet.create({
     fontFamily : 'dancing-regular',
     borderColor: '#000000',
     borderWidth: 1,
+    backgroundColor : '#ffffff'
   },
 })
 
