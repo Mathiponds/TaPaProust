@@ -10,12 +10,15 @@ import MyButton from './MyButton'
 class AddBook extends React.Component{
   constructor(props){
     super(props)
-    this.title = ""
-    this.author = ""
-    this.edition = ""
-    this.price = 0
-    this.bookState = ""
-    this.language = ""
+    this.addBook = this.props.route.name === "Ajouter un livre"
+
+    this.title = this.addBook ? "" : this.props.route.params.title
+    this.author = this.addBook ? "" : this.props.route.params.author
+    this.edition = this.addBook ? "" : this.props.route.params.edition
+    this.price = this.addBook ? 0 : this.props.route.params.price
+    this.bookState = this.addBook ? "" : this.props.route.params.bookState
+    this.language = this.addBook ? "" : this.props.route.params.language
+
 
 
     this._onChangedInput = this._onChangedInput.bind(this)
@@ -55,22 +58,25 @@ class AddBook extends React.Component{
   _verifyBook(){
     this.props.navigation.navigate('Vérification', {title :this.title,
       author : this.author, edition : this.edition, language : this.language,
-      price : this.price, state : this.bookState, modify : false})
+      price : this.price, state : this.bookState, modify : this.addBook})
   }
 
   render(){
       return (
         <ScrollView style = {styles.main_container}>
           <View style = { styles.search_item_container}>
-            <MyTextInput  title = {'Titre'} placeholder = {'Titre'}
+            <MyTextInput  title = {'Titre'}
+              placeholder = {this.addBook ? 'Titre' : this.props.route.params.title}
               input = {inputs.TITLE} onChangedInput = {this._onChangedInput}
-              modify = {false}/>
-            <MyTextInput  title = {'Auteur'} placeholder = {'Auteur'}
+              modify = {!this.addBook}/>
+            <MyTextInput  title = {'Auteur'}
+              placeholder = {this.addBook ? 'Auteur' : this.props.route.params.author}
               input = {inputs.AUTHOR} onChangedInput = {this._onChangedInput}
-              modify = {false}/>
-            <MyTextInput  title = {'Edition'} placeholder = {'Edition'}
+              modify = {!this.addBook}/>
+            <MyTextInput  title = {'Edition'}
+              placeholder = {this.addBook ? 'Edition' : this.props.route.params.edition}
               input = {inputs.EDITION} onChangedInput = {this._onChangedInput}
-              modify = {false}/>
+              modify = {!this.addBook}/>
             <MyDropdownPicker
               title = {'Langue'} items = {[
                   {label: 'Français', value: 'Français'},
@@ -83,7 +89,7 @@ class AddBook extends React.Component{
               ]}
               placeholder = {"Choisir une langue"}
               input = {inputs.LANGUAGE} onChangedInput = {this._onChangedInput}
-              modify = {false}/>
+              modify = {!this.addBook}/>
             <MyDropdownPicker
               title = {'Etat'} items={[
                     {label: 'Neuf', value: 'Neuf'},
@@ -93,11 +99,12 @@ class AddBook extends React.Component{
                 defaultValue = {this.props.defaultValue}
               placeholder ={"Choisir l'état du livre"}
               input = {inputs.STATE} onChangedInput = {this._onChangedInput}
-              modify = {false}/>
-            <MyTextInput  title = {'Prix'} placeholder = {'Prix'}
+              modify = {!this.addBook}/>
+            <MyTextInput  title = {'Prix'}
+              placeholder = {this.addBook ? 'Prix' : this.props.route.params.price}
               input = {inputs.PRICE} onChangedInput = {this._onChangedInput}
-              modify = {false}/>
-            <MyButton onPress = {this._verifyBook} title = {'Ajouter ce livre'}/>
+              modify = {!this.addBook}/>
+            <MyButton onPress = {this._verifyBook} title = {this.addBook ? 'Ajouter ce livre' : 'Modifier le livre'}/>
           </View>
         </ScrollView>
     )

@@ -11,7 +11,6 @@ import BookDetails from '../Components/BookDetails'
 import AddBook from '../Components/AddBook'
 import VerifyBook from '../Components/VerifyBook'
 import UsersBooks from '../Components/UsersBooks'
-import ModifyBook from '../Components/ModifyBook'
 import Favorites from '../Components/Favorites'
 import Profil from '../Components/Profil'
 
@@ -59,7 +58,7 @@ function MyUsersBooksStackNavigator(){
       <UsersBooksStackNavigator.Screen
         name = "Détail du livre" component={BookDetails}/>
       <UsersBooksStackNavigator.Screen
-        name = "Modifier un livre" component={ModifyBook}/>
+        name = "Modifier un livre" component={AddBook}/>
       <UsersBooksStackNavigator.Screen
         name = "Vérification" component={VerifyBook}/>
     </UsersBooksStackNavigator.Navigator>

@@ -7,6 +7,7 @@ class VerifyBook extends React.Component{
   constructor(props){
     super(props)
     this._confirmBook = this._confirmBook.bind(this)
+    this.modify = this.props.route.params.modify
   }
   async componentDidMount() {
     this.props.navigation.setOptions({headerTitleStyle : {
@@ -15,7 +16,7 @@ class VerifyBook extends React.Component{
   }
 
   _confirmBook(){
-    const text = this.props.modify ? "Votre livre a bien été ajouté" : "Votre livre a bien été modifié"
+    const text = this.modify ? "Votre livre a bien été ajouté" : "Votre livre a bien été modifié"
     Alert.alert(
       "Confirmation",
       text,
@@ -24,7 +25,7 @@ class VerifyBook extends React.Component{
       ],
       { cancelable: true }
     );
-    if(this.props.route.params.modify){
+    if(!this.modify){
       this.props.navigation.navigate('Mes livres')
     }else{
       this.props.navigation.navigate('Ajouter un livre')
