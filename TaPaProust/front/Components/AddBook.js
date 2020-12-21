@@ -15,13 +15,21 @@ class AddBook extends React.Component{
     this.title = this.addBook ? "" : this.props.route.params.title
     this.author = this.addBook ? "" : this.props.route.params.author
     this.edition = this.addBook ? "" : this.props.route.params.edition
-    this.price = this.addBook ? 0 : this.props.route.params.price
+    this.price = this.addBook ? "" : this.props.route.params.price
     this.bookState = this.addBook ? "" : this.props.route.params.bookState
     this.language = this.addBook ? "" : this.props.route.params.language
 
+    this.firstTime = true
+
     this.state = {
       isViP1 : false,
-      isViP2 : false
+      isViP2 : false,
+      isTitleEmpty : true,
+      isAuthorEmpty : true,
+      isEditionEmpty : true,
+      isLanguageEmpty : true,
+      isBookStateEmpty : true,
+      isPriceEmpty : true
     }
 
     this._onChangedInput = this._onChangedInput.bind(this)
@@ -67,10 +75,26 @@ class AddBook extends React.Component{
     })
   }
 
+  _isOneInputEmpty(){
+    this.setState({
+        isTitleEmpty : this.title === "",
+        isAuthorEmpty : this.author === "",
+        isEditionEmpty : this.edition === "",
+        isLanguageEmpty : this.language === "",
+        isBookStateEmpty : this.bookState === "",
+        isPriceEmpty : this.price === ""
+      })
+      return this.title === "" || this.author === "" || this.edition === ""||
+          this.language === "" || this.bookState === "" || this.price === ""
+  }
+
   _verifyBook(){
-    this.props.navigation.navigate('Vérification', {title :this.title,
-      author : this.author, edition : this.edition, language : this.language,
-      price : this.price, bookState : this.bookState, modify : this.addBook})
+    this.firstTime = false
+    if(!this._isOneInputEmpty()){
+      this.props.navigation.navigate('Vérification', {title :this.title,
+        author : this.author, edition : this.edition, language : this.language,
+        price : this.price, bookState : this.bookState, modify : this.addBook})
+      }
   }
 
   render(){
@@ -78,16 +102,22 @@ class AddBook extends React.Component{
       <ScrollView style = {styles.main_container}>
         <View style = { styles.search_item_container}>
           <MyTextInput  title = {'Titre'}
-            placeholder = {this.addBook ? 'Titre' : ""+this.props.route.params.title}
+            placeholder = {this.addBook ? 'Titre' : null}
+            defaultValue = {this.addBook ? null : ""+this.props.route.params.title}
             input = {inputs.TITLE} onChangedInput = {this._onChangedInput}
+            emptyInput = {!this.firstTime && this.state.isTitleEmpty} emptyInputMessage = {"un titre"}
             modify = {!this.addBook} onFocus={()=>this._changePickerVisibility({})}/>
           <MyTextInput  title = {'Auteur'}
-            placeholder = {this.addBook ? 'Auteur' : ""+this.props.route.params.author}
+            placeholder = {this.addBook ? 'Auteur' : null}
+            defaultValue = {this.addBook ? null : ""+this.props.route.params.author}
             input = {inputs.AUTHOR} onChangedInput = {this._onChangedInput}
+            emptyInput = {!this.firstTime && this.state.isAuthorEmpty} emptyInputMessage = {"un auteur"}
             modify = {!this.addBook} onFocus={()=>this._changePickerVisibility({})}/>
           <MyTextInput  title = {'Edition'}
             placeholder = {this.addBook ? 'Edition' : ""+this.props.route.params.edition}
+            defaultValue = {this.addBook ? null : ""+this.props.route.params.edition}
             input = {inputs.EDITION} onChangedInput = {this._onChangedInput}
+            emptyInput = {!this.firstTime &&  this.state.isEditionEmpty} emptyInputMessage = {"une edition"}
             modify = {!this.addBook} onFocus={()=>this._changePickerVisibility({})}/>
           <MyDropdownPicker
             title = {'Langue'} items = {[
@@ -123,9 +153,11 @@ class AddBook extends React.Component{
             input = {inputs.STATE} onChangedInput = {this._onChangedInput}/>
           <MyTextInput  title = {'Prix'}
             placeholder = {this.addBook ? 'Prix' : ""+this.props.route.params.price}
+            defaultValue = {this.addBook ? null : ""+this.props.route.params.price}
             input = {inputs.PRICE} onChangedInput = {this._onChangedInput}
+            emptyInput = { !this.firstTime && this.state.isPriceEmpty} emptyInputMessage = {"un prix"}
             modify = {!this.addBook} onFocus={()=>this._changePickerVisibility({})}/>
-          <MyButton onPress = {()=>this.setState({isViP1 :false})} title = {this.addBook ? 'Ajouter ce livre' : 'Modifier le livre'}/>
+          <MyButton onPress = {()=>this._verifyBook()} title = {this.addBook ? 'Ajouter ce livre' : 'Modifier le livre'}/>
         </View>
       </ScrollView>
     )

@@ -4,23 +4,25 @@ import {View, Text, StyleSheet, TextInput} from 'react-native'
 import inputs from '../Helpers/global.js'
 class MyTextInput extends React.Component{
   _getTextInput(){
-    if(this.props.modify){
-      return (
-        <TextInput
-          style = {styles.text_input}
-          defaultValue = {""+this.props.placeholder}
-          onFocus = {()=> this.props.onFocus()}
-          onChangeText = {(text) => this.props.onChangedInput(text, this.props.input)}>
-        </TextInput>
-      )
-    }else{
+    return (
+      <TextInput
+        style = {[styles.text_input, this.props.emptyInput?styles.empty_input:{}]}
+        defaultValue = {this.props.defaultValue}
+        placeholder = {this.props.placeholder}
+        onFocus = {()=> this.props.onFocus()}
+        onChangeText = {(text) => this.props.onChangedInput(text, this.props.input)}>
+      </TextInput>
+    )
+  }
+
+
+
+  _getEmptyMessage(){
+    if(this.props.emptyInput){
       return(
-        <TextInput
-          style = {styles.text_input}
-          placeholder = {this.props.placeholder}
-          onFocus = {()=> this.props.onFocus()}
-          onChangeText = {(text) => this.props.onChangedInput(text, this.props.input)}>
-        </TextInput>
+        <Text style = {styles.empty_input_text}>
+          Sélectionner {this.props.emptyInputMessage} !
+        </Text>
       )
     }
   }
@@ -31,6 +33,7 @@ class MyTextInput extends React.Component{
             {this.props.title}
           </Text>
           {this._getTextInput()}
+          {this._getEmptyMessage()}
         </View>
       )
   }
@@ -55,6 +58,14 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     backgroundColor : '#ffffff'
   },
+  empty_input : {
+    borderColor : '#ff0000',
+    borderWidth: 2
+  },
+  empty_input_text : {
+    color : '#ff0000',
+    paddingLeft : 5
+  }
 })
 
 export default MyTextInput
