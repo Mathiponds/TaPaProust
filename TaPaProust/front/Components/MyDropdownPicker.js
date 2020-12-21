@@ -3,6 +3,16 @@ import {View, Text, StyleSheet} from 'react-native'
 import DropDownPicker from 'react-native-dropdown-picker';
 
 class MyDropdownPicker extends React.Component{
+  _getEmptyMessage(){
+    if(this.props.emptyInput){
+      return(
+        <Text style = {styles.empty_input_text}>
+          Sélectionner {this.props.emptyInputMessage} !
+        </Text>
+      )
+    }
+  }
+
   render(){
     return(
       <View style = {styles.picker_container}>
@@ -14,12 +24,15 @@ class MyDropdownPicker extends React.Component{
           isVisible = {this.props.isVisible}
           onOpen = {()=>this.props.onOpen()}
           onClose = {()=>this.props.onClose()}
-          defaultNull placeholder ={this.props.placeholder}
+          placeholder ={this.props.placeholder}
+          defaultValue = {this.props.defaultValue}
+          zIndex = {4000}
           labelStyle={styles.text_input}
-          style = {styles.dropdownStyle}
+          style = {[styles.dropdownStyle, this.props.emptyInput ? styles.dropdownStyle_error : {}]}
           containerStyle={styles.dropdownPicker}
           onChangeItem={item => this.props.onChangedInput(item.label,this.props.input)}
         />
+        {this._getEmptyMessage()}
       </View>
     )
   }
@@ -40,11 +53,19 @@ const styles = StyleSheet.create({
   },
   dropdownStyle : {
       borderColor: '#000000',
-      borderWidth: 1,
+      borderRadius: 5
+  },
+  dropdownStyle_error : {
+      borderColor: '#FF0000',
+      borderWidth: 2
   },
   text_input : {
     fontSize : 20,
     fontFamily : 'dancing-regular',
+  },
+  empty_input_text : {
+    color : '#ff0000',
+    paddingLeft : 5
   }
 })
 

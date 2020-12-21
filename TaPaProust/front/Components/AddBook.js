@@ -134,7 +134,8 @@ class AddBook extends React.Component{
                 isViP1: true
             })}
             onClose={() => this._changePickerVisibility({})}
-            placeholder = {this.addBook ? "Choisir une langue" : this.language}
+            emptyInput = { !this.firstTime && this.state.isLanguageEmpty} emptyInputMessage = {"une langue"}
+            defaultNull placeholder = {this.addBook ? "Choisir une langue" : null}
             input = {inputs.LANGUAGE} onChangedInput = {this._onChangedInput}/>
           <MyDropdownPicker
             title = {'Etat'} items={[
@@ -149,7 +150,9 @@ class AddBook extends React.Component{
             onClose={() => this._changePickerVisibility({
                 isViP2: false
             })}
-            placeholder = {this.addBook ? "Choisir l'état du livre" : this.bookState}
+            defaultValue = {this.addBook ? null : this.bookState}
+            emptyInput = { !this.firstTime && this.state.isBookStateEmpty} emptyInputMessage = {"un état"}
+            defaultNull placeholder = {this.addBook ? "Choisir l'état du livre" : null}
             input = {inputs.STATE} onChangedInput = {this._onChangedInput}/>
           <MyTextInput  title = {'Prix'}
             placeholder = {this.addBook ? 'Prix' : ""+this.props.route.params.price}
