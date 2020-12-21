@@ -44,7 +44,7 @@ class VerifyBook extends React.Component{
             <Text style = {styles.text}><Text style = {styles.entry_text}>Edition: </Text>{this.props.route.params.edition}</Text>
             <Text style = {styles.text}><Text style = {styles.entry_text}>Langue: </Text>{this.props.route.params.language}</Text>
             <Text style = {styles.text}><Text style = {styles.entry_text}>Prix: </Text>{this.props.route.params.price}</Text>
-            <Text style = {styles.text}><Text style = {styles.entry_text}>Etat: </Text>{this.props.route.params.state}</Text>
+            <Text style = {styles.text}><Text style = {styles.entry_text}>Etat: </Text>{this.props.route.params.bookState}</Text>
           </View>
           <MyButton onPress = {this._confirmBook} title = {'Confirmer'}/>
         </ScrollView>

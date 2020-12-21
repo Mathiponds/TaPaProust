@@ -4,10 +4,10 @@ export default data = [
       title :"Star Wars VIII - Les derniers Jedi",
       author : "Obiwan",
       edition : "Hachette",
-      language : "francais",
+      language : "Francais",
       picture_path:"",
       price : 7.2,
-      state : "neuf",
+      bookState : "En bon état",
       sold_by : "Manon"
    },
    {
@@ -15,10 +15,10 @@ export default data = [
      title :"Le tour du monde en 80 jours et encore pleins de trucs qui se passent",
      author : "Jules Verne",
      edition : "Flamarion",
-     language : "francais",
+     language : "Francais",
      picture_path:"",
      price : 5,
-     state : "stabilo",
+     bookState : "Bien utilisé",
      sold_by : "Manon"
   },
   {
@@ -26,10 +26,10 @@ export default data = [
     title :"Les enfants du capitaine Grant",
     author : "Jules Verne",
     edition : "Hachette",
-    language : "francais",
+    language : "Francais",
     picture_path:"",
     price : 2,
-    state : "neuf",
+    bookState : "Neuf",
     sold_by : "Jean"
  }
 ]

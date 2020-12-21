@@ -11,9 +11,10 @@ class MyDropdownPicker extends React.Component{
         </Text>
         <DropDownPicker
           items={this.props.items}
-          placeholder ={this.props.placeholder}
-          defaultIndex={1}
-          defaultValue = {this.props.defaultValue}
+          isVisible = {this.props.isVisible}
+          onOpen = {()=>this.props.onOpen()}
+          onClose = {()=>this.props.onClose()}
+          defaultNull placeholder ={this.props.placeholder}
           labelStyle={styles.text_input}
           style = {styles.dropdownStyle}
           containerStyle={styles.dropdownPicker}

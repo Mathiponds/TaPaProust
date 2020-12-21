@@ -17,7 +17,7 @@ class BookItem extends React.Component{
           <Text style = {styles.text}><Text style = {styles.entry_text}>Title: </Text>{book.title}</Text>
           <Text style = {styles.text}><Text style = {styles.entry_text}>Author: </Text>{book.author}</Text>
           <Text style = {styles.text}><Text style = {styles.entry_text}>Edition: </Text>{book.edition}</Text>
-          <Text style = {styles.text}><Text style = {styles.entry_text}>Etat: </Text>{book.state}</Text>
+          <Text style = {styles.text}><Text style = {styles.entry_text}>Etat: </Text>{book.bookState}</Text>
           <Text style = {styles.text}><Text style = {styles.entry_text}>Vendu par: </Text>{book.sold_by}</Text>
         </View>
       </TouchableOpacity>

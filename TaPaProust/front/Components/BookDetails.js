@@ -44,7 +44,7 @@ class BookDetails extends React.Component{
   _modify(){
     this.props.navigation.navigate('Modifier un livre',
       {title :this.book.title, author : this.book.author, edition : this.book.edition,
-        language : this.book.language, price : this.book.price, state : this.book.state,
+        language : this.book.language, price : this.book.price, bookState : this.book.bookState,
         modify : false})
 
   }
@@ -73,7 +73,7 @@ class BookDetails extends React.Component{
           <Text style = {styles.text}><Text style = {styles.entry_text}>Title: </Text>{this.book.title}</Text>
           <Text style = {styles.text}><Text style = {styles.entry_text}>Author: </Text>{this.book.author}</Text>
           <Text style = {styles.text}><Text style = {styles.entry_text}>Edition: </Text>{this.book.edition}</Text>
-          <Text style = {styles.text}><Text style = {styles.entry_text}>Etat: </Text>{this.book.state}</Text>
+          <Text style = {styles.text}><Text style = {styles.entry_text}>Etat: </Text>{this.book.bookState}</Text>
           <Text style = {styles.text}><Text style = {styles.entry_text}>Vendu par: </Text>{this.book.sold_by}</Text>
           {this._getButton()}
         </View>

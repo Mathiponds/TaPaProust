@@ -4,7 +4,7 @@ export const inputs = {
   EDITION : 'edition',
   LANGUAGE : 'language',
   PRICE : 'price',
-  STATE : 'state',
+  BOOK_STATE : 'bookState',
   MAIL : 'mail',
   NAME : 'name',
   PHONE : 'phone'
