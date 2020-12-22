@@ -1,16 +1,18 @@
 import React from 'react'
-import {Text, StyleSheet, TouchableOpacity} from 'react-native'
+import {View, Text, StyleSheet, TouchableOpacity} from 'react-native'
 
 class MyButton extends React.Component{
 
   render(){
     return (
-      <TouchableOpacity
-        style = {[styles.button_box, this.props.longText ? styles.button_box_long_text : {}]}
-        onPress = {() => {this.props.onPress()}}>
-        <Text style = {[styles.button_text, this.props.longText? styles.button_long_text: {}]}>{this.props.title}
-        </Text>
-      </TouchableOpacity>
+      <View style = {{alignItems : 'center'}}>
+        <TouchableOpacity
+          style = {[styles.button_box, this.props.longText ? styles.button_box_long_text : {}]}
+          onPress = {() => {this.props.onPress()}}>
+          <Text style = {[styles.button_text, this.props.longText? styles.button_long_text: {}]}>{this.props.title}
+          </Text>
+        </TouchableOpacity>
+      </View>
     )
   }
 }
@@ -19,10 +21,9 @@ const styles = StyleSheet.create({
   button_box : {
     backgroundColor : 'black',
     height : 50,
-    marginTop : 10,
+    width : 300,
+    marginTop : 5,
     marginBottom : 10,
-    marginLeft : 20,
-    marginRight :20
   },
   button_box_long_text : {
     height : 35,

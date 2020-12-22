@@ -9,6 +9,7 @@ class MyTextInput extends React.Component{
         style = {[styles.text_input, this.props.emptyInput?styles.empty_input:{}]}
         defaultValue = {this.props.defaultValue}
         placeholder = {this.props.placeholder}
+        keyboardType = {this.props.keyboardType}
         onFocus = {()=> this.props.onFocus()}
         onChangeText = {(text) => this.props.onChangedInput(text, this.props.input)}>
       </TextInput>

@@ -4,6 +4,7 @@ import DropDownPicker from 'react-native-dropdown-picker';
 import {inputs} from '../Helpers/global.js'
 
 import MyTextInput from './MyTextInput'
+import ImagePicker from './ImagePicker'
 import MyDropdownPicker from './MyDropdownPicker'
 import MyButton from './MyButton'
 
@@ -97,69 +98,78 @@ class AddBook extends React.Component{
       }
   }
 
+  _getMyTextInput(titre, placeholder, defaultValue, input, isEmpty, emptyMessage){
+    return(
+    <MyTextInput  title = {titre}
+      placeholder = {this.addBook ? placeholder : null}
+      defaultValue = {this.addBook ? null : ""+defaultValue}
+      input = {input} onChangedInput = {this._onChangedInput}
+      emptyInput = {!this.firstTime && isEmpty} emptyInputMessage = {emptyMessage}
+      modify = {!this.addBook} onFocus={()=>this._changePickerVisibility({})}/>)
+  }
+
+  _getAllMyDropDownPickers(){
+    return(
+      <View>
+      <MyDropdownPicker
+        title = {'Langue'} items = {[
+            {label: 'Français', value: 'Français'},
+            {label: 'Anglais', value: 'Anglais'},
+            {label: 'Allemand', value: 'Allemand'},
+            {label: 'Italien', value: 'Italien'},
+            {label: 'Espagnol', value: 'Espagnol'},
+            {label: 'Latin', value: 'Latin'},
+            {label: 'Grec', value: 'Grec'}
+        ]}
+        isVisible = {this.state.isViP1}
+        onOpen={() => this._changePickerVisibility({
+            isViP1: true
+        })}
+        onClose={() => this._changePickerVisibility({})}
+        emptyInput = { !this.firstTime && this.state.isLanguageEmpty} emptyInputMessage = {"une langue"}
+        defaultNull placeholder = {this.addBook ? "Choisir une langue" : null}
+        input = {inputs.LANGUAGE} onChangedInput = {this._onChangedInput}/>
+      <MyDropdownPicker
+        title = {'Etat'} items={[
+              {label: 'Neuf', value: 'Neuf'},
+              {label: 'En bon état', value: 'En bon état'},
+              {label: 'Bien utilisé', value: 'Bien utilisé'}
+          ]}
+        isVisible = {this.state.isViP2}
+        onOpen={() => this._changePickerVisibility({
+            isViP2: true
+        })}
+        onClose={() => this._changePickerVisibility({
+            isViP2: false
+        })}
+        defaultValue = {this.addBook ? null : this.bookState}
+        emptyInput = { !this.firstTime && this.state.isBookStateEmpty} emptyInputMessage = {"un état"}
+        defaultNull placeholder = {this.addBook ? "Choisir l'état du livre" : null}
+        input = {inputs.STATE} onChangedInput = {this._onChangedInput}/>
+        </View>
+    )
+  }
+
   render(){
     return (
       <ScrollView style = {styles.main_container}>
         <View style = { styles.search_item_container}>
-          <MyTextInput  title = {'Titre'}
-            placeholder = {this.addBook ? 'Titre' : null}
-            defaultValue = {this.addBook ? null : ""+this.props.route.params.title}
-            input = {inputs.TITLE} onChangedInput = {this._onChangedInput}
-            emptyInput = {!this.firstTime && this.state.isTitleEmpty} emptyInputMessage = {"un titre"}
-            modify = {!this.addBook} onFocus={()=>this._changePickerVisibility({})}/>
-          <MyTextInput  title = {'Auteur'}
-            placeholder = {this.addBook ? 'Auteur' : null}
-            defaultValue = {this.addBook ? null : ""+this.props.route.params.author}
-            input = {inputs.AUTHOR} onChangedInput = {this._onChangedInput}
-            emptyInput = {!this.firstTime && this.state.isAuthorEmpty} emptyInputMessage = {"un auteur"}
-            modify = {!this.addBook} onFocus={()=>this._changePickerVisibility({})}/>
-          <MyTextInput  title = {'Edition'}
-            placeholder = {this.addBook ? 'Edition' : ""+this.props.route.params.edition}
-            defaultValue = {this.addBook ? null : ""+this.props.route.params.edition}
-            input = {inputs.EDITION} onChangedInput = {this._onChangedInput}
-            emptyInput = {!this.firstTime &&  this.state.isEditionEmpty} emptyInputMessage = {"une edition"}
-            modify = {!this.addBook} onFocus={()=>this._changePickerVisibility({})}/>
-          <MyDropdownPicker
-            title = {'Langue'} items = {[
-                {label: 'Français', value: 'Français'},
-                {label: 'Anglais', value: 'Anglais'},
-                {label: 'Allemand', value: 'Allemand'},
-                {label: 'Italien', value: 'Italien'},
-                {label: 'Espagnol', value: 'Espagnol'},
-                {label: 'Latin', value: 'Latin'},
-                {label: 'Grec', value: 'Grec'}
-            ]}
-            isVisible = {this.state.isViP1}
-            onOpen={() => this._changePickerVisibility({
-                isViP1: true
-            })}
-            onClose={() => this._changePickerVisibility({})}
-            emptyInput = { !this.firstTime && this.state.isLanguageEmpty} emptyInputMessage = {"une langue"}
-            defaultNull placeholder = {this.addBook ? "Choisir une langue" : null}
-            input = {inputs.LANGUAGE} onChangedInput = {this._onChangedInput}/>
-          <MyDropdownPicker
-            title = {'Etat'} items={[
-                  {label: 'Neuf', value: 'Neuf'},
-                  {label: 'En bon état', value: 'En bon état'},
-                  {label: 'Bien utilisé', value: 'Bien utilisé'}
-              ]}
-            isVisible = {this.state.isViP2}
-            onOpen={() => this._changePickerVisibility({
-                isViP2: true
-            })}
-            onClose={() => this._changePickerVisibility({
-                isViP2: false
-            })}
-            defaultValue = {this.addBook ? null : this.bookState}
-            emptyInput = { !this.firstTime && this.state.isBookStateEmpty} emptyInputMessage = {"un état"}
-            defaultNull placeholder = {this.addBook ? "Choisir l'état du livre" : null}
-            input = {inputs.STATE} onChangedInput = {this._onChangedInput}/>
-          <MyTextInput  title = {'Prix'}
+          {this._getMyTextInput('Titre', 'Titre', this.addBook ? null : ""+this.props.route.params.title,
+            inputs.TITLE, this.state.isTitleEmpty, "un titre")}
+          {this._getMyTextInput('Auteur', 'Auteur', this.addBook ? null : ""+this.props.route.params.author,
+            inputs.AUTHOR, this.state.isAuthorEmpty, "un auteur")}
+          {this._getMyTextInput('Edition', 'Edition', this.addBook ? null : ""+this.props.route.params.edition,
+            inputs.EDITION, this.state.isEditionEmpty, "une edition")}
+          {this._getAllMyDropDownPickers()}
+          <MyTextInput  title = {'Prix (en frs)'}
             placeholder = {this.addBook ? 'Prix' : ""+this.props.route.params.price}
             defaultValue = {this.addBook ? null : ""+this.props.route.params.price}
             input = {inputs.PRICE} onChangedInput = {this._onChangedInput}
             emptyInput = { !this.firstTime && this.state.isPriceEmpty} emptyInputMessage = {"un prix"}
-            modify = {!this.addBook} onFocus={()=>this._changePickerVisibility({})}/>
+            modify = {!this.addBook} onFocus={()=>this._changePickerVisibility({})}
+            keyboardType = 'numeric'/>
+
+          <ImagePicker modify = {!this.addBook}/>
           <MyButton onPress = {()=>this._verifyBook()} title = {this.addBook ? 'Ajouter ce livre' : 'Modifier le livre'}/>
         </View>
       </ScrollView>

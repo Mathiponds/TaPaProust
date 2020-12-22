@@ -13,6 +13,7 @@ import VerifyBook from '../Components/VerifyBook'
 import UsersBooks from '../Components/UsersBooks'
 import Favorites from '../Components/Favorites'
 import Profil from '../Components/Profil'
+import ImageBrowser from '../Components/ImageBrowser'
 
 const SearchStackNavigator = createStackNavigator()
 
@@ -39,6 +40,9 @@ function MyAddBookStackNavigator(){
       options = {{headerTitleStyle : {fontSize : 30}}}>
       <AddBookStackNavigator.Screen
         name = "Ajouter un livre" component={AddBook}/>
+      <AddBookStackNavigator.Screen
+        name='ImageBrowser' component={ImageBrowser}
+          options={{ title: 'Selected 0 files'}}/>
       <AddBookStackNavigator.Screen
         name = "Vérification" component={VerifyBook}/>
     </AddBookStackNavigator.Navigator>
