@@ -5,7 +5,7 @@ import {ImageBrowser} from 'expo-image-picker-multiple';
 
 export default class ImageBrowserScreen extends React.Component {
   _getHeaderLoader = () => (
-    <ActivityIndicator size='small' color={'#0580FF'}/>
+    <ActivityIndicator style = {styles.loading} size='large' color={'#000000'}/>
   );
 
   imagesCallback = (callback) => {
@@ -24,7 +24,7 @@ export default class ImageBrowserScreen extends React.Component {
           type: 'image/jpg'
         })
       }
-      navigation.navigate('Main', {photos: cPhotos});
+      navigation.navigate('Ajouter un livre', {photos: cPhotos});
     })
     .catch((e) => console.log(e));
   };
@@ -40,8 +40,8 @@ export default class ImageBrowserScreen extends React.Component {
 
   _renderDoneButton = (count, onSubmit) => {
     if (!count) return null;
-    return <TouchableOpacity title={'Done'} onPress={onSubmit}>
-      <Text onPress={onSubmit}>Done</Text>
+    return <TouchableOpacity style = {styles.touchableOpacity } onPress={onSubmit}>
+      <Text style = {styles.done} onPress={onSubmit}>Done</Text>
     </TouchableOpacity>
   }
 
@@ -80,6 +80,8 @@ const styles = StyleSheet.create({
     flex: 1
   },
   container: {
+    marginLeft : 5, marginRight : 5,
+    marginBottom : 5,
     position: 'relative'
   },
   emptyStay:{
@@ -100,5 +102,15 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     padding: 'auto',
     color: '#ffffff'
+  },
+  done : {
+    fontWeight: 'bold',
+    marginRight : 20,
+    fontSize : 20
+  },
+  loading : {
+    marginRight : 20,
+    width : 40,
+    height : 40
   }
 });

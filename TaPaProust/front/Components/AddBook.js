@@ -1,10 +1,9 @@
 import React from 'react'
-import {View, Text, StyleSheet, TextInput, TouchableOpacity, ScrollView, Picker} from 'react-native'
+import {View, Text, StyleSheet, TextInput, TouchableOpacity, ScrollView, Picker, Image} from 'react-native'
 import DropDownPicker from 'react-native-dropdown-picker';
 import {inputs} from '../Helpers/global.js'
 
 import MyTextInput from './MyTextInput'
-import ImagePicker from './ImagePicker'
 import MyDropdownPicker from './MyDropdownPicker'
 import MyButton from './MyButton'
 
@@ -30,7 +29,8 @@ class AddBook extends React.Component{
       isEditionEmpty : true,
       isLanguageEmpty : true,
       isBookStateEmpty : true,
-      isPriceEmpty : true
+      isPriceEmpty : true,
+      photos : []
     }
 
     this._onChangedInput = this._onChangedInput.bind(this)
@@ -42,6 +42,15 @@ class AddBook extends React.Component{
     this.props.navigation.setOptions({headerTitleStyle : {
       fontFamily : 'lobster-regular', fontSize : 30}})
   }
+
+  componentDidUpdate() {
+      const {params} = this.props.route;
+      if (params) {
+        const {photos} = params;
+        if (photos) this.setState({photos});
+        delete params.photos;
+      }
+    }
 
   _onChangedInput(text, input){
     switch(input){
@@ -150,6 +159,16 @@ class AddBook extends React.Component{
     )
   }
 
+  _renderImage (item, i) {
+    return (
+      <Image
+        style={styles.image}
+        source={{ uri: item.uri }}
+        key={i}
+      />
+    )
+  }
+
   render(){
     return (
       <ScrollView style = {styles.main_container}>
@@ -169,7 +188,10 @@ class AddBook extends React.Component{
             modify = {!this.addBook} onFocus={()=>this._changePickerVisibility({})}
             keyboardType = 'numeric'/>
 
-          <ImagePicker modify = {!this.addBook}/>
+          <MyButton onPress = {()=>this.props.navigation.navigate('ImageBrowser')} title = {this.addBook ? 'Ajouter photo' : 'Modifier photo'}/>
+          <ScrollView horizontal = {true}>
+            {this.state.photos.map((item, i) => this._renderImage(item, i))}
+          </ScrollView>
           <MyButton onPress = {()=>this._verifyBook()} title = {this.addBook ? 'Ajouter ce livre' : 'Modifier le livre'}/>
         </View>
       </ScrollView>
@@ -183,6 +205,12 @@ const styles = StyleSheet.create({
   },
   search_item_container : {
     margin : 10
+  },
+  image : {
+    marginLeft : 2,
+    marginRight : 2,
+    height: 120,
+    width: 90
   }
 })
 
