@@ -42,7 +42,7 @@ function MyAddBookStackNavigator(){
         name = "Ajouter un livre" component={AddBook}/>
       <AddBookStackNavigator.Screen
         name='ImageBrowser' component={ImageBrowser}
-          options={{ title: 'Selected 0 files'}}/>
+          options={{ title: '0 photo choisie'}}/>
       <AddBookStackNavigator.Screen
         name = "Vérification" component={VerifyBook}/>
     </AddBookStackNavigator.Navigator>

@@ -2,6 +2,7 @@ import React from 'react';
 import { StyleSheet, View, Text, TouchableOpacity, ActivityIndicator } from 'react-native';
 import * as ImageManipulator from 'expo-image-manipulator';
 import {ImageBrowser} from 'expo-image-picker-multiple';
+import  Icon from 'react-native-vector-icons/FontAwesome';
 
 export default class ImageBrowserScreen extends React.Component {
   _getHeaderLoader = () => (
@@ -40,14 +41,23 @@ export default class ImageBrowserScreen extends React.Component {
 
   _renderDoneButton = (count, onSubmit) => {
     if (!count) return null;
-    return <TouchableOpacity style = {styles.touchableOpacity } onPress={onSubmit}>
-      <Text style = {styles.done} onPress={onSubmit}>Done</Text>
-    </TouchableOpacity>
+    return(
+      <View style = {{flex :1, justifyContent : 'center', alignItems : 'flex-end', marginRight : 10}}>
+        <Icon.Button
+          name="check"
+          borderColor = 'red'
+          backgroundColor="#000000"
+          size ={25}
+          onPress={onSubmit}
+        >
+        </Icon.Button>
+      </View>
+    )
   }
 
   updateHandler = (count, onSubmit) => {
     this.props.navigation.setOptions({
-      title: `Selected ${count} files`,
+      title: `${count} photo`+(count > 1 ? 's' : '')+' choisie'+(count > 1? 's' : ''),
       headerRight: () => this._renderDoneButton(count, onSubmit)
     });
   };
