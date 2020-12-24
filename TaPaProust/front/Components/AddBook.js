@@ -90,13 +90,15 @@ class AddBook extends React.Component{
           this.language === "" || this.bookState === "" || this.price === ""
   }
 
+//// TODO:
   _verifyBook(){
     this.firstTime = false
-    if(!this._isOneInputEmpty()){
+    //if(!this._isOneInputEmpty()){
       this.props.navigation.navigate('Vérification', {title :this.title,
         author : this.author, edition : this.edition, language : this.language,
-        price : this.price, bookState : this.bookState, modify : this.addBook})
-      }
+        price : this.price, bookState : this.bookState, modify : this.addBook,
+        photos : this.state.photos})
+    //  }
   }
 
   _getMyTextInput(titre, placeholder, defaultValue, input, isEmpty, emptyMessage){
@@ -127,6 +129,7 @@ class AddBook extends React.Component{
             isViP1: true
         })}
         onClose={() => this._changePickerVisibility({})}
+        defaultValue = {this.addBook ? null : this.language}
         emptyInput = { !this.firstTime && this.state.isLanguageEmpty} emptyInputMessage = {"une langue"}
         defaultNull placeholder = {this.addBook ? "Choisir une langue" : null}
         input = {inputs.LANGUAGE} onChangedInput = {this._onChangedInput}/>
@@ -182,7 +185,9 @@ class AddBook extends React.Component{
             emptyInput = { !this.firstTime && this.state.isPriceEmpty} emptyInputMessage = {"un prix"}
             modify = {!this.addBook} onFocus={()=>this._changePickerVisibility({})}
             keyboardType = 'numeric'/>
-          <PhotoRendering photos = {this.state.photos} navigation = {this._navigateToImageBrowser}/>
+          <PhotoRendering
+            photos = {this.state.photos} navigation = {this._navigateToImageBrowser}
+            withButton = {true}/>
           <MyButton onPress = {()=>this._verifyBook()} title = {this.addBook ? 'Ajouter ce livre' : 'Modifier le livre'}/>
         </View>
       </ScrollView>

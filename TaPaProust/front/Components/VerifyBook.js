@@ -1,7 +1,8 @@
 import React from 'react'
-import {View, Text, StyleSheet, ScrollView, Alert} from 'react-native'
+import {View, Text, StyleSheet, ScrollView, Alert, Image} from 'react-native'
 
 import MyButton from './MyButton'
+import PhotoRendering from './PhotoRendering'
 
 class VerifyBook extends React.Component{
   constructor(props){
@@ -16,6 +17,7 @@ class VerifyBook extends React.Component{
   }
 
   _confirmBook(){
+    // TODO: Send the book to the backend
     const text = this.modify ? "Votre livre a bien été ajouté" : "Votre livre a bien été modifié"
     Alert.alert(
       "Confirmation",
@@ -45,6 +47,8 @@ class VerifyBook extends React.Component{
             <Text style = {styles.text}><Text style = {styles.entry_text}>Langue: </Text>{this.props.route.params.language}</Text>
             <Text style = {styles.text}><Text style = {styles.entry_text}>Prix: </Text>{this.props.route.params.price}</Text>
             <Text style = {styles.text}><Text style = {styles.entry_text}>Etat: </Text>{this.props.route.params.bookState}</Text>
+            <Text style = {styles.entry_text}>Photos: </Text>
+            <PhotoRendering withButton = {false} photos = {this.props.route.params.photos}/>
           </View>
           <MyButton onPress = {this._confirmBook} title = {'Confirmer'}/>
         </ScrollView>
@@ -78,6 +82,12 @@ const styles = StyleSheet.create({
   text : {
     fontFamily : 'dancing-regular',
     fontSize : 25,
+  },
+  image : {
+    marginLeft : 2,
+    marginRight : 2,
+    height: 120,
+    width: 90
   }
 })
 

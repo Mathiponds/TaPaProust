@@ -5,6 +5,11 @@ import {ImageBrowser} from 'expo-image-picker-multiple';
 import  Icon from 'react-native-vector-icons/FontAwesome';
 
 export default class ImageBrowserScreen extends React.Component {
+  async componentDidMount() {
+    this.props.navigation.setOptions({headerTitleStyle : {
+      fontFamily : 'lobster-regular', fontSize : 30}})
+  }
+
   _getHeaderLoader = () => (
     <ActivityIndicator style = {styles.loading} size='large' color={'#000000'}/>
   );
@@ -45,7 +50,6 @@ export default class ImageBrowserScreen extends React.Component {
       <View style = {{flex :1, justifyContent : 'center', alignItems : 'flex-end', marginRight : 10}}>
         <Icon.Button
           name="check"
-          borderColor = 'red'
           backgroundColor="#000000"
           size ={25}
           onPress={onSubmit}

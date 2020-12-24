@@ -15,9 +15,9 @@ class PhotoRendering extends React.Component {
     )
   }
 
-  render(){
-    return(
-      <View style = {{marginBottom : 10}}>
+  _ifReturnButton(){
+    if(this.props.withButton){
+      return (
         <View flexDirection = {'row'} style = {{flex: 1, marginRight: 15}}>
           <Text style = {styles.search_item_text}>Photos</Text>
           <View style = {{flex :1, justifyContent : 'center', alignItems : 'flex-end'}}>
@@ -30,6 +30,15 @@ class PhotoRendering extends React.Component {
             </Icon.Button>
           </View>
         </View>
+      )
+    }
+  }
+
+  render(){
+    console.log(this.props.photos)
+    return(
+      <View style = {{marginBottom : 10}}>
+        {this._ifReturnButton()}
         <ScrollView horizontal = {true}>
           {this.props.photos.map((item, i) => this._renderImage(item, i))}
         </ScrollView>

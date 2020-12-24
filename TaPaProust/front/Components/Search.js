@@ -76,15 +76,15 @@ class Search extends React.Component{
       <View style = { styles.search_item_container}>
         <MyTextInput
           title = {'Titre'} placeholder = {'Titre'} input = {inputs.TITLE}
-          onChangedInput = {this._onChangedInput}
+          onChangedInput = {this._onChangedInput} onFocus = {()=> {}}
           />
         <MyTextInput
           title = {'Auteur'} placeholder = {'Auteur'} input = {inputs.AUTHOR}
-          onChangedInput = {this._onChangedInput}
+          onChangedInput = {this._onChangedInput} onFocus = {()=> {}}
           />
         <MyTextInput
           title = {'Edition'} placeholder = {'Edition'} input = {inputs.EDITION}
-          onChangedInput = {this._onChangedInput}
+          onChangedInput = {this._onChangedInput} onFocus = {()=> {}}
           />
         <MyButton
           onPress = {this._searchBooks}
