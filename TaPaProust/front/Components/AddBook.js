@@ -37,6 +37,7 @@ class AddBook extends React.Component{
     this._onChangedInput = this._onChangedInput.bind(this)
     this._verifyBook = this._verifyBook.bind(this)
     this._changePickerVisibility = this._changePickerVisibility.bind(this)
+    this._deletePhoto = this._deletePhoto.bind(this)
   }
 
   async componentDidMount() {
@@ -153,9 +154,15 @@ class AddBook extends React.Component{
         </View>
     )
   }
+  _deletePhoto(i) {
+    this.state.photos.splice(i,1)
+    this.setState({
+      photos : this.state.photos
+    })
+  }
   /* For the rendering of the photos */
   _navigateToImageBrowser = () => {
-    this.props.navigation.navigate('ImageBrowser')
+    this.props.navigation.navigate('ImageBrowser', {photos : this.state.photos})
   }
 
   componentDidUpdate() {
@@ -187,7 +194,7 @@ class AddBook extends React.Component{
             keyboardType = 'numeric'/>
           <PhotoRendering
             photos = {this.state.photos} navigation = {this._navigateToImageBrowser}
-            withButton = {true}/>
+            withButton = {true} deletePhoto = {(i) => this._deletePhoto(i)}/>
           <MyButton onPress = {()=>this._verifyBook()} title = {this.addBook ? 'Ajouter ce livre' : 'Modifier le livre'}/>
         </View>
       </ScrollView>

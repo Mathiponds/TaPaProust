@@ -1,17 +1,28 @@
 import React from 'react'
-import {ScrollView, Image, View, StyleSheet, Text} from 'react-native'
+import {ScrollView, Image, View, StyleSheet, Text, TouchableOpacity} from 'react-native'
 
 import MyButton from './MyButton'
-import  Icon from 'react-native-vector-icons/FontAwesome';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 class PhotoRendering extends React.Component {
   _renderImage (item, i) {
     return (
-      <Image
-        style={styles.image}
-        source={{ uri: item.uri }}
-        key={i}
-      />
+      <View
+      key = {i}>
+        <Image
+          style={styles.image}
+          source={{ uri: item.uri }}
+        />
+          <TouchableOpacity style = {styles.remove_image_button}
+          onPress={() => {this.props.deletePhoto(i)}}>
+            <Icon
+              name="close"
+              backgroundColor="#ff0000"
+              color = '#ffffff'
+              size ={25}
+            ></Icon>
+          </TouchableOpacity>
+      </View>
     )
   }
 
@@ -26,8 +37,7 @@ class PhotoRendering extends React.Component {
               backgroundColor="#000000"
               size ={25}
               onPress={()=>this.props.navigation()}
-            >
-            </Icon.Button>
+            ></Icon.Button>
           </View>
         </View>
       )
@@ -35,7 +45,6 @@ class PhotoRendering extends React.Component {
   }
 
   render(){
-    console.log(this.props.photos)
     return(
       <View style = {{marginBottom : 10}}>
         {this._ifReturnButton()}
@@ -58,6 +67,16 @@ const styles = StyleSheet.create({
     fontSize : 35,
     paddingLeft : 10,
     marginBottom : 5
+  },
+  remove_image_button : {
+    position : 'absolute',
+    justifyContent: 'center',
+    alignItems : 'center',
+    right : 2,
+    top : 0,
+    height : 30,
+    width : 30,
+    backgroundColor: '#FF0000'
   }
 })
 export default PhotoRendering
