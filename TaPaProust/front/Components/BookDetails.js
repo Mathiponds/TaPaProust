@@ -4,6 +4,8 @@ import {View, Text, Image, StyleSheet, Button, TouchableOpacity, Linking} from '
 import MyButton from './MyButton'
 import {screens} from '../Helpers/global'
 
+import PhotoRendering from './PhotoRendering'
+
 class BookDetails extends React.Component{
   constructor(props){
     super(props)
@@ -74,7 +76,7 @@ class BookDetails extends React.Component{
           <Text style = {styles.text}><Text style = {styles.entry_text}>Author: </Text>{this.book.author}</Text>
           <Text style = {styles.text}><Text style = {styles.entry_text}>Edition: </Text>{this.book.edition}</Text>
           <Text style = {styles.text}><Text style = {styles.entry_text}>Etat: </Text>{this.book.bookState}</Text>
-          <Text style = {styles.text}><Text style = {styles.entry_text}>Vendu par: </Text>{this.book.sold_by}</Text>
+          <Text style = {styles.text}><Text style = {styles.entry_text}>Langue: </Text>{this.book.language}</Text>
           {this._getButton()}
         </View>
       </View>

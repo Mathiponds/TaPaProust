@@ -5,11 +5,11 @@ export default data = [
       author : "Obiwan",
       edition : "Hachette",
       language : "Français",
-      picture_path: [
+      pictures_path: [
          {
           "name": "IMG-20201214-WA0002.jpg",
           "type": "image/jpg",
-          "uri": "file:///data/user/0/host.exp.exponent/cache/ExperienceData/%2540anonymous%252Ffront-fa99e98a-f837-4c5d-b4be-94649b3575b6/ImageManipulator/cf20d7ba-82c2-4418-87b9-2ba4eee29f23.jpg",
+          "uri": "../Images/search.png",
         },
          {
           "name": "IMG-20201214-WA0001.jpg",
@@ -27,7 +27,7 @@ export default data = [
      author : "Jules Verne",
      edition : "Flamarion",
      language : "Français",
-     picture_path: [
+     pictures_path: [
          {
           "name": "Snapchat-622013871.jpg",
           "type": "image/jpg",
@@ -49,7 +49,7 @@ export default data = [
     author : "Jules Verne",
     edition : "Hachette",
     language : "Français",
-    pictures : [
+    pictures_path : [
        {
         "name": "IMG-20201221-WA0009.jpg",
         "type": "image/jpg",

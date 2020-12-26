@@ -48,7 +48,8 @@ class VerifyBook extends React.Component{
             <Text style = {styles.text}><Text style = {styles.entry_text}>Prix: </Text>{this.props.route.params.price}</Text>
             <Text style = {styles.text}><Text style = {styles.entry_text}>Etat: </Text>{this.props.route.params.bookState}</Text>
             <Text style = {styles.entry_text}>Photos: </Text>
-            <PhotoRendering withButton = {false} photos = {this.props.route.params.photos}/>
+            <PhotoRendering withButton = {false} withDelete = {false}
+              photos = {this.props.route.params.photos}/>
           </View>
           <MyButton onPress = {this._confirmBook} title = {'Confirmer'}/>
         </ScrollView>

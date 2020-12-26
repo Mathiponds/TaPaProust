@@ -4,6 +4,8 @@ import * as ImageManipulator from 'expo-image-manipulator';
 import {ImageBrowser} from 'expo-image-picker-multiple';
 import  Icon from 'react-native-vector-icons/FontAwesome';
 
+import {maxPhotos} from '../Helpers/global'
+
 export default class ImageBrowserScreen extends React.Component {
   async componentDidMount() {
     this.props.navigation.setOptions({headerTitleStyle : {
@@ -21,7 +23,7 @@ export default class ImageBrowserScreen extends React.Component {
     });
 
     callback.then(async (photos) => {
-      const cPhotos = [];
+      const cPhotos = this.props.route.params.photos;
       for(let photo of photos) {
         const pPhoto = await this._processImageAsync(photo.uri);
         cPhotos.push({
@@ -78,7 +80,7 @@ export default class ImageBrowserScreen extends React.Component {
     return (
       <View style={[styles.flex, styles.container]}>
         <ImageBrowser
-          max={4}
+          max={maxPhotos-this.props.route.params.photos.length}
           onChange={this.updateHandler}
           callback={this.imagesCallback}
           renderSelectedComponent={this.renderSelectedComponent}

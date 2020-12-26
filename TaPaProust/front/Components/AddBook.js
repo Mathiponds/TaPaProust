@@ -193,8 +193,9 @@ class AddBook extends React.Component{
             modify = {!this.addBook} onFocus={()=>this._changePickerVisibility({})}
             keyboardType = 'numeric'/>
           <PhotoRendering
-            photos = {this.state.photos} navigation = {this._navigateToImageBrowser}
-            withButton = {true} deletePhoto = {(i) => this._deletePhoto(i)}/>
+            photos = {this.state.photos}
+            withButton = {true} navigation = {this._navigateToImageBrowser}
+            withDelete = {true} deletePhoto = {(i) => this._deletePhoto(i)}/>
           <MyButton onPress = {()=>this._verifyBook()} title = {this.addBook ? 'Ajouter ce livre' : 'Modifier le livre'}/>
         </View>
       </ScrollView>

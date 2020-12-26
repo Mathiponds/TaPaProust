@@ -4,7 +4,23 @@ import {ScrollView, Image, View, StyleSheet, Text, TouchableOpacity} from 'react
 import MyButton from './MyButton'
 import Icon from 'react-native-vector-icons/FontAwesome';
 
+import {maxPhotos} from '../Helpers/global'
+
 class PhotoRendering extends React.Component {
+  _ifDeletion(i){
+    if(this.props.withDelete){
+      return(<TouchableOpacity style = {styles.remove_image_button}
+      onPress={() => {this.props.deletePhoto(i)}}>
+        <Icon
+          name="close"
+          backgroundColor="#ff0000"
+          color = '#ffffff'
+          size ={25}
+        ></Icon>
+      </TouchableOpacity>)
+    }
+  }
+
   _renderImage (item, i) {
     return (
       <View
@@ -13,15 +29,8 @@ class PhotoRendering extends React.Component {
           style={styles.image}
           source={{ uri: item.uri }}
         />
-          <TouchableOpacity style = {styles.remove_image_button}
-          onPress={() => {this.props.deletePhoto(i)}}>
-            <Icon
-              name="close"
-              backgroundColor="#ff0000"
-              color = '#ffffff'
-              size ={25}
-            ></Icon>
-          </TouchableOpacity>
+        {this._ifDeletion(i)}
+
       </View>
     )
   }
@@ -30,7 +39,7 @@ class PhotoRendering extends React.Component {
     if(this.props.withButton){
       return (
         <View flexDirection = {'row'} style = {{flex: 1, marginRight: 15}}>
-          <Text style = {styles.search_item_text}>Photos</Text>
+          <Text style = {styles.search_item_text}>Photos <Text style = {{fontSize :25}}>(max {maxPhotos})</Text></Text>
           <View style = {{flex :1, justifyContent : 'center', alignItems : 'flex-end'}}>
             <Icon.Button
               name="plus"

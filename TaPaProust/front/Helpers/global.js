@@ -15,3 +15,5 @@ export const screens = {
   USERS_BOOK : 'users_book',
   FAVORITES : 'favorites'
 }
+
+export const maxPhotos = 4
