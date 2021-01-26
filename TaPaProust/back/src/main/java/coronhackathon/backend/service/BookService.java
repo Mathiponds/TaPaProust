@@ -50,9 +50,7 @@ public class BookService {
     }
 
     public List<Book> getBooks(String title, String author, String edition) {
-        System.out.println(bookRepository.findByEdition(edition));
-        return bookRepository.findByEdition(edition);
-        /*if(title!=null){
+        if(title!=null){
             if(author!=null){
                 if(edition!=null){
                     return bookRepository.findByTitleAndAuthorAndEdition(title, author,edition);
@@ -81,7 +79,7 @@ public class BookService {
                 }
 
             }
-        }*/
+        }
     }
 
     public void removeBook(long bookId) {
