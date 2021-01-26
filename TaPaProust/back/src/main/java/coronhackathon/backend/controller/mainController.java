@@ -63,8 +63,14 @@ public class mainController {
     }
 
     @PostMapping("/api/modifyBook")
-    public void modifyBook(@RequestParam long bookId, @RequestBody Book book){
-        bookService.modifyBook(bookId, book);
+    public void modifyBook(@RequestParam long bookId,
+                           @RequestParam String title,
+                           @RequestParam String author,
+                           @RequestParam String edition,
+                           @RequestParam String state,
+                           @RequestParam String language,
+                           @RequestParam String price){
+        bookService.modifyBook(bookId, title, author, edition, state, language, price);
     }
 
 

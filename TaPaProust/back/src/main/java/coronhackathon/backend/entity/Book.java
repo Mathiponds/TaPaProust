@@ -36,13 +36,13 @@ public class Book {
     //////////     Methodes      //////////
     ///////////////////////////////////////
 
-    public void update(Book bookUpdate){
-        this.title = bookUpdate.title;
-        this.author = bookUpdate.author;
-        this.edition = bookUpdate.edition;
-        this.state = bookUpdate.state;
-        this.language = bookUpdate.language;
-        this.price = bookUpdate.price;
+    public void update(String title, String author, String edition, String state, String language, String price){
+        this.title = title;
+        this.author = author;
+        this.edition = edition;
+        this.state = state;
+        this.language = language;
+        this.price = price;
     }
 
     ///////////////////////////////////////

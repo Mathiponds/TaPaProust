@@ -33,10 +33,12 @@ public class BookService {
 //    }
 
 
-    public void modifyBook(long bookId, Book bookUpdate) {
+    public void modifyBook(long bookId, String title, String author, String edition, String state, String language, String price) {
         Book b = checkBookExists(bookRepository.findById(bookId), "id", ""+bookId);
-        b.update(bookUpdate);
+        b.update(title,author, edition, state, language, price);
+        bookRepository.save(b);
     }
+
     public void addBook(String title, String author, String edition, String state, String mailOfOwner, String language, String price) {
         Book book = new Book();
         book.setTitle(title);
@@ -100,6 +102,7 @@ public class BookService {
         }
         return ou.get();
     }
+
 
 
 }
