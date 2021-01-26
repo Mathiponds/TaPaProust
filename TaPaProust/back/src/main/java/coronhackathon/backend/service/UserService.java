@@ -18,6 +18,11 @@ public class UserService {
         return userRepository.findAll();
     }
 
+    public void addUser(String mail, String pwdHash, String phone){
+        User u = new User();
+        u.setMail(mail); u.setPhone(phone);u.setPwdHash(pwdHash);
+        insert(u);
+    }
     public void insert(User user){
         if (userRepository.findByMail(user.getMail()).isPresent())
             throw new ResponseStatusException(HttpStatus.CONFLICT, "user with mail : " + user.getMail() + " already exists");

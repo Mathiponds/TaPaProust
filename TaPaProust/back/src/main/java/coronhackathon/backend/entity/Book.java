@@ -31,18 +31,7 @@ public class Book {
     @Column(nullable = false)
     private String price;
 
-    public Book(String title, String author, String edition,
-                String state, String language, long sold_by_id,
-                String price){
-        this.title = title;
-        this.author = author;
-        this.edition = edition;
-        this.state = state;
-        this.language = language;
-        this.sold_by_id = sold_by_id;
-        this.price = price;
 
-    }
     ///////////////////////////////////////
     //////////     Methodes      //////////
     ///////////////////////////////////////
@@ -95,10 +84,6 @@ public class Book {
     ///////////////////////////////////////
     //////////      Setters      //////////
     ///////////////////////////////////////
-
-    public void setId(long id) {
-        this.id = id;
-    }
 
     public void setAuthor(String author) {
         this.author = author;

@@ -1,6 +1,7 @@
 package coronhackathon.backend.controller;
 
 import coronhackathon.backend.entity.Book;
+import coronhackathon.backend.entity.User;
 import coronhackathon.backend.service.BookService;
 import coronhackathon.backend.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +19,12 @@ public class mainController {
     private BookService bookService;
 
     @GetMapping("/")
-    public String hello(@RequestParam(defaultValue = "Moi") String name){ //Ajouter ?name=Votreprenom à la fin de l'URL
+    public String hello(@RequestParam String name){ //Ajouter ?name=Votreprenom à la fin de l'URL
+        return "Je m'appelle "+name;
+    }
+
+    @RequestMapping(path = "/helle/{name}", method = RequestMethod.GET)
+    public String test2(@PathVariable String name){ //Ajouter ?name=Votreprenom à la fin de l'URL
         return "Je m'appelle "+name;
     }
 
@@ -31,9 +37,10 @@ public class mainController {
     // essayer de faire en sorte que si une entrée est vide ça soit pas un problème
     // et que s'il y a une petite faute d'ortographe ce soit pas grave
     @GetMapping("/api/getBooks")
-    public List<Book> getBooks(@RequestParam String title,
-                               @RequestParam String author,
-                               @RequestParam String edition){
+    public List<Book> getBooks(@RequestParam (defaultValue = "") String title,
+                               @RequestParam (defaultValue = "") String author,
+                               @RequestParam (defaultValue = "") String edition){
+        System.out.println(title+" "+ author+" "+ edition);
         return bookService.getBooks(title, author, edition);
     }
 
@@ -57,13 +64,38 @@ public class mainController {
                         @RequestParam String language,
                         @RequestParam String price) {
         bookService.addBook(title, author, edition, state,
-                principal.getName(), language, price);
+                "math@tapaproust.ch", language, price);
     }
 
     @PostMapping("/api/modifyBook")
     public void modifyBook(@RequestParam long bookId, @RequestBody Book book){
         bookService.modifyBook(bookId, book);
     }
+
+
+    @PostMapping("/api/removeBook")
+    public void modifyBook(@RequestParam long bookId){
+        bookService.removeBook(bookId);
+    }
+
+
+    /*******************************************/
+    /*************     USERS       *************/
+    /*******************************************/
+    @PostMapping("/api/addUser")
+    public void addUser(Principal principal,
+                        @RequestParam String mail,
+                        @RequestParam String pwdHash,
+                        @RequestParam String phone) {
+        userService.addUser(mail, pwdHash, phone);
+    }
+
+    @GetMapping("/api/getAllUsers")
+    public List<User> getAllUsers(){
+        return userService.getAllUsers();
+    }
+
+
 
     //ToDo
     @GetMapping("/api/addToFav")

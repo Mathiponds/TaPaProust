@@ -38,49 +38,63 @@ public class BookService {
         b.update(bookUpdate);
     }
     public void addBook(String title, String author, String edition, String state, String mailOfOwner, String language, String price) {
-        Book book = new Book(title, author, edition, state, language, userRepository.findByMail(mailOfOwner).get().getId(), price);
+        Book book = new Book();
+        book.setTitle(title);
+        book.setAuthor(author);
+        book.setEdition(edition);
+        book.setState(state);
+        book.setLanguage(language);
+        book.setPrice(price);
+        book.setSold_by(userRepository.findByMail(mailOfOwner).get().getId());
         bookRepository.save(book);
     }
 
     public List<Book> getBooks(String title, String author, String edition) {
-        if(!title.equals("")){
-            if(!author.equals("")){
-                if(!edition.equals("")){
+        System.out.println(bookRepository.findByEdition(edition));
+        return bookRepository.findByEdition(edition);
+        /*if(title!=null){
+            if(author!=null){
+                if(edition!=null){
                     return bookRepository.findByTitleAndAuthorAndEdition(title, author,edition);
                 }else{
                     return bookRepository.findByTitleAndAuthor(title, author);
                 }
             }else{
-                if(!edition.equals("")){
+                if(edition!=null){
                     return bookRepository.findByTitleAndEdition(title, edition);
                 }else{
                     return bookRepository.findByTitle(title);
                 }
             }
         }else{
-            if(!author.equals("")){
-                if(!edition.equals("")){
+            if(author!=null){
+                if(edition!=null){
                     return bookRepository.findByAuthorAndEdition(author,edition);
                 }else{
                     return bookRepository.findByAuthor(author);
                 }
             }else{
-                if(!edition.equals("")){
+                if(edition!=null){
                     return bookRepository.findByEdition(edition);
                 }else{
                     throw new ResponseStatusException(HttpStatus.NOT_FOUND, "All the entries are null");
                 }
 
             }
-        }
+        }*/
     }
+
+    public void removeBook(long bookId) {
+        bookRepository.deleteById(bookId);
+    }
+
+
     private Book checkBookExists(Optional<Book> ou, String name, String value){
         if(!ou.isPresent()){
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "book with "+name+" : " + value + " not found");
         }
         return ou.get();
     }
-
 
 
 }
