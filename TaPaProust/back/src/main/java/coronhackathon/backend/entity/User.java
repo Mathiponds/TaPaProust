@@ -20,6 +20,10 @@ public class User {
         return Id;
     }
 
+    public void setId(long id) {
+        Id = id;
+    }
+
     public String getMail() {
         return mail;
     }

@@ -49,30 +49,37 @@ public class BookService {
         bookRepository.save(book);
     }
 
+    /**
+     * Returns all the books with a certain author title and edition that are each optional
+     * @param title
+     * @param author
+     * @param edition
+     * @return
+     */
     public List<Book> getBooks(String title, String author, String edition) {
-        if(title!=null){
-            if(author!=null){
-                if(edition!=null){
+        if(!title.equals("")){
+            if(!author.equals("")){
+                if(!edition.equals("")){
                     return bookRepository.findByTitleAndAuthorAndEdition(title, author,edition);
                 }else{
                     return bookRepository.findByTitleAndAuthor(title, author);
                 }
             }else{
-                if(edition!=null){
+                if(!edition.equals("")){
                     return bookRepository.findByTitleAndEdition(title, edition);
                 }else{
                     return bookRepository.findByTitle(title);
                 }
             }
         }else{
-            if(author!=null){
-                if(edition!=null){
+            if(!author.equals("")){
+                if(!edition.equals("")){
                     return bookRepository.findByAuthorAndEdition(author,edition);
                 }else{
                     return bookRepository.findByAuthor(author);
                 }
             }else{
-                if(edition!=null){
+                if(!edition.equals("")){
                     return bookRepository.findByEdition(edition);
                 }else{
                     throw new ResponseStatusException(HttpStatus.NOT_FOUND, "All the entries are null");

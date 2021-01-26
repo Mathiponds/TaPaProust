@@ -23,38 +23,33 @@ public class mainController {
         return "Je m'appelle "+name;
     }
 
-    @RequestMapping(path = "/helle/{name}", method = RequestMethod.GET)
-    public String test2(@PathVariable String name){ //Ajouter ?name=Votreprenom à la fin de l'URL
-        return "Je m'appelle "+name;
-    }
 
-//    @GetMapping("/book")
-//    public Book getBook(){ //Ajouter ?name=Votreprenom à la fin de l'URL
-//        return new Book();
-//    }
-
-    // get all users with a certain title, author and edition
-    // essayer de faire en sorte que si une entrée est vide ça soit pas un problème
-    // et que s'il y a une petite faute d'ortographe ce soit pas grave
     @GetMapping("/api/getBooks")
     public List<Book> getBooks(@RequestParam (defaultValue = "") String title,
                                @RequestParam (defaultValue = "") String author,
                                @RequestParam (defaultValue = "") String edition){
-        System.out.println(title+" "+ author+" "+ edition);
         return bookService.getBooks(title, author, edition);
     }
 
+    /**
+     * Get all the books from the ook repository
+     * @return a list containing all these books
+     */
     @GetMapping("/api/getAllBooks")
     public List<Book> getAllBooks(){
         return bookService.getAllBooks();
     }
 
-
-//    @PostMapping("/addBook")
-//    public void addBook(@RequestBody Book book) {
-//        bookService.addBook(book);
-//    }
-
+    /**
+     * Add a book to the repository
+     * @param principal
+     * @param title
+     * @param author
+     * @param edition
+     * @param state
+     * @param language
+     * @param price
+     */
     @PostMapping("/api/addBook")
     public void addBook(Principal principal,
                         @RequestParam String title,
