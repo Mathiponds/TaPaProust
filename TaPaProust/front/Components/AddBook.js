@@ -40,7 +40,7 @@ class AddBook extends React.Component{
     this._deletePhoto = this._deletePhoto.bind(this)
   }
 
-  async componentDidMount() {
+  componentDidMount() {
     this.props.navigation.setOptions({headerTitleStyle : {
       fontFamily : 'lobster-regular', fontSize : 30}})
   }
@@ -91,15 +91,15 @@ class AddBook extends React.Component{
           this.language === "" || this.bookState === "" || this.price === ""
   }
 
-//// TODO:
+
   _verifyBook(){
     this.firstTime = false
-    //if(!this._isOneInputEmpty()){
+    if(!this._isOneInputEmpty()){
       this.props.navigation.navigate('Vérification', {title :this.title,
         author : this.author, edition : this.edition, language : this.language,
         price : this.price, bookState : this.bookState, modify : this.addBook,
         photos : this.state.photos})
-    //  }
+     }
   }
 
   _getMyTextInput(titre, placeholder, defaultValue, input, isEmpty, emptyMessage){

@@ -13,6 +13,7 @@ class Login extends React.Component{
     this.password = ""
 
     this._login = this._login.bind(this)
+    this._register = this._register.bind(this)
     this._onChangedInput = this._onChangedInput.bind(this)
 
     this.state = {
@@ -36,6 +37,8 @@ class Login extends React.Component{
         await Font.loadAsync({
             'dancing-semibold' : require('../assets/fonts/DancingScript-SemiBold.ttf')
         });
+        this.props.navigation.setOptions({headerShown: true,headerTitleStyle : {
+          fontFamily : 'lobster-regular', fontSize : 30}})
         this.setState({ assetsLoaded: true });
     }
 
@@ -55,7 +58,7 @@ class Login extends React.Component{
   }
 
   _register(){
-
+    this.props.navigation.navigate('Inscription')
   }
 
   _loginItemBox(){
@@ -115,9 +118,10 @@ const styles = StyleSheet.create({
     flex : 1
   },
   title_box : {
-    flex : 2,
+    height : 70,
     alignItems : 'center',
     justifyContent : 'center',
+    marginBottom :40
   },
   title : {
     fontSize : 55,

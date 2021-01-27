@@ -8,8 +8,9 @@ export const inputs = {
   MAIL : 'mail',
   NAME : 'name',
   PHONE : 'phone',
+  USER_MAIL : 'userMail',
   PASSWORD : 'password',
-  USER_MAIL : 'userMail'
+  PASSWORD_BIS : 'passwordBis',
 }
 
 export const screens = {

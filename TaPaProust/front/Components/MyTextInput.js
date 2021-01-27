@@ -3,13 +3,14 @@ import {View, Text, StyleSheet, TextInput} from 'react-native'
 
 import inputs from '../Helpers/global.js'
 class MyTextInput extends React.Component{
+
   _getTextInput(){
     return (
       <TextInput
         secureTextEntry = {this.props.secureTextEntry}
         style = {[styles.text_input, this.props.emptyInput?styles.empty_input:{}]}
         defaultValue = {this.props.defaultValue}
-        placeholder = {!this.props.secureTextEntry ? this.props.placeholder : ''}
+        placeholder = {this.props.placeholder}
         keyboardType = {this.props.keyboardType}
         onFocus = {()=> this.props.onFocus()}
         onChangeText = {(text) => this.props.onChangedInput(text, this.props.input)}
@@ -18,23 +19,33 @@ class MyTextInput extends React.Component{
     )
   }
 
-
+  _getPrecision(){
+    if(this.props.precision){
+      return (
+        <Text style = {styles.precision_text}>
+          {this.props.precision}
+        </Text>
+      )
+    }
+  }
 
   _getEmptyMessage(){
     if(this.props.emptyInput){
       return(
         <Text style = {styles.empty_input_text}>
-          Sélectionner {this.props.emptyInputMessage} !
+          {this.props.emptyInputMessage}
         </Text>
       )
     }
   }
+
   render(){
       return(
-        <View style = { styles.search_item_box}>
+        <View style = {styles.search_item_box}>
           <Text style = {styles.search_item_text}>
             {this.props.title}
           </Text>
+          {this._getPrecision()}
           {this._getTextInput()}
           {this._getEmptyMessage()}
         </View>
@@ -44,13 +55,12 @@ class MyTextInput extends React.Component{
 
 const styles = StyleSheet.create({
   search_item_box : {
-    height : 110
+    marginBottom :10
   },
   search_item_text : {
     fontFamily : 'dancing-regular',
     fontSize : 35,
-    paddingLeft : 10,
-    marginBottom : 5
+    paddingLeft : 10
   },
   text_input : {
     height : 40,
@@ -67,6 +77,11 @@ const styles = StyleSheet.create({
   },
   empty_input_text : {
     color : '#ff0000',
+    paddingLeft : 5
+  },
+  precision_text :{
+    fontSize : 15,
+    marginBottom : 5,
     paddingLeft : 5
   }
 })

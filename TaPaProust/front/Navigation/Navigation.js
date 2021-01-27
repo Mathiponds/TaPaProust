@@ -6,6 +6,7 @@ import {createStackNavigator} from '@react-navigation/stack'
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 
 import Login from '../Components/Login'
+import Register from '../Components/Register'
 
 import Search from '../Components/Search'
 import ResultOfSearch from '../Components/ResultOfSearch'
@@ -30,6 +31,8 @@ function MyHomeStackNavigator(){
         name = "Login" component={Login}/>
       <HomeStackNavigator.Screen
         name = "Home"  component={MyBooksTabNavigator}/>
+      <HomeStackNavigator.Screen
+        name = "Inscription"  component={Register}/>
     </HomeStackNavigator.Navigator>
   )
 }
