@@ -23,7 +23,13 @@ public class mainController {
         return "Je m'appelle "+name;
     }
 
-
+    /**
+     * Returns all the books with a certain author title and edition that are each optional
+     * @param title
+     * @param author
+     * @param edition
+     * @return
+     */
     @GetMapping("/api/getBooks")
     public List<Book> getBooks(@RequestParam (defaultValue = "") String title,
                                @RequestParam (defaultValue = "") String author,
@@ -62,6 +68,16 @@ public class mainController {
                 "math@tapaproust.ch", language, price);
     }
 
+    /**
+     * Modify certain values of a book
+     * @param bookId
+     * @param title
+     * @param author
+     * @param edition
+     * @param state
+     * @param language
+     * @param price
+     */
     @PostMapping("/api/modifyBook")
     public void modifyBook(@RequestParam long bookId,
                            @RequestParam String title,
@@ -73,8 +89,11 @@ public class mainController {
         bookService.modifyBook(bookId, title, author, edition, state, language, price);
     }
 
-
-    @PostMapping("/api/removeBook")
+    /**
+     * Romove a book with a certain Id
+     * @param bookId
+     */
+    @PostMapping("/admin/removeBook")
     public void modifyBook(@RequestParam long bookId){
         bookService.removeBook(bookId);
     }

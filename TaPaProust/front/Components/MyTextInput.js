@@ -6,12 +6,14 @@ class MyTextInput extends React.Component{
   _getTextInput(){
     return (
       <TextInput
+        secureTextEntry = {this.props.secureTextEntry}
         style = {[styles.text_input, this.props.emptyInput?styles.empty_input:{}]}
         defaultValue = {this.props.defaultValue}
-        placeholder = {this.props.placeholder}
+        placeholder = {!this.props.secureTextEntry ? this.props.placeholder : ''}
         keyboardType = {this.props.keyboardType}
         onFocus = {()=> this.props.onFocus()}
-        onChangeText = {(text) => this.props.onChangedInput(text, this.props.input)}>
+        onChangeText = {(text) => this.props.onChangedInput(text, this.props.input)}
+        >
       </TextInput>
     )
   }

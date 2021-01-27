@@ -1,5 +1,5 @@
 import React from 'react'
-import {StyleSheet, View, Text, TextInput, Button, TouchableOpacity,ActivityIndicator} from 'react-native'
+import {StyleSheet, View, Text, TextInput, TouchableOpacity,ActivityIndicator} from 'react-native'
 import * as Font from 'expo-font'
 
 import MyTextInput from './MyTextInput'
@@ -16,31 +16,11 @@ class Search extends React.Component{
 
       this._searchBooks = this._searchBooks.bind(this)
       this._onChangedInput = this._onChangedInput.bind(this)
-
-      this.state = {
-        assetsLoaded: false,
-      };
   }
 
   async componentDidMount() {
-        await Font.loadAsync({
-            'lobster-regular': require('../assets/fonts/Lobster-Regular.ttf')
-        });
-        await Font.loadAsync({
-            'dancing-bold' : require('../assets/fonts/DancingScript-Bold.ttf')
-        });
-        await Font.loadAsync({
-            'dancing-medium' : require('../assets/fonts/DancingScript-Medium.ttf')
-        });
-        await Font.loadAsync({
-            'dancing-regular' : require('../assets/fonts/DancingScript-Regular.ttf')
-        });
-        await Font.loadAsync({
-            'dancing-semibold' : require('../assets/fonts/DancingScript-SemiBold.ttf')
-        });
         this.props.navigation.setOptions({headerTitleStyle : {
           fontFamily : 'lobster-regular', fontSize : 30}})
-        this.setState({ assetsLoaded: true });
     }
 
   _onChangedInput(text, input){
@@ -62,13 +42,6 @@ class Search extends React.Component{
     author : this.searched_author, edition : this.search_edition})
     //this.props.navigation.navigate('BookList', {books :
     //getBooksFromApi(this.searched_title,this.searched_author,this.search_edition)})
-  }
-  _displayLoading() {
-    return (
-      <View style={styles.loading_container}>
-        <ActivityIndicator size='large' />
-      </View>
-    )
   }
 
   _searchedItemBox(){
@@ -94,23 +67,18 @@ class Search extends React.Component{
   }
 
   render(){
-    if(this.state.assetsLoaded) {
-    return (
-      <View style = {styles.main_container}>
-        <View style = { styles.title_box}>
-          <Text style = {styles.title}>
-            TaPaProust
-          </Text>
+      return (
+        <View style = {styles.main_container}>
+          <View style = { styles.title_box}>
+            <Text style = {styles.title}>
+              TaPaProust
+            </Text>
+          </View>
+          {this._searchedItemBox()}
+
         </View>
-        {this._searchedItemBox()}
-
-      </View>
-    )
-  }else {
-    return this._displayLoading()
+      )
   }
-  }
-
 }
 
 const styles = StyleSheet.create({

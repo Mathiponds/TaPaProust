@@ -2,14 +2,13 @@ import React from 'react'
 import {View, Text, StyleSheet, TouchableOpacity} from 'react-native'
 
 class MyButton extends React.Component{
-
   render(){
     return (
       <View style = {{alignItems : 'center'}}>
         <TouchableOpacity
-          style = {[styles.button_box, this.props.longText ? styles.button_box_long_text : {}]}
+          style = {[styles.button_box, this.props.longText ? styles.button_box_long_text : {}, this.props.reverse ? styles.reverseColor :{}]}
           onPress = {() => {this.props.onPress()}}>
-          <Text style = {[styles.button_text, this.props.longText? styles.button_long_text: {}]}>{this.props.title}
+          <Text style = {[styles.button_text, this.props.longText? styles.button_long_text: {}, this.props.reverse ? styles.reverseColor :{}]}>{this.props.title}
           </Text>
         </TouchableOpacity>
       </View>
@@ -39,6 +38,11 @@ const styles = StyleSheet.create({
   },
   button_long_text: {
     fontSize : 25
+  },
+  reverseColor : {
+    borderWidth :1,
+    backgroundColor : 'white',
+    color : '#000000'
   }
 })
 

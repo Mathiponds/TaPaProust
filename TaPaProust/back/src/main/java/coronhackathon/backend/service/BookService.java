@@ -51,13 +51,6 @@ public class BookService {
         bookRepository.save(book);
     }
 
-    /**
-     * Returns all the books with a certain author title and edition that are each optional
-     * @param title
-     * @param author
-     * @param edition
-     * @return
-     */
     public List<Book> getBooks(String title, String author, String edition) {
         if(!title.equals("")){
             if(!author.equals("")){
@@ -102,7 +95,4 @@ public class BookService {
         }
         return ou.get();
     }
-
-
-
 }

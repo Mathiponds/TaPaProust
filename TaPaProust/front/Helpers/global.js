@@ -7,7 +7,9 @@ export const inputs = {
   BOOK_STATE : 'bookState',
   MAIL : 'mail',
   NAME : 'name',
-  PHONE : 'phone'
+  PHONE : 'phone',
+  PASSWORD : 'password',
+  USER_MAIL : 'userMail'
 }
 
 export const screens = {
