@@ -5,6 +5,8 @@ import {View, Image,StyleSheet} from 'react-native'
 import {createStackNavigator} from '@react-navigation/stack'
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 
+import Login from '../Components/Login'
+
 import Search from '../Components/Search'
 import ResultOfSearch from '../Components/ResultOfSearch'
 import BookDetails from '../Components/BookDetails'
@@ -14,6 +16,26 @@ import UsersBooks from '../Components/UsersBooks'
 import Favorites from '../Components/Favorites'
 import Profil from '../Components/Profil'
 import ImageBrowser from '../Components/ImageBrowser'
+/*||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||| */
+/*||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||| */
+/*||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||| */
+
+const HomeStackNavigator = createStackNavigator()
+
+function MyHomeStackNavigator(){
+  return(
+    <HomeStackNavigator.Navigator
+    screenOptions={{ headerShown: false}}>
+      <HomeStackNavigator.Screen
+        name = "Login" component={Login}/>
+      <HomeStackNavigator.Screen
+        name = "Home"  component={MyBooksTabNavigator}/>
+    </HomeStackNavigator.Navigator>
+  )
+}
+/*||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||| */
+/*||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||| */
+/*||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||| */
 
 const SearchStackNavigator = createStackNavigator()
 
@@ -183,4 +205,4 @@ const styles = StyleSheet.create({
   }
 })
 
-export default MyBooksTabNavigator
+export default MyHomeStackNavigator

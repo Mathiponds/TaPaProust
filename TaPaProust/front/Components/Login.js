@@ -51,7 +51,7 @@ class Login extends React.Component{
   }
 
   _login(){
-    console.log("login")
+    this.props.navigation.replace('Home')
   }
 
   _register(){

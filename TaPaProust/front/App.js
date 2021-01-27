@@ -8,14 +8,11 @@ import Login from './Components/Login'
 import Navigation from './Navigation/Navigation'
 
 export default function App() {
-  // return (
-  //   <NavigationContainer>
-  //     <Navigation/>
-  //   </NavigationContainer>
-  // );
-  return(
-    <Login/>
-  )
+  return (
+    <NavigationContainer>
+      <Navigation/>
+    </NavigationContainer>
+  );
 }
 
 const styles = StyleSheet.create({
