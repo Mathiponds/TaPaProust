@@ -7,14 +7,13 @@ class MyTextInput extends React.Component{
   _getTextInput(){
     return (
       <TextInput
-        secureTextEntry = {this.props.secureTextEntry}
         style = {[styles.text_input, this.props.emptyInput?styles.empty_input:{}]}
         defaultValue = {this.props.defaultValue}
         placeholder = {this.props.placeholder}
         keyboardType = {this.props.keyboardType}
         onFocus = {()=> this.props.onFocus()}
         onChangeText = {(text) => this.props.onChangedInput(text, this.props.input)}
-        >
+        secureTextEntry = {this.props.secureTextEntry}>
       </TextInput>
     )
   }
@@ -55,11 +54,11 @@ class MyTextInput extends React.Component{
 
 const styles = StyleSheet.create({
   search_item_box : {
-    marginBottom :10
+    marginBottom :20
   },
   search_item_text : {
-    fontFamily : 'dancing-regular',
-    fontSize : 35,
+    fontFamily : 'LobsterTwo-Italic',
+    fontSize : 30,
     paddingLeft : 10
   },
   text_input : {
@@ -76,11 +75,14 @@ const styles = StyleSheet.create({
     borderWidth: 2
   },
   empty_input_text : {
+//  fontFamily : 'dancing-regular',
+  //fontSize : 18,
     color : '#ff0000',
     paddingLeft : 5
   },
   precision_text :{
-    fontSize : 15,
+    fontFamily : 'dancing-regular',
+    fontSize : 18,
     marginBottom : 5,
     paddingLeft : 5
   }

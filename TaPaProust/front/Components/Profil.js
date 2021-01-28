@@ -76,7 +76,7 @@ class Profil extends React.Component{
             <Text style = {styles.entry_text}>Mon mail:   </Text>
           {user.mail}</Text>
           <Text style = {styles.text}>
-            <Text style = {styles.entry_text}>Mon télphone:   </Text>
+            <Text style = {styles.entry_text}>Mon téléphone:   </Text>
           {user.phone}</Text>
           <MyButton longText = {true} onPress = {this._modifyNumber} title = {'Modifier mon numéro'}/>
           <MyButton longText = {true} onPress = {this._modifyPW} title = {'Modifier mon mot de passe'}/>
@@ -95,7 +95,7 @@ const styles = StyleSheet.create({
     margin : 10
   },
   entry_text : {
-    fontFamily : 'lobster-regular'
+    fontFamily : 'LobsterTwo-Italic'
   },
   text : {
     fontFamily : 'dancing-regular',

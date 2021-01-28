@@ -37,6 +37,15 @@ class Login extends React.Component{
         await Font.loadAsync({
             'dancing-semibold' : require('../assets/fonts/DancingScript-SemiBold.ttf')
         });
+        await Font.loadAsync({
+            'LobsterTwo-Regular' : require('../assets/fonts/LobsterTwo-Regular.ttf')
+        });
+        await Font.loadAsync({
+            'LobsterTwo-Bold' : require('../assets/fonts/LobsterTwo-Bold.ttf')
+        });
+        await Font.loadAsync({
+            'LobsterTwo-Italic' : require('../assets/fonts/LobsterTwo-Italic.ttf')
+        });
         this.props.navigation.setOptions({headerShown: true,headerTitleStyle : {
           fontFamily : 'lobster-regular', fontSize : 30}})
         this.setState({ assetsLoaded: true });

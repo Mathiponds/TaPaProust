@@ -51,7 +51,7 @@ const styles = StyleSheet.create({
     bottom : 0,
     width : 50,
     backgroundColor : 'white',
-    fontFamily : 'dancing-regular'
+    fontFamily : 'LobsterTwo-Italic'
   },
   text_box :{
     flexDirection : 'column',
@@ -59,8 +59,8 @@ const styles = StyleSheet.create({
     flex : 2
   },
   entry_text : {
-    fontFamily : 'lobster-regular',
-    fontSize : 18
+    fontFamily : 'LobsterTwo-Italic',
+    fontSize : 20
   },
   text : {
     fontFamily : 'dancing-regular',

@@ -72,7 +72,7 @@ const styles = StyleSheet.create({
     width: 90
   },
   search_item_text : {
-    fontFamily : 'dancing-regular',
+    fontFamily : 'LobsterTwo-Italic',
     fontSize : 35,
     paddingLeft : 10,
     marginBottom : 5

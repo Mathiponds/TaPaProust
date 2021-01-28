@@ -40,7 +40,7 @@ class MyDropdownPicker extends React.Component{
 
 const styles = StyleSheet.create({
   search_item_text : {
-    fontFamily : 'dancing-regular',
+    fontFamily : 'LobsterTwo-Italic',
     fontSize : 35,
     paddingLeft : 10,
     marginBottom : 5

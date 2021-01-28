@@ -102,9 +102,9 @@ const styles = StyleSheet.create({
     marginBottom :10
   },
   price : {
-    fontSize : 20,
+    fontSize : 24,
     alignItems : 'center',
-    fontFamily : 'lobster-regular'
+    fontFamily : 'LobsterTwo-Italic'
   },
   button_box : {
     backgroundColor : 'black',
@@ -124,7 +124,8 @@ const styles = StyleSheet.create({
     flexDirection : 'column'
   },
   entry_text : {
-    fontFamily : 'lobster-regular'
+    fontFamily : 'LobsterTwo-Italic',
+    fontSize : 24
   },
   text : {
     fontSize : 20,
