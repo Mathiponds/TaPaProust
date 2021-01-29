@@ -1,6 +1,7 @@
 import React from 'react'
 import {View, Text, StyleSheet, TextInput, ActivityIndicator} from 'react-native'
 import * as Font from 'expo-font'
+import axios from 'axios';
 
 import MyTextInput from './MyTextInput'
 import MyButton from './MyButton'
@@ -67,7 +68,11 @@ class Login extends React.Component{
   }
 
   _register(){
-    this.props.navigation.navigate('Inscription')
+    const url = 'https://curvy-bat-28.loca.lt/api/getAllBooks'
+    axios.get(url)
+      .then((response) => console.log(response.data))
+      .catch((error) => console.error(error))
+    //this.props.navigation.navigate('Inscription')
   }
 
   _loginItemBox(){
