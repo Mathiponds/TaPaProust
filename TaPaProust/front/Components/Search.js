@@ -6,6 +6,7 @@ import MyTextInput from './MyTextInput'
 import MyButton from './MyButton'
 import books from '../Helpers/books'
 import {inputs} from '../Helpers/global.js'
+import API from '../API/BooksAPI'
 
 class Search extends React.Component{
   constructor(props){
@@ -14,8 +15,12 @@ class Search extends React.Component{
       this.searched_author = ""
       this.searched_edition = ""
 
+
       this._searchBooks = this._searchBooks.bind(this)
       this._onChangedInput = this._onChangedInput.bind(this)
+
+      this.state = {
+      }
   }
 
   async componentDidMount() {
@@ -37,9 +42,20 @@ class Search extends React.Component{
     }
   }
 
+
   _searchBooks(){
-    this.props.navigation.navigate('Résultat', {books : books, title : this.searched_title,
-    author : this.searched_author, edition : this.search_edition})
+    console.log("search")
+    API.getAllBooks().then((response)=>{
+      this.setState({
+        data : response.data
+      })
+    })
+    //console.log("My data")
+    //console.log(this.state.data)
+    //console.log(this.state.data)
+    //console.log(data)
+     this.props.navigation.navigate('Résultat', {books : this.state.data, title : this.searched_title,
+     author : this.searched_author, edition : this.search_edition})
     //this.props.navigation.navigate('BookList', {books :
     //getBooksFromApi(this.searched_title,this.searched_author,this.search_edition)})
   }

@@ -1,10 +1,16 @@
-const HOST = '192.168.1.7'
-const HOST_WITH_PORT = 'http://${HOST}:3000';
+import React from 'react'
+import axios from 'axios';
+const HOST = 'https://weak-badger-37.loca.lt'
+const instance = axios.create({
+  baseURL: HOST,
+  headers : { 'content-type':'application/json' // override instance defaults
+        },
+})
 
-
-export default function getBooks() {
-  const url = 'http://localhost:8080'
-  return fetch(url)
-    .then((response) => response.json())
-    .catch((error) => console.error(error))
+export default  {
+  getAllBooks : () =>
+    instance({
+      'method':'GET',
+      'url':'/api/getAllBooks',
+  })
 }
