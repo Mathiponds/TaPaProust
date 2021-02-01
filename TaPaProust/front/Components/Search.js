@@ -56,10 +56,14 @@ class Search extends React.Component{
     this.setState({
       isLoading :true
     })
-    await API.getAllBooks().then((response)=>{
-      this.setState({
-        data : response.data,
-        isLoading : false
+    await API.getBooks(this.searched_title, this.searched_author, this.search_edition)
+      .then((response)=>{
+        this.setState({
+          data : response.data,
+          isLoading : false
+      })
+      .catch((error) => {
+          console.log(error)
       })
     })
      this.props.navigation.navigate('Résultat', {books : this.state.data, title : this.searched_title,

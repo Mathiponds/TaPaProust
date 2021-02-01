@@ -3,6 +3,7 @@ import {View, Text, StyleSheet, ScrollView, Alert, Image} from 'react-native'
 
 import MyButton from './MyButton'
 import PhotoRendering from './PhotoRendering'
+import API from '../API/BooksAPI'
 
 class VerifyBook extends React.Component{
   constructor(props){
@@ -16,8 +17,15 @@ class VerifyBook extends React.Component{
     this.setState({ assetsLoaded: true });
   }
 
-  _confirmBook(){
+  async  _confirmBook(){
+    console.log(this.props.route.params)
     // TODO: Send the book to the backend
+    if(this.modify){
+      await API.postBook(this.props.route.params.title, this.props.route.params.author, this.props.route.params.edition, this.props.route.params.language,  this.props.route.params.price, this.props.route.params.bookState)
+    }else{
+      
+    }
+
     const text = this.modify ? "Votre livre a bien été ajouté" : "Votre livre a bien été modifié"
     Alert.alert(
       "Confirmation",
