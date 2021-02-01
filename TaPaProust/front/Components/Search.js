@@ -4,7 +4,6 @@ import * as Font from 'expo-font'
 
 import MyTextInput from './MyTextInput'
 import MyButton from './MyButton'
-import books from '../Helpers/books'
 import {inputs} from '../Helpers/global.js'
 import API from '../API/BooksAPI'
 
@@ -20,6 +19,7 @@ class Search extends React.Component{
       this._onChangedInput = this._onChangedInput.bind(this)
 
       this.state = {
+        isLoading : false
       }
   }
 
@@ -42,22 +42,28 @@ class Search extends React.Component{
     }
   }
 
+  _displayLoading() {
+    if (this.state.isLoading) {
+      return (
+        <View style={styles.loading_container}>
+          <ActivityIndicator size="large" color="#000000" />
+        </View>
+      )
+    }
+  }
 
-  _searchBooks(){
-    console.log("search")
-    API.getAllBooks().then((response)=>{
+  async _searchBooks(){
+    this.setState({
+      isLoading :true
+    })
+    await API.getAllBooks().then((response)=>{
       this.setState({
-        data : response.data
+        data : response.data,
+        isLoading : false
       })
     })
-    //console.log("My data")
-    //console.log(this.state.data)
-    //console.log(this.state.data)
-    //console.log(data)
      this.props.navigation.navigate('Résultat', {books : this.state.data, title : this.searched_title,
      author : this.searched_author, edition : this.search_edition})
-    //this.props.navigation.navigate('BookList', {books :
-    //getBooksFromApi(this.searched_title,this.searched_author,this.search_edition)})
   }
 
   _searchedItemBox(){
@@ -91,7 +97,7 @@ class Search extends React.Component{
             </Text>
           </View>
           {this._searchedItemBox()}
-
+          {this._displayLoading()}
         </View>
       )
   }

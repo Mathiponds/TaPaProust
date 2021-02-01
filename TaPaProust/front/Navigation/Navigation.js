@@ -51,7 +51,7 @@ function MySearchStackNavigator(){
       <SearchStackNavigator.Screen
         name = "Résultat" component={ResultOfSearch}/>
       <SearchStackNavigator.Screen
-        name = "Détail du livre" component={BookDetails}/>
+        name = "Détails du livre" component={BookDetails}/>
     </SearchStackNavigator.Navigator>
   )
 }
@@ -85,7 +85,7 @@ function MyUsersBooksStackNavigator(){
       <UsersBooksStackNavigator.Screen
         name = "Mes livres" component={UsersBooks}/>
       <UsersBooksStackNavigator.Screen
-        name = "Détail du livre" component={BookDetails}/>
+        name = "Détails du livre" component={BookDetails}/>
       <UsersBooksStackNavigator.Screen
         name = "Modifier un livre" component={AddBook}/>
       <UsersBooksStackNavigator.Screen

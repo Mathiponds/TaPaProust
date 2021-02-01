@@ -67,7 +67,6 @@ class Login extends React.Component{
   }
 
   _register(){
-    console.log(API.get)
     this.props.navigation.navigate('Inscription')
   }
 
