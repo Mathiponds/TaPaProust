@@ -25,13 +25,18 @@ public class mainController {
     }
 
     @GetMapping("/login_successful")
-    public String logSucess(){ //Ajouter ?name=Votreprenom à la fin de l'URL
+    public String loginSucess(){ //Ajouter ?name=Votreprenom à la fin de l'URL
         return "Login is successful";
     }
 
     @GetMapping("/login_failure")
-    public String logFailure(){ //Ajouter ?name=Votreprenom à la fin de l'URL
+    public String loginFailure(){ //Ajouter ?name=Votreprenom à la fin de l'URL
         return "Login is failure";
+    }
+
+    @GetMapping("/logout_successful")
+    public String logoutSucess(){ //Ajouter ?name=Votreprenom à la fin de l'URL
+        return "Logout is successful";
     }
 
     /**

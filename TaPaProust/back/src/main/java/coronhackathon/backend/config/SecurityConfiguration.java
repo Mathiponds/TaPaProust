@@ -31,7 +31,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .loginPage("/login")
                 .loginProcessingUrl("/login")
                 .defaultSuccessUrl("/login_successful", true)
-                .failureUrl("/login_failure");
+                .failureUrl("/login_failure")
+                .and()
+                .logout()
+                .logoutSuccessUrl("/logout_successful");
     }
 
     @Bean
