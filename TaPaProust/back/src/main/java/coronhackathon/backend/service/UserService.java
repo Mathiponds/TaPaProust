@@ -26,7 +26,7 @@ public class UserService {
     //Should use register
     public void addUser(String mail, String pwdHash, String phone){
         User u = new User();
-        u.setMail(mail); u.setPhone(phone);u.setPwdHash(pwdHash);
+        u.setMail(mail); u.setPhone(phone);u.setPwdHash(passwordEncoder.encode(pwdHash));
         insert(u);
     }
     public void insert(User user){
@@ -65,7 +65,7 @@ public class UserService {
 
     private User checkBookExists(Optional<User> ou, String name, String value){
         if(!ou.isPresent()){
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "book with "+name+" : " + value + " not found");
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "user with "+name+" : " + value + " not found");
         }
         return ou.get();
     }

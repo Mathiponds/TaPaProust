@@ -22,7 +22,16 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     }
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
-        httpSecurity.csrf().disable().authorizeRequests().antMatchers("/").permitAll();
+        httpSecurity
+                .csrf().disable()
+                .authorizeRequests()
+                .antMatchers("/api/**").authenticated()
+                .and()
+                .formLogin()
+                .loginPage("/login")
+                .loginProcessingUrl("/login")
+                .defaultSuccessUrl("/login_successful", true)
+                .failureUrl("/login_failure");
     }
 
     @Bean

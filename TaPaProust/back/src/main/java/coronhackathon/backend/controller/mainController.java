@@ -5,6 +5,7 @@ import coronhackathon.backend.entity.User;
 import coronhackathon.backend.service.BookService;
 import coronhackathon.backend.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,8 +20,18 @@ public class mainController {
     private BookService bookService;
 
     @GetMapping("/")
-    public String hello(@RequestParam String name){ //Ajouter ?name=Votreprenom à la fin de l'URL
+    public String hello(@RequestParam (defaultValue = "Ma") String name){ //Ajouter ?name=Votreprenom à la fin de l'URL
         return "Je m'appelle "+name;
+    }
+
+    @GetMapping("/login_successful")
+    public String logSucess(){ //Ajouter ?name=Votreprenom à la fin de l'URL
+        return "Login is successful";
+    }
+
+    @GetMapping("/login_failure")
+    public String logFailure(){ //Ajouter ?name=Votreprenom à la fin de l'URL
+        return "Login is failure";
     }
 
     /**
@@ -65,7 +76,7 @@ public class mainController {
                         @RequestParam String language,
                         @RequestParam String price) {
         bookService.addBook(title, author, edition, state,
-                "math@tapaproust.ch", language, price);
+                principal.getName(), language, price);
     }
 
     /**
@@ -78,6 +89,7 @@ public class mainController {
      * @param language
      * @param price
      */
+    @Modifying
     @PostMapping("/api/modifyBook")
     public void modifyBook(@RequestParam long bookId,
                            @RequestParam String title,
