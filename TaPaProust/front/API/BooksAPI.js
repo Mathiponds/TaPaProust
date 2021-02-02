@@ -1,6 +1,6 @@
 import React from 'react'
 import axios from 'axios';
-const HOST = 'https://serious-eagle-45.loca.lt/'
+const HOST = 'https://curly-eagle-36.loca.lt/'
 const instance = axios.create({
   baseURL: HOST,
   headers : { 'content-type':'application/json' // override instance defaults
@@ -17,6 +17,11 @@ export default  {
       'url':'/login',
       'data' : bodyFormData,
       'headers' : {'content-type':'multipart/form-data'}
+  })},
+  logout : () => {
+    return instance({
+      'method':'POST',
+      'url':'/logout',
   })},
   getAllBooks : () =>
     instance({

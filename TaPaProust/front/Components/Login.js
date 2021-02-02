@@ -10,8 +10,8 @@ import API from '../API/BooksAPI'
 class Login extends React.Component{
   constructor(props){
     super(props)
-    this.userMail = ""
-    this.password = ""
+    this.userMail = "u@tapaproust.ch"
+    this.password = "u"
 
 
     this._login = this._login.bind(this)

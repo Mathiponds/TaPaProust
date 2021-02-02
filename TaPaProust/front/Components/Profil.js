@@ -4,6 +4,7 @@ import {ScrollView, StyleSheet, View, Text} from 'react-native'
 import MyButton from './MyButton'
 import MyTextInput from './MyTextInput'
 import {inputs} from '../Helpers/global.js'
+import API from '../API/BooksAPI'
 
 class Profil extends React.Component{
   constructor(props){
@@ -15,6 +16,7 @@ class Profil extends React.Component{
     this._onChangedInput = this._onChangedInput.bind(this)
     this._modifyPW = this._modifyPW.bind(this)
     this._modifyNumber = this._modifyNumber.bind(this)
+    this._logout = this._logout.bind(this)
   }
 
   async componentDidMount() {
@@ -51,6 +53,12 @@ class Profil extends React.Component{
   _modifyPW(){
   }
 
+  _logout(){
+    API.logout()
+    .then(response => this.props.navigation.navigate("Login"))
+    .catch((error) => console.log(error))
+  }
+
   _sendPW(){
     //// TODO:
     const text = "Votre nouveau mot de passe à été envoyé à : "+this._getUser().mail
@@ -81,6 +89,8 @@ class Profil extends React.Component{
           <MyButton longText = {true} onPress = {this._modifyNumber} title = {'Modifier mon numéro'}/>
           <MyButton longText = {true} onPress = {this._modifyPW} title = {'Modifier mon mot de passe'}/>
           <MyButton longText = {true} onPress = {this._sendPW} title = {'J\'ai oublié mon mot de passe'}/>
+          <MyButton longText = {true} onPress = {this._logout} title = {'Log out'}/>
+
         </View>
       </ScrollView>
     )
