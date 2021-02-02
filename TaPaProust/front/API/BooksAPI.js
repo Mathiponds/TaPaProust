@@ -1,6 +1,6 @@
 import React from 'react'
 import axios from 'axios';
-const HOST = 'https://tough-chicken-79.loca.lt/'
+const HOST = 'https://ugly-pug-38.loca.lt/'
 const instance = axios.create({
   baseURL: HOST,
   headers : { 'content-type':'application/json' // override instance defaults
@@ -8,10 +8,20 @@ const instance = axios.create({
 })
 
 export default  {
+  login : (username, password) => {
+    var bodyFormData = new FormData();
+    bodyFormData.append('username', username);
+    bodyFormData.append('password', password);
+    instance({
+      'method':'POST',
+      'url':'/login',
+      'data' : bodyFormData,
+      'headers' : {'content-type':'multipart/form-data'}
+  })},
   getAllBooks : () =>
     instance({
       'method':'GET',
-      'url':'/api/getAllBooks',
+      'url':'/api/getAllBooks'
   }),
   getBooks : (title, author, edition) =>
     instance({

@@ -5,6 +5,7 @@ import * as Font from 'expo-font'
 import MyTextInput from './MyTextInput'
 import MyButton from './MyButton'
 import {inputs} from '../Helpers/global'
+import API from '../API/BooksAPI'
 
 class Login extends React.Component{
   constructor(props){
@@ -61,8 +62,10 @@ class Login extends React.Component{
         break;
     }
   }
-
+//// TODO: Remove default login
   _login(){
+    //API.login(this.userMail, this.password)
+    API.login("u@tapaproust.ch", "u")
     this.props.navigation.replace('Home')
   }
 
@@ -76,10 +79,12 @@ class Login extends React.Component{
         <MyTextInput
           title = {'Mail'} placeholder = {'Mail'} input = {inputs.MAIL}
           onChangedInput = {this._onChangedInput} onFocus = {()=> {}}
+          defaultValue ={"u@tapaproust.ch"}
           />
         <MyTextInput
           title = {'Mot de passe '} placeholder = {'Mot de passe'} input = {inputs.PASSWORD}
           secureTextEntry = {true} onChangedInput = {this._onChangedInput} onFocus = {()=> {}}
+          defaultValue ={"u"}
           />
         <MyButton
           onPress = {this._login}
