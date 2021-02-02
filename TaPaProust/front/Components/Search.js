@@ -19,11 +19,12 @@ class Search extends React.Component{
       this._onChangedInput = this._onChangedInput.bind(this)
 
       this.state = {
-        isLoading : false
+        isLoading : false,
+        areAllEntriesNull : false
       }
   }
 
-  async componentDidMount() {
+  componentDidMount() {
         this.props.navigation.setOptions({headerTitleStyle : {
           fontFamily : 'lobster-regular', fontSize : 30}})
     }
@@ -56,18 +57,32 @@ class Search extends React.Component{
     this.setState({
       isLoading :true
     })
-    await API.getBooks(this.searched_title, this.searched_author, this.search_edition)
-      .then((response)=>{
-        this.setState({
-          data : response.data,
-          isLoading : false
+    if(this.searched_title === "" && this.searched_author === "" && this.searched_edition === ""){
+      this.setState({
+        isLoading : false,
+        areAllEntriesNull : true
       })
-      .catch((error) => {
-          console.log(error)
+    }else{
+      await API.getBooks(this.searched_title, this.searched_author, this.search_edition)
+        .then((response)=>{
+          this.setState({
+            data : response.data,
+            isLoading : false
+        })
       })
-    })
      this.props.navigation.navigate('Résultat', {books : this.state.data, title : this.searched_title,
      author : this.searched_author, edition : this.search_edition})
+   }
+  }
+
+  _getCommentAllEntriesNull(){
+    if(this.state.areAllEntriesNull){
+      return (
+        <View>
+          <Text style = {styles.nullEntry}>Au moins une entrée ne doit pas être nul</Text>
+        </View>
+      )
+    }
   }
 
   _searchedItemBox(){
@@ -85,6 +100,7 @@ class Search extends React.Component{
           title = {'Edition'} placeholder = {'Edition'} input = {inputs.EDITION}
           onChangedInput = {this._onChangedInput} onFocus = {()=> {}}
           />
+          {this._getCommentAllEntriesNull()}
         <MyButton
           onPress = {this._searchBooks}
           title = {'Rechercher'}/>
@@ -127,14 +143,17 @@ const styles = StyleSheet.create({
   },
   loading_container: {
     position: 'absolute',
-    left: 0,
-    right: 0,
-    top: 0,
-    bottom: 0,
+    left: -20,
+    right: -20,
+    top: -20,
+    bottom: -20,
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor : 'white',
     opacity : 0.5
+  },
+  nullEntry : {
+    color : '#ff0000'
   }
 })
 

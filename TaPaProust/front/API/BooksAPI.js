@@ -1,6 +1,6 @@
 import React from 'react'
 import axios from 'axios';
-const HOST = 'https://white-dingo-43.loca.lt'
+const HOST = 'https://tough-chicken-79.loca.lt/'
 const instance = axios.create({
   baseURL: HOST,
   headers : { 'content-type':'application/json' // override instance defaults
@@ -21,7 +21,9 @@ export default  {
         title : title,
         author : author,
         edition : edition
-      }
+      },
+      'headers' : { 'content-type':'application/octet-stream' // override instance defaults
+            }
   }),
   postBook : (title, author, edition, language, price, bookState) => {
     var bodyFormData = new FormData();
@@ -36,5 +38,36 @@ export default  {
       'url':'/api/addBook',
       'data' : bodyFormData,
       'headers' : { 'content-type':'multipart/form-data'}
-  })}
+  })},
+  modifyBook : (id, title, author, edition, language, price, bookState) => {
+    var bodyFormData = new FormData();
+    bodyFormData.append('bookId', id)
+    bodyFormData.append('title', title);
+    bodyFormData.append('author', author);
+    bodyFormData.append('edition', edition);
+    bodyFormData.append('state', bookState);
+    bodyFormData.append('language', language);
+    bodyFormData.append('price', price);
+    instance({
+      'method':'POST',
+      'url':'/api/modifyBook',
+      'data' : bodyFormData,
+      'headers' : { 'content-type':'multipart/form-data'}
+  })},
+
+
+  addUser : (mail, password, passwordBis, phone) => {
+    var bodyFormData = new FormData();
+    bodyFormData.append('mail', mail)
+    bodyFormData.append('password', password);
+    bodyFormData.append('passwordBis', passwordBis);
+    bodyFormData.append('phone', phone);
+    instance({
+      'method':'POST',
+      'url':'/api/addUser',
+      'data' : bodyFormData,
+      'headers' : { 'content-type':'multipart/form-data'}
+    })},
+
+
 }

@@ -20,13 +20,17 @@ class VerifyBook extends React.Component{
   async  _confirmBook(){
     console.log(this.props.route.params)
     // TODO: Send the book to the backend
-    if(this.modify){
-      await API.postBook(this.props.route.params.title, this.props.route.params.author, this.props.route.params.edition, this.props.route.params.language,  this.props.route.params.price, this.props.route.params.bookState)
+    if(!this.modify){
+      await API.postBook(this.props.route.params.title, this.props.route.params.author,
+        this.props.route.params.edition, this.props.route.params.language,
+        this.props.route.params.price, this.props.route.params.bookState)
     }else{
-      
+      await API.modifyBook(this.props.route.params.id, this.props.route.params.title, this.props.route.params.author,
+        this.props.route.params.edition, this.props.route.params.language,
+        this.props.route.params.price, this.props.route.params.bookState)
     }
 
-    const text = this.modify ? "Votre livre a bien été ajouté" : "Votre livre a bien été modifié"
+    const text = this.modify ?  "Votre livre a bien été modifié" :"Votre livre a bien été ajouté"
     Alert.alert(
       "Confirmation",
       text,
@@ -35,7 +39,7 @@ class VerifyBook extends React.Component{
       ],
       { cancelable: true }
     );
-    if(!this.modify){
+    if(this.modify){
       this.props.navigation.navigate('Mes livres')
     }else{
       this.props.navigation.navigate('Ajouter un livre')

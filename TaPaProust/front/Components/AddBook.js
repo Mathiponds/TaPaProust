@@ -11,8 +11,11 @@ import PhotoRendering from './PhotoRendering'
 class AddBook extends React.Component{
   constructor(props){
     super(props)
+    //Sinon on vient de booksdetail
     this.addBook = this.props.route.name === "Ajouter un livre"
+    //this.modify = !this.addBook
 
+    this.id = this.addBook ? "" : this.props.route.params.id
     this.title = this.addBook ? "" : this.props.route.params.title
     this.author = this.addBook ? "" : this.props.route.params.author
     this.edition = this.addBook ? "" : this.props.route.params.edition
@@ -97,8 +100,8 @@ class AddBook extends React.Component{
     if(!this._isOneInputEmpty()){
       this.props.navigation.navigate('Vérification', {title :this.title,
         author : this.author, edition : this.edition, language : this.language,
-        price : this.price, bookState : this.bookState, modify : this.addBook,
-        photos : this.state.photos})
+        price : this.price, bookState : this.bookState, modify : !this.addBook,
+        photos : this.state.photos, id : this.id})
      }
   }
 

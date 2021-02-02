@@ -16,8 +16,8 @@ class BookItem extends React.Component{
         <View style = {styles.text_box}>
           <Text style = {styles.text}><Text style = {styles.entry_text}>Title: </Text>{book.title}</Text>
           <Text style = {styles.text}><Text style = {styles.entry_text}>Author: </Text>{book.author}</Text>
-          <Text style = {styles.text}><Text style = {styles.entry_text}>Edition: </Text>{book.edition}</Text>
-          <Text style = {styles.text}><Text style = {styles.entry_text}>Etat: </Text>{book.bookState}</Text>
+          <Text style = {styles.text}><Text style = {styles.entry_text}>Édition: </Text>{book.edition}</Text>
+          <Text style = {styles.text}><Text style = {styles.entry_text}>État: </Text>{book.state}</Text>
           <Text style = {styles.text}><Text style = {styles.entry_text}>Vendu par: </Text>{book.sold_by}</Text>
         </View>
       </TouchableOpacity>
@@ -59,12 +59,12 @@ const styles = StyleSheet.create({
     flex : 2
   },
   entry_text : {
-    fontFamily : 'LobsterTwo-Italic',
-    fontSize : 20
+    fontFamily : 'dancing-regular',
+    fontSize : 15
   },
   text : {
-    fontFamily : 'dancing-regular',
-    fontSize : 16,
+    fontFamily : 'LobsterTwo-Italic',
+    fontSize : 18,
   }
 })
 export default BookItem
