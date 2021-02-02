@@ -13,12 +13,16 @@ class Login extends React.Component{
     this.userMail = ""
     this.password = ""
 
+
     this._login = this._login.bind(this)
     this._register = this._register.bind(this)
     this._onChangedInput = this._onChangedInput.bind(this)
 
     this.state = {
+      isLoading : false,
       assetsLoaded: false,
+      successfulLogin : false,
+      firstTime : true
     };
   }
 
@@ -63,21 +67,50 @@ class Login extends React.Component{
     }
   }
 //// TODO: Remove default login
-  _login(){
-    //API.login(this.userMail, this.password)
-    API.login("u@tapaproust.ch", "u")
-    this.props.navigation.replace('Home')
+  async _login(){
+    this.setState({
+      isLoading : true,
+    })
+    await API.login(this.userMail, this.password).then(response => {
+      this.setState({
+        isLoading : false,
+        successfulLogin : response.data === "Login is successful",
+        firstTime : false
+      })
+    })
+    if(this.state.successfulLogin){
+      this.props.navigation.replace('Home')
+    }
   }
 
   _register(){
     this.props.navigation.navigate('Inscription')
   }
 
+  _getLoginFailure(){
+    if(!this.state.firstTime && !this.state.successfulLogin){
+      return (
+        <View>
+          <Text style = {styles.loginFail}>Mauvais utilisateur ou mauvais mot de passe</Text>
+        </View>
+      )
+    }
+  }
+  _displayLoading() {
+    if (this.state.isLoading) {
+      return (
+        <View style={styles.loading_container}>
+          <ActivityIndicator size="large" color="#000000" />
+        </View>
+      )
+    }
+  }
+
   _loginItemBox(){
     return (
       <View style = { styles.login_item_container}>
         <MyTextInput
-          title = {'Mail'} placeholder = {'Mail'} input = {inputs.MAIL}
+          title = {'Mail'} placeholder = {'Mail'} input = {inputs.USER_MAIL}
           onChangedInput = {this._onChangedInput} onFocus = {()=> {}}
           defaultValue ={"u@tapaproust.ch"}
           />
@@ -86,6 +119,7 @@ class Login extends React.Component{
           secureTextEntry = {true} onChangedInput = {this._onChangedInput} onFocus = {()=> {}}
           defaultValue ={"u"}
           />
+          {this._getLoginFailure()}
         <MyButton
           onPress = {this._login}
           title = {'Login'}/>
@@ -93,15 +127,18 @@ class Login extends React.Component{
           onPress = {this._register}
           title = {'Créer un compte'}
           reverse = {true}/>
+          {}
       </View>
     )
   }
   _displayLoading() {
-    return (
-      <View style={styles.loading_container}>
-        <ActivityIndicator size='large' />
-      </View>
-    )
+    if(!this.state.assetsLoaded ||this.state.isLoading){
+      return (
+        <View style={styles.loading_container}>
+          <ActivityIndicator size='large' color = '#000000'/>
+        </View>
+      )
+    }
   }
 
   render(){
@@ -114,9 +151,10 @@ class Login extends React.Component{
             </Text>
           </View>
           {this._loginItemBox()}
+          {this._displayLoading()}
         </View>
       )
-    }else {
+    }else{
       return this._displayLoading()
     }
   }
@@ -140,7 +178,21 @@ const styles = StyleSheet.create({
   title : {
     fontSize : 55,
     fontFamily : 'lobster-regular',
-  }
+  },
+  loginFail : {
+    color : '#ff0000'
+  },
+  loading_container: {
+    position: 'absolute',
+    left: -20,
+    right: -20,
+    top: -20,
+    bottom: -20,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor : 'white',
+    opacity : 0.5
+  },
 })
 
 export default Login

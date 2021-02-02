@@ -1,6 +1,6 @@
 import React from 'react'
 import axios from 'axios';
-const HOST = 'https://ugly-pug-38.loca.lt/'
+const HOST = 'https://serious-eagle-45.loca.lt/'
 const instance = axios.create({
   baseURL: HOST,
   headers : { 'content-type':'application/json' // override instance defaults
@@ -12,7 +12,7 @@ export default  {
     var bodyFormData = new FormData();
     bodyFormData.append('username', username);
     bodyFormData.append('password', password);
-    instance({
+    return instance({
       'method':'POST',
       'url':'/login',
       'data' : bodyFormData,
@@ -43,7 +43,7 @@ export default  {
     bodyFormData.append('state', bookState);
     bodyFormData.append('language', language);
     bodyFormData.append('price', price);
-    instance({
+    return instance({
       'method':'POST',
       'url':'/api/addBook',
       'data' : bodyFormData,
@@ -58,7 +58,7 @@ export default  {
     bodyFormData.append('state', bookState);
     bodyFormData.append('language', language);
     bodyFormData.append('price', price);
-    instance({
+    return instance({
       'method':'POST',
       'url':'/api/modifyBook',
       'data' : bodyFormData,
@@ -72,7 +72,7 @@ export default  {
     bodyFormData.append('password', password);
     bodyFormData.append('passwordBis', passwordBis);
     bodyFormData.append('phone', phone);
-    instance({
+    return instance({
       'method':'POST',
       'url':'/api/addUser',
       'data' : bodyFormData,
