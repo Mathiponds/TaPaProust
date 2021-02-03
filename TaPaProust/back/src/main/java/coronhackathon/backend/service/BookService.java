@@ -63,7 +63,7 @@ public class BookService {
                 if(!edition.equals("")){
                     return bookRepository.findByTitleAndEdition(title, edition);
                 }else{
-                    return bookRepository.findByTitle(title);
+                    return bookRepository.findByTitleLowerLike("%"+title.toLowerCase()+"%");
                 }
             }
         }else{
@@ -71,11 +71,11 @@ public class BookService {
                 if(!edition.equals("")){
                     return bookRepository.findByAuthorAndEdition(author,edition);
                 }else{
-                    return bookRepository.findByAuthor(author);
+                    return bookRepository.findByAuthorLowerLike("%"+author.toLowerCase()+"%");
                 }
             }else{
                 if(!edition.equals("")){
-                    return bookRepository.findByEdition(edition);
+                    return bookRepository.findByEditionLowerLike("%"+title.toLowerCase()+"%");
                 }else{
                     throw new ResponseStatusException(HttpStatus.NOT_FOUND, "All the entries are null");
                 }

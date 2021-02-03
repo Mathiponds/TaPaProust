@@ -17,7 +17,7 @@ class Favorites extends React.Component {
   }
 
   _displayDetailForBook = (book) => {
-    this.props.navigation.navigate('Détail du livre', { book : book, lastScreen : screens.FAVORITES})
+    this.props.navigation.navigate('Détails du livre', { book : book, lastScreen : screens.FAVORITES})
   }
 
   render(){

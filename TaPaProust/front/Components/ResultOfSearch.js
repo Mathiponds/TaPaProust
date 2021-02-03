@@ -14,7 +14,7 @@ class ResultOfSearch extends React.Component{
   }
 
   _displayDetailForBook = (book) => {
-    this.props.navigation.navigate('Détail du livre', { book : book, lastScreen : screens.RESULT_OF_SEARCH})
+    this.props.navigation.navigate('Détails du livre', { book : book, lastScreen : screens.RESULT_OF_SEARCH})
   }
 
   _displayHeader(){

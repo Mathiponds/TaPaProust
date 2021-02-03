@@ -32,7 +32,7 @@ class AddBook extends React.Component{
       isAuthorEmpty : true,
       isEditionEmpty : true,
       isLanguageEmpty : true,
-      isBookStateEmpty : true,
+      isStateEmpty : true,
       isPriceEmpty : true,
       photos : []
     }
@@ -66,7 +66,7 @@ class AddBook extends React.Component{
         this.language = text
         break;
       case inputs.STATE :
-        this.bookState = text
+        this.state = text
         break;
       default :
         console.log("error addbook")
@@ -153,7 +153,7 @@ class AddBook extends React.Component{
         defaultValue = {this.addBook ? null : this.bookState}
         emptyInput = { !this.firstTime && this.state.isBookStateEmpty} emptyInputMessage = {"un état"}
         defaultNull placeholder = {this.addBook ? "Choisir l'état du livre" : null}
-        input = {inputs.STATE} onChangedInput = {this._onChangedInput}/>
+        input = {inputs.BOOK_STATE} onChangedInput = {this._onChangedInput}/>
         </View>
     )
   }
