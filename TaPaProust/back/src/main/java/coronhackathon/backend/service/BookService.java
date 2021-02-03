@@ -55,27 +55,27 @@ public class BookService {
         if(!title.equals("")){
             if(!author.equals("")){
                 if(!edition.equals("")){
-                    return bookRepository.findByTitleIgnoreCaseAndAuthorIgnoreCaseAndEditionIgnoreCase(title, author,edition);
+                    return bookRepository.findByTitleContainingIgnoreCaseAndAuthorContainingIgnoreCaseAndEditionContainingIgnoreCase(title, author,edition);
                 }else{
-                    return bookRepository.findByTitleIgnoreCaseAndAuthorIgnoreCase(title, author);
+                    return bookRepository.findByTitleContainingIgnoreCaseAndAuthorContainingIgnoreCase(title, author);
                 }
             }else{
                 if(!edition.equals("")){
-                    return bookRepository.findByTitleIgnoreCaseAndEditionIgnoreCase(title, edition);
+                    return bookRepository.findByTitleContainingIgnoreCaseAndEditionContainingIgnoreCase(title, edition);
                 }else{
-                    return bookRepository.findByTitleIgnoreCase(title);
+                    return bookRepository.findByTitleContainingIgnoreCase(title);
                 }
             }
         }else{
             if(!author.equals("")){
                 if(!edition.equals("")){
-                    return bookRepository.findByAuthorIgnoreCaseAndEditionIgnoreCase(author,edition);
+                    return bookRepository.findByAuthorContainingIgnoreCaseAndEditionContainingIgnoreCase(author,edition);
                 }else{
-                    return bookRepository.findByAuthorIgnoreCase(author);
+                    return bookRepository.findByAuthorContainingIgnoreCase(author);
                 }
             }else{
                 if(!edition.equals("")){
-                    return bookRepository.findByEditionIgnoreCase(title);
+                    return bookRepository.findByEditionContainingIgnoreCase(title);
                 }else{
                     throw new ResponseStatusException(HttpStatus.NOT_FOUND, "All the entries are null");
                 }
