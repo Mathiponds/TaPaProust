@@ -9,18 +9,11 @@ import java.util.Optional;
 public interface BookRepository extends JpaRepository<Book, Long> {
     public Optional<Book> findById(Long aLong);
     public List<Book> findAll();
-    public List<Book> findByTitle(String title);
-    public List<Book> findByAuthor(String author);
-    public List<Book> findByEdition(String edition);
-    public List<Book> findByTitleAndAuthorAndEdition(String title, String author, String Edition);
-    public List<Book> findByTitleAndAuthor(String title, String author);
-    public List<Book> findByTitleAndEdition(String title, String edition);
-    public List<Book> findByAuthorAndEdition(String author, String edition);
-
-
-    public List<Book> findByTitleLowerLike(String title);
-    public List<Book> findByAuthorLowerLike(String author);
-    public List<Book> findByEditionLowerLike(String edition);
-
-
+    public List<Book> findByTitleIgnoreCase(String title);
+    public List<Book> findByAuthorIgnoreCase(String author);
+    public List<Book> findByEditionIgnoreCase(String edition);
+    public List<Book> findByTitleIgnoreCaseAndAuthorIgnoreCaseAndEditionIgnoreCase(String title, String author, String Edition);
+    public List<Book> findByTitleIgnoreCaseAndAuthorIgnoreCase(String title, String author);
+    public List<Book> findByTitleIgnoreCaseAndEditionIgnoreCase(String title, String edition);
+    public List<Book> findByAuthorIgnoreCaseAndEditionIgnoreCase(String author, String edition);
 }

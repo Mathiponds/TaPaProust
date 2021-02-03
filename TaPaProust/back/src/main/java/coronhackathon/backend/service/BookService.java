@@ -55,27 +55,27 @@ public class BookService {
         if(!title.equals("")){
             if(!author.equals("")){
                 if(!edition.equals("")){
-                    return bookRepository.findByTitleAndAuthorAndEdition(title, author,edition);
+                    return bookRepository.findByTitleIgnoreCaseAndAuthorIgnoreCaseAndEditionIgnoreCase(title, author,edition);
                 }else{
-                    return bookRepository.findByTitleAndAuthor(title, author);
+                    return bookRepository.findByTitleIgnoreCaseAndAuthorIgnoreCase(title, author);
                 }
             }else{
                 if(!edition.equals("")){
-                    return bookRepository.findByTitleAndEdition(title, edition);
+                    return bookRepository.findByTitleIgnoreCaseAndEditionIgnoreCase(title, edition);
                 }else{
-                    return bookRepository.findByTitleLowerLike("%"+title.toLowerCase()+"%");
+                    return bookRepository.findByTitleIgnoreCase(title);
                 }
             }
         }else{
             if(!author.equals("")){
                 if(!edition.equals("")){
-                    return bookRepository.findByAuthorAndEdition(author,edition);
+                    return bookRepository.findByAuthorIgnoreCaseAndEditionIgnoreCase(author,edition);
                 }else{
-                    return bookRepository.findByAuthorLowerLike("%"+author.toLowerCase()+"%");
+                    return bookRepository.findByAuthorIgnoreCase(author);
                 }
             }else{
                 if(!edition.equals("")){
-                    return bookRepository.findByEditionLowerLike("%"+title.toLowerCase()+"%");
+                    return bookRepository.findByEditionIgnoreCase(title);
                 }else{
                     throw new ResponseStatusException(HttpStatus.NOT_FOUND, "All the entries are null");
                 }
