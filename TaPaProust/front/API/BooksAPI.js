@@ -1,6 +1,6 @@
 import React from 'react'
 import axios from 'axios';
-const HOST = 'https://bright-robin-16.loca.lt/'
+const HOST = 'https://terrible-owl-39.loca.lt/'
 const instance = axios.create({
   baseURL: HOST,
   headers : { 'content-type':'application/json' // override instance defaults
@@ -27,6 +27,11 @@ export default  {
     instance({
       'method':'GET',
       'url':'/api/getAllBooks'
+  }),
+  getMyBooks : () =>
+    instance({
+      'method':'GET',
+      'url':'/api/getMyBooks'
   }),
   getBooks : (title, author, edition) =>
     instance({

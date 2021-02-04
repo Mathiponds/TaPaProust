@@ -25,7 +25,7 @@ class UsersBooks extends React.Component {
     this.setState({
       isLoading : true
     })
-    await API.getAllBooks().then((response) =>{
+    await API.getMyBooks().then((response) =>{
       this.setState({
         data: response.data,
         isLoading : false
