@@ -1,9 +1,10 @@
 import React from 'react'
 import {View, StyleSheet} from 'react-native'
 
-import BookList from './BookList'
-import books from '../Helpers/books'
-import {screens} from '../Helpers/global'
+import BookList from '../MyCustomComponents/BookList'
+
+import books from '../../Helpers/books'
+import {screens} from '../../Helpers/global'
 
 class Favorites extends React.Component {
   async componentDidMount() {

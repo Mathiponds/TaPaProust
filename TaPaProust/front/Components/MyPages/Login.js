@@ -2,18 +2,18 @@ import React from 'react'
 import {View, Text, StyleSheet, TextInput} from 'react-native'
 import * as Font from 'expo-font'
 
-import MyTextInput from './MyTextInput'
-import MyButton from './MyButton'
-import {inputs} from '../Helpers/global'
-import API from '../API/BooksAPI'
-import MyActivityIndicator from './MyActivityIndicator'
+import MyTextInput from '../MyCustomComponents/MyTextInput'
+import MyButton from '../MyCustomComponents/MyButton'
+import MyActivityIndicator from '../MyCustomComponents/MyActivityIndicator'
+
+import {inputs} from '../../Helpers/global'
+import API from '../../API/BooksAPI'
 
 class Login extends React.Component{
   constructor(props){
     super(props)
     this.userMail = "u@tapaproust.ch"
     this.password = "u"
-
 
     this._login = this._login.bind(this)
     this._register = this._register.bind(this)
@@ -29,28 +29,28 @@ class Login extends React.Component{
 
   async componentDidMount() {
         await Font.loadAsync({
-            'lobster-regular': require('../assets/fonts/Lobster-Regular.ttf')
+            'lobster-regular': require('../../assets/fonts/Lobster-Regular.ttf')
         });
         await Font.loadAsync({
-            'dancing-bold' : require('../assets/fonts/DancingScript-Bold.ttf')
+            'dancing-bold' : require('../../assets/fonts/DancingScript-Bold.ttf')
         });
         await Font.loadAsync({
-            'dancing-medium' : require('../assets/fonts/DancingScript-Medium.ttf')
+            'dancing-medium' : require('../../assets/fonts/DancingScript-Medium.ttf')
         });
         await Font.loadAsync({
-            'dancing-regular' : require('../assets/fonts/DancingScript-Regular.ttf')
+            'dancing-regular' : require('../../assets/fonts/DancingScript-Regular.ttf')
         });
         await Font.loadAsync({
-            'dancing-semibold' : require('../assets/fonts/DancingScript-SemiBold.ttf')
+            'dancing-semibold' : require('../../assets/fonts/DancingScript-SemiBold.ttf')
         });
         await Font.loadAsync({
-            'LobsterTwo-Regular' : require('../assets/fonts/LobsterTwo-Regular.ttf')
+            'LobsterTwo-Regular' : require('../../assets/fonts/LobsterTwo-Regular.ttf')
         });
         await Font.loadAsync({
-            'LobsterTwo-Bold' : require('../assets/fonts/LobsterTwo-Bold.ttf')
+            'LobsterTwo-Bold' : require('../../assets/fonts/LobsterTwo-Bold.ttf')
         });
         await Font.loadAsync({
-            'LobsterTwo-Italic' : require('../assets/fonts/LobsterTwo-Italic.ttf')
+            'LobsterTwo-Italic' : require('../../assets/fonts/LobsterTwo-Italic.ttf')
         });
         this.props.navigation.setOptions({headerShown: true,headerTitleStyle : {
           fontFamily : 'lobster-regular', fontSize : 30}})
@@ -164,17 +164,6 @@ const styles = StyleSheet.create({
   },
   loginFail : {
     color : '#ff0000'
-  },
-  loading_container: {
-    position: 'absolute',
-    left: -20,
-    right: -20,
-    top: -20,
-    bottom: -20,
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor : 'white',
-    opacity : 0.5
   },
 })
 

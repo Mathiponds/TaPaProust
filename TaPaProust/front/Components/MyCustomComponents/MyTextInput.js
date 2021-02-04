@@ -1,7 +1,7 @@
 import React from 'react'
 import {View, Text, StyleSheet, TextInput} from 'react-native'
 
-import inputs from '../Helpers/global.js'
+import inputs from '../../Helpers/global.js'
 class MyTextInput extends React.Component{
 
   _getTextInput(){

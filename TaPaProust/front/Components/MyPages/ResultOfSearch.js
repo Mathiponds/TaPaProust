@@ -1,10 +1,11 @@
 import React from 'react'
 import {View, Text, FlatList, StyleSheet} from 'react-native'
-import BookItem from './BookItem'
-import BookList from './BookList'
 import * as Font from 'expo-font'
 
-import {screens} from '../Helpers/global'
+import BookItem from '../MyCustomComponents/BookItem'
+import BookList from '../MyCustomComponents/BookList'
+
+import {screens} from '../../Helpers/global'
 
 
 class ResultOfSearch extends React.Component{

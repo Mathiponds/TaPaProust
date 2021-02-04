@@ -4,7 +4,7 @@ import {ScrollView, Image, View, StyleSheet, Text, TouchableOpacity} from 'react
 import MyButton from './MyButton'
 import Icon from 'react-native-vector-icons/FontAwesome';
 
-import {maxPhotos} from '../Helpers/global'
+import {maxPhotos} from '../../Helpers/global'
 
 class PhotoRendering extends React.Component {
   _ifDeletion(i){

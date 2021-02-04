@@ -2,7 +2,7 @@ import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { StyleSheet, Text} from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
-import Login from './Components/Login'
+import Login from './Components/MyPages/Login'
 
 //import Search from "./Components/Search"
 import Navigation from './Navigation/Navigation'

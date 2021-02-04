@@ -1,12 +1,12 @@
 import React from 'react'
 import {View, Text, StyleSheet, TextInput, TouchableOpacity, ScrollView, Picker, Image} from 'react-native'
 import DropDownPicker from 'react-native-dropdown-picker';
-import {inputs} from '../Helpers/global.js'
+import {inputs} from '../../Helpers/global.js'
 
-import MyTextInput from './MyTextInput'
-import MyDropdownPicker from './MyDropdownPicker'
-import MyButton from './MyButton'
-import PhotoRendering from './PhotoRendering'
+import MyTextInput from '../MyCustomComponents/MyTextInput'
+import MyDropdownPicker from '../MyCustomComponents/MyDropdownPicker'
+import MyButton from '../MyCustomComponents/MyButton'
+import PhotoRendering from '../MyCustomComponents/PhotoRendering'
 
 class AddBook extends React.Component{
   constructor(props){

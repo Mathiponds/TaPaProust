@@ -1,11 +1,11 @@
 import React from 'react'
 import {View, StyleSheet} from 'react-native'
 
-import BookList from './BookList'
-import MyActivityIndicator from './MyActivityIndicator'
-import books from '../Helpers/books'
-import {screens} from '../Helpers/global'
-import API from '../API/BooksAPI'
+import BookList from '../MyCustomComponents/BookList'
+import MyActivityIndicator from '../MyCustomComponents/MyActivityIndicator'
+import books from '../../Helpers/books'
+import {screens} from '../../Helpers/global'
+import API from '../../API/BooksAPI'
 
 class UsersBooks extends React.Component {
   constructor(props){

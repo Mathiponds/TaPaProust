@@ -1,10 +1,11 @@
 import React from 'react'
 import {ScrollView, StyleSheet, View, Text} from 'react-native'
 
-import MyButton from './MyButton'
-import MyTextInput from './MyTextInput'
-import {inputs} from '../Helpers/global.js'
-import API from '../API/BooksAPI'
+import MyButton from '../MyCustomComponents/MyButton'
+import MyTextInput from '../MyCustomComponents/MyTextInput'
+
+import {inputs} from '../../Helpers/global.js'
+import API from '../../API/BooksAPI'
 
 class Profil extends React.Component{
   constructor(props){

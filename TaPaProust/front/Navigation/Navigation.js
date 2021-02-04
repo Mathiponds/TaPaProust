@@ -5,18 +5,17 @@ import {View, Image,StyleSheet} from 'react-native'
 import {createStackNavigator} from '@react-navigation/stack'
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 
-import Login from '../Components/Login'
-import Register from '../Components/Register'
-
-import Search from '../Components/Search'
-import ResultOfSearch from '../Components/ResultOfSearch'
-import BookDetails from '../Components/BookDetails'
-import AddBook from '../Components/AddBook'
-import VerifyBook from '../Components/VerifyBook'
-import UsersBooks from '../Components/UsersBooks'
-import Favorites from '../Components/Favorites'
-import Profil from '../Components/Profil'
-import ImageBrowser from '../Components/ImageBrowser'
+import Login from '../Components/MyPages/Login'
+import Register from '../Components/MyPages/Register'
+import Search from '../Components/MyPages/Search'
+import ResultOfSearch from '../Components/MyPages/ResultOfSearch'
+import BookDetails from '../Components/MyPages/BookDetails'
+import AddBook from '../Components/MyPages/AddBook'
+import VerifyBook from '../Components/MyPages/VerifyBook'
+import UsersBooks from '../Components/MyPages/UsersBooks'
+import Favorites from '../Components/MyPages/Favorites'
+import Profil from '../Components/MyPages/Profil'
+import ImageBrowser from '../Components/MyPages/ImageBrowser'
 /*||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||| */
 /*||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||| */
 /*||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||| */

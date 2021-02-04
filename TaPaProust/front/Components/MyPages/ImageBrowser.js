@@ -4,7 +4,7 @@ import * as ImageManipulator from 'expo-image-manipulator';
 import {ImageBrowser} from 'expo-image-picker-multiple';
 import  Icon from 'react-native-vector-icons/FontAwesome';
 
-import {maxPhotos} from '../Helpers/global'
+import {maxPhotos} from '../../Helpers/global'
 
 export default class ImageBrowserScreen extends React.Component {
   async componentDidMount() {

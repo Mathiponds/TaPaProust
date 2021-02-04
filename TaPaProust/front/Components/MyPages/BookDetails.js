@@ -1,10 +1,10 @@
 import React from 'react'
 import {View, Text, Image, StyleSheet, Button, TouchableOpacity, Linking} from 'react-native'
 
-import MyButton from './MyButton'
-import {screens} from '../Helpers/global'
+import MyButton from '../MyCustomComponents/MyButton'
+import PhotoRendering from '../MyCustomComponents/PhotoRendering'
 
-import PhotoRendering from './PhotoRendering'
+import {screens} from '../../Helpers/global'
 
 class BookDetails extends React.Component{
   constructor(props){

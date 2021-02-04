@@ -1,9 +1,10 @@
 import React from 'react'
 import {View, Text, StyleSheet, ScrollView, Alert, Image} from 'react-native'
 
-import MyButton from './MyButton'
-import PhotoRendering from './PhotoRendering'
-import API from '../API/BooksAPI'
+import MyButton from '../MyCustomComponents/MyButton'
+import PhotoRendering from '../MyCustomComponents/PhotoRendering'
+
+import API from '../../API/BooksAPI'
 
 class VerifyBook extends React.Component{
   constructor(props){

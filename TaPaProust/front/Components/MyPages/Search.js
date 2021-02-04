@@ -2,11 +2,11 @@ import React from 'react'
 import {StyleSheet, View, Text, TextInput, TouchableOpacity} from 'react-native'
 import * as Font from 'expo-font'
 
-import MyTextInput from './MyTextInput'
-import MyButton from './MyButton'
-import {inputs} from '../Helpers/global.js'
-import API from '../API/BooksAPI'
-import MyActivityIndicator from './MyActivityIndicator'
+import MyTextInput from '../MyCustomComponents/MyTextInput'
+import MyButton from '../MyCustomComponents/MyButton'
+import {inputs} from '../../Helpers/global.js'
+import API from '../../API/BooksAPI'
+import MyActivityIndicator from '../MyCustomComponents/MyActivityIndicator'
 
 class Search extends React.Component{
   constructor(props){
@@ -131,17 +131,6 @@ const styles = StyleSheet.create({
   search_item_container : {
     flex : 5,
     margin : 10
-  },
-  loading_container: {
-    position: 'absolute',
-    left: -20,
-    right: -20,
-    top: -20,
-    bottom: -20,
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor : 'white',
-    opacity : 0.5
   },
   nullEntry : {
     color : '#ff0000'

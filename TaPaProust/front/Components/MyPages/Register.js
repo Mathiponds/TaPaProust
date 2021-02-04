@@ -1,9 +1,10 @@
 import React from 'react'
 import {View, Text, StyleSheet, TextInput, ScrollView} from 'react-native'
 
-import MyTextInput from './MyTextInput'
-import MyButton from './MyButton'
-import {inputs} from '../Helpers/global.js'
+import MyTextInput from '../MyCustomComponents/MyTextInput'
+import MyButton from '../MyCustomComponents/MyButton'
+
+import {inputs} from '../../Helpers/global.js'
 
 class Register extends React.Component{
   constructor(props){
