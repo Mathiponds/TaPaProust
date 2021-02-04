@@ -44,7 +44,6 @@ class BookDetails extends React.Component{
   }
 
   _modify(){
-    console.log(this.book)
     this.props.navigation.navigate('Modifier un livre',// Link à addBook
       {title :this.book.title, author : this.book.author, edition : this.book.edition,
         language : this.book.language, price : this.book.price, state : this.book.state,

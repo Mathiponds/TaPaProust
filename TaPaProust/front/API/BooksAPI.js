@@ -1,6 +1,6 @@
 import React from 'react'
 import axios from 'axios';
-const HOST = 'https://cold-penguin-62.loca.lt/'
+const HOST = 'https://bright-robin-16.loca.lt/'
 const instance = axios.create({
   baseURL: HOST,
   headers : { 'content-type':'application/json' // override instance defaults

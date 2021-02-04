@@ -35,6 +35,10 @@ public class UserService {
         userRepository.save(user);
     }
 
+    public long getIdFromMail(String userMail) {
+        return checkUserExists(userRepository.findByMail(userMail), "mail", userMail).getId();
+    }
+
     /**
      * Username must be unique and that the two hashes match
      * we must store encoded passwords as spring security expects
@@ -60,10 +64,10 @@ public class UserService {
     }
 
     public User getUserByMail(String mail){
-        return checkBookExists(userRepository.findByMail(mail),"mail", mail);
+        return checkUserExists(userRepository.findByMail(mail),"mail", mail);
     }
 
-    private User checkBookExists(Optional<User> ou, String name, String value){
+    private User checkUserExists(Optional<User> ou, String name, String value){
         if(!ou.isPresent()){
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "user with "+name+" : " + value + " not found");
         }

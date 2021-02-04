@@ -47,7 +47,7 @@ public class BookService {
         book.setState(state);
         book.setLanguage(language);
         book.setPrice(price);
-        book.setSold_by(userRepository.findByMail(mailOfOwner).get().getId());
+        book.setSoldById(userRepository.findByMail(mailOfOwner).get().getId());
         bookRepository.save(book);
     }
 
@@ -84,6 +84,11 @@ public class BookService {
         }
     }
 
+
+    public List<Book> getMyBooks(long userId) {
+        return bookRepository.findBySoldById(userId);
+    }
+
     public void removeBook(long bookId) {
         bookRepository.deleteById(bookId);
     }
@@ -95,4 +100,5 @@ public class BookService {
         }
         return ou.get();
     }
+
 }

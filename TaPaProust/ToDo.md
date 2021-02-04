@@ -2,10 +2,15 @@ Front
 
 - [ ] Ajouter mes livres
 - [ ] Système de favoris
-- [ ] Autocompletion dans la recherche
+- [x] Améliorer la recherche
 - [ ] Pouvoir passer d'un input à l'autre
 - [ ] Page mon profil
-- [ ] Regarder comment mettre l'appli sur internet 
+- [ ] Regarder comment mettre l'appli sur internet
+- [ ] l'app cherche directement dès le début _> gérer mieux les font
+- [ ] regarder l'état dans le modifier livre et dans verfication 
+- [ ] regarder comment recharger les livres après la modification
+- [ ] api pour register
+- [ ] bouton pour quand on a vendu le livre
 
 API
 

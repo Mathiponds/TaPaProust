@@ -23,7 +23,7 @@ public class Book {
     private String state;
 
     @Column(nullable = false)
-    private long sold_by_id;
+    private long soldById;
 
     @Column(nullable = false)
     private String language;
@@ -77,8 +77,8 @@ public class Book {
         return title;
     }
 
-    public long getSold_by() {
-        return sold_by_id;
+    public long getSoldById() {
+        return soldById;
     }
 
     ///////////////////////////////////////
@@ -105,8 +105,8 @@ public class Book {
         this.price = price;
     }
 
-    public void setSold_by(long sold_by_id) {
-        this.sold_by_id = sold_by_id;
+    public void setSoldById(long soldById) {
+        this.soldById = soldById;
     }
 
     public void setState(String state) {

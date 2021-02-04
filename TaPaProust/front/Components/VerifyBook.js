@@ -18,7 +18,6 @@ class VerifyBook extends React.Component{
   }
 
   async  _confirmBook(){
-    console.log(this.props.route.params)
     // TODO: Send the book to the backend
     if(!this.modify){
       await API.postBook(this.props.route.params.title, this.props.route.params.author,

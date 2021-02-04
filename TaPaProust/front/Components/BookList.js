@@ -6,7 +6,6 @@ import BookItem from './BookItem'
 class BookList extends React.Component{
 
   render(){
-    console.log(this.props.books)
     return (
       <FlatList
         style={styles.list}

@@ -53,6 +53,10 @@ public class mainController {
         return bookService.getBooks(title, author, edition);
     }
 
+    @GetMapping("/api/getMyBooks")
+    public List<Book> getMyBooks(Principal principal){
+        return bookService.getMyBooks(userService.getIdFromMail(principal.getName()));
+    }
     /**
      * Get all the books from the ook repository
      * @return a list containing all these books
