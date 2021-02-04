@@ -1,7 +1,8 @@
 import React from 'react'
-import {View, StyleSheet, ActivityIndicator} from 'react-native'
+import {View, StyleSheet} from 'react-native'
 
 import BookList from './BookList'
+import MyActivityIndicator from './MyActivityIndicator'
 import books from '../Helpers/books'
 import {screens} from '../Helpers/global'
 import API from '../API/BooksAPI'
@@ -38,23 +39,13 @@ class UsersBooks extends React.Component {
     this.props.navigation.navigate('Détails du livre', { book : book, lastScreen : screens.USERS_BOOK})
   }
 
-  _displayLoading() {
-    if (this.state.isLoading) {
-      return (
-        <View style={styles.loading_container}>
-          <ActivityIndicator size="large" color="#000000" />
-        </View>
-      )
-    }
-  }
-
   render(){
     return(
       <View style={styles.main_container}>
         <BookList
           books = {this.state.data}
           displayDetailForBook = {this._displayDetailForBook}/>
-          {this._displayLoading()}
+          <MyActivityIndicator condition = {this.state.isLoading}/>
       </View>
     )
   }
@@ -63,17 +54,6 @@ class UsersBooks extends React.Component {
 const styles = StyleSheet.create({
   main_container: {
     flex: 1
-  },
-  loading_container: {
-    position: 'absolute',
-    left: -20,
-    right: -20,
-    top: -20,
-    bottom: -20,
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor : 'white',
-    opacity : 0.5
   },
 })
 

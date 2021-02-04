@@ -1,11 +1,12 @@
 import React from 'react'
-import {View, Text, StyleSheet, TextInput, ActivityIndicator} from 'react-native'
+import {View, Text, StyleSheet, TextInput} from 'react-native'
 import * as Font from 'expo-font'
 
 import MyTextInput from './MyTextInput'
 import MyButton from './MyButton'
 import {inputs} from '../Helpers/global'
 import API from '../API/BooksAPI'
+import MyActivityIndicator from './MyActivityIndicator'
 
 class Login extends React.Component{
   constructor(props){
@@ -96,15 +97,6 @@ class Login extends React.Component{
       )
     }
   }
-  _displayLoading() {
-    if (this.state.isLoading) {
-      return (
-        <View style={styles.loading_container}>
-          <ActivityIndicator size="large" color="#000000" />
-        </View>
-      )
-    }
-  }
 
   _loginItemBox(){
     return (
@@ -131,15 +123,6 @@ class Login extends React.Component{
       </View>
     )
   }
-  _displayLoading() {
-    if(!this.state.assetsLoaded ||this.state.isLoading){
-      return (
-        <View style={styles.loading_container}>
-          <ActivityIndicator size='large' color = '#000000'/>
-        </View>
-      )
-    }
-  }
 
   render(){
     if(this.state.assetsLoaded) {
@@ -151,11 +134,11 @@ class Login extends React.Component{
             </Text>
           </View>
           {this._loginItemBox()}
-          {this._displayLoading()}
+          <MyActivityIndicator condition ={this.state.isLoading}/>
         </View>
       )
     }else{
-      return this._displayLoading()
+      return <MyActivityIndicator condition ={true}/>
     }
   }
 }

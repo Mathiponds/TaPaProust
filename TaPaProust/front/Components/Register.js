@@ -1,5 +1,5 @@
 import React from 'react'
-import {View, Text, StyleSheet, TextInput, ScrollView, ActivityIndicator} from 'react-native'
+import {View, Text, StyleSheet, TextInput, ScrollView} from 'react-native'
 
 import MyTextInput from './MyTextInput'
 import MyButton from './MyButton'

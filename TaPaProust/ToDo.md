@@ -1,6 +1,6 @@
 Front 
 
-- [ ] Ajouter mes livres
+- [x] Ajouter mes livres
 - [ ] Système de favoris
 - [x] Améliorer la recherche
 - [ ] Pouvoir passer d'un input à l'autre
@@ -11,6 +11,7 @@ Front
 - [ ] regarder comment recharger les livres après la modification
 - [ ] api pour register
 - [ ] bouton pour quand on a vendu le livre
+- [ ] ajout photo dans la db
 
 API
 

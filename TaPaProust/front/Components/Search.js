@@ -1,11 +1,12 @@
 import React from 'react'
-import {StyleSheet, View, Text, TextInput, TouchableOpacity,ActivityIndicator} from 'react-native'
+import {StyleSheet, View, Text, TextInput, TouchableOpacity} from 'react-native'
 import * as Font from 'expo-font'
 
 import MyTextInput from './MyTextInput'
 import MyButton from './MyButton'
 import {inputs} from '../Helpers/global.js'
 import API from '../API/BooksAPI'
+import MyActivityIndicator from './MyActivityIndicator'
 
 class Search extends React.Component{
   constructor(props){
@@ -40,16 +41,6 @@ class Search extends React.Component{
       case inputs.EDITION :
         this.search_edition = text
         break;
-    }
-  }
-
-  _displayLoading() {
-    if (this.state.isLoading) {
-      return (
-        <View style={styles.loading_container}>
-          <ActivityIndicator size="large" color="#000000" />
-        </View>
-      )
     }
   }
 
@@ -117,7 +108,7 @@ class Search extends React.Component{
             </Text>
           </View>
           {this._searchedItemBox()}
-          {this._displayLoading()}
+          <MyActivityIndicator condition = {this.state.isLoading}/>
         </View>
       )
   }
