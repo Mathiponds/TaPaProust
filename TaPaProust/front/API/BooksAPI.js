@@ -1,6 +1,6 @@
 import React from 'react'
 import axios from 'axios';
-const HOST = 'https://loud-kangaroo-42.loca.lt/'
+const HOST = 'https://tapaproust.herokuapp.com/'
 const instance = axios.create({
   baseURL: HOST,
   headers : { 'content-type':'application/json' // override instance defaults
@@ -22,6 +22,18 @@ export default  {
     return instance({
       'method':'POST',
       'url':'/logout',
+  })},
+  register : (mail, pwd, pwdConfirmation, phone) => {
+    var bodyFormData = new FormData();
+    bodyFormData.append('mail', mail);
+    bodyFormData.append('pwd', pwd);
+    bodyFormData.append('pwdConfirmation', pwdConfirmation);
+    bodyFormData.append('phone', phone);
+    return instance({
+      'method':'POST',
+      'url':'/register',
+      'data' : bodyFormData,
+      'headers' : {'content-type':'multipart/form-data'}
   })},
   getAllBooks : () =>
     instance({

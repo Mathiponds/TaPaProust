@@ -9,9 +9,11 @@ Front
 - [ ] l'app cherche directement dès le début _> gérer mieux les font
 - [ ] regarder l'état dans le modifier livre et dans verfication 
 - [ ] regarder comment recharger les livres après la modification
-- [ ] api pour register
+- [x] api pour register
+- [ ] verifier toutes les input pour le register
 - [ ] bouton pour quand on a vendu le livre
 - [ ] ajout photo dans la db
+- [x] restructurer les fichiers
 
 API
 

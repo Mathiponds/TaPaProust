@@ -4,6 +4,8 @@ import {View, Text, StyleSheet, TextInput, ScrollView} from 'react-native'
 import MyTextInput from '../MyCustomComponents/MyTextInput'
 import MyButton from '../MyCustomComponents/MyButton'
 
+import API from '../../API/BooksAPI'
+
 import {inputs} from '../../Helpers/global.js'
 
 class Register extends React.Component{
@@ -68,6 +70,7 @@ class Register extends React.Component{
   _register(){
       this.firstTime = false
       if(!this._isInputValid()){
+        API.register(this.userMail, this.password, this.passwordBis, this.phone)
         this.props.navigation.navigate('Login')
       }
   }

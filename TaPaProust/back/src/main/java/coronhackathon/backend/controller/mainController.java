@@ -123,7 +123,15 @@ public class mainController {
     /*******************************************/
     /*************     USERS       *************/
     /*******************************************/
-    @PostMapping("/api/addUser")
+    @PostMapping("/register")
+    public void register(@RequestParam String mail,
+                         @RequestParam String pwd,
+                         @RequestParam String pwdConfirmation,
+                        @RequestParam String phone) {
+        userService.register(mail, pwd, pwdConfirmation, phone);
+    }
+
+    @PostMapping("/admin/addUser")
     public void addUser(Principal principal,
                         @RequestParam String mail,
                         @RequestParam String pwdHash,
