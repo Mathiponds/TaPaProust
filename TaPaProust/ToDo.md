@@ -7,7 +7,7 @@ Front
 - [ ] Page mon profil
 - [ ] Regarder comment mettre l'appli sur internet
 - [ ] l'app cherche directement dès le début _> gérer mieux les font
-- [ ] regarder l'état dans le modifier livre et dans verfication 
+- [x] regarder l'état dans le modifier livre et dans verfication 
 - [ ] regarder comment recharger les livres après la modification
 - [x] api pour register
 - [ ] verifier toutes les input pour le register

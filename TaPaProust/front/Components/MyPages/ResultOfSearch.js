@@ -22,9 +22,15 @@ class ResultOfSearch extends React.Component{
       return (
         <View style = {styles.header_container}>
           <Text style = {styles.header_title}>Recherche pour : </Text>
-          <Text style = {styles.text}><Text style = {styles.entry_text}>Title: </Text>{this.props.route.params.title}</Text>
-          <Text style = {styles.text}><Text style = {styles.entry_text}>Author: </Text>{this.props.route.params.author}</Text>
-          <Text style = {styles.text}><Text style = {styles.entry_text}>Edition: </Text>{this.props.route.params.edition}</Text>
+          <Text style = {this.props.route.params.title ? styles.text : styles.no_entry}>
+            <Text style = {styles.entry_text}>Title: </Text>
+            {this.props.route.params.title? this.props.route.params.title:"Tous"}</Text>
+          <Text style = {this.props.route.params.author ? styles.text : styles.no_entry}>
+            <Text style = {styles.entry_text}>Author: </Text>
+              {this.props.route.params.author?this.props.route.params.author:"Tous"}</Text>
+          <Text style = {this.props.route.params.edition ? styles.text : styles.no_entry}>
+            <Text style = {styles.entry_text}>Edition: </Text>
+              {this.props.route.params.edition?this.props.route.params.edition:"Tous"}</Text>
         </View>
       )
   }
@@ -46,19 +52,26 @@ const styles = StyleSheet.create({
     flex: 1
   },
   header_container : {
-    alignItems : 'center',
-    margin :5
+    margin :5,
+    paddingLeft : 5
   },
   header_title :{
     fontFamily : 'lobster-regular',
     fontSize : 32
   },
   entry_text : {
-    fontFamily : 'lobster-regular'
+    fontFamily : 'dancing-regular',
+    fontSize : 20
+  },
+  no_entry : {
+    fontFamily : 'LobsterTwo-Italic',
+    fontSize : 17,
+    paddingLeft : 30
   },
   text : {
-    fontFamily : 'dancing-regular',
-    fontSize : 20,
+    fontFamily : 'LobsterTwo-Italic',
+    fontSize : 27,
+    paddingLeft : 30
   }
 })
 
