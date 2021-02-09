@@ -1,5 +1,5 @@
 import React, { useRef } from 'react'
-import {StyleSheet, View, Text, TextInput, TouchableOpacity} from 'react-native'
+import {StyleSheet, View, ScrollView, Text, TextInput, TouchableOpacity} from 'react-native'
 import * as Font from 'expo-font'
 import update from 'react-addons-update'
 
@@ -24,8 +24,7 @@ class Search extends React.Component{
 
       this.state = {
         isLoading : false,
-        areAllEntriesNull : false,
-        toFocus : [false, false, false]
+        areAllEntriesNull : false
       }
   }
 
@@ -89,7 +88,7 @@ class Search extends React.Component{
       <View style = { styles.search_item_container}>
         <MyTextInput
           title = {'Titre'} placeholder = {'Titre'} input = {inputs.TITLE}
-          onChangedInput = {this._onChangedInput} onFocus = {()=> {}}
+          onChangedInput = {this._onChangedInput}
           returnKeyType = {"next"}
           onSubmitEditing = {() => this.focusNextTextInput("two")}
           blurOnSubmit={false}
@@ -97,7 +96,7 @@ class Search extends React.Component{
           />
         <MyTextInput
           title = {'Auteur'} placeholder = {'Auteur'} input = {inputs.AUTHOR}
-          onChangedInput = {this._onChangedInput} onFocus = {()=> {}}
+          onChangedInput = {this._onChangedInput}
           returnKeyType = {"next"}
           onSubmitEditing = {() => this.focusNextTextInput("three")}
           blurOnSubmit={false}
@@ -105,7 +104,7 @@ class Search extends React.Component{
           />
         <MyTextInput
           title = {'Edition'} placeholder = {'Edition'} input = {inputs.EDITION}
-          onChangedInput = {this._onChangedInput} onFocus = {()=> {}}
+          onChangedInput = {this._onChangedInput}
           returnKeyType = {"search"}
           onSubmitEditing = {() => this._searchBooks}
           blurOnSubmit={false}
@@ -121,7 +120,7 @@ class Search extends React.Component{
 
   render(){
       return (
-        <View style = {styles.main_container}>
+        <ScrollView style = {styles.main_container}>
           <View style = { styles.title_box}>
             <Text style = {styles.title}>
               TaPaProust
@@ -129,7 +128,7 @@ class Search extends React.Component{
           </View>
           {this._searchedItemBox()}
           <MyActivityIndicator condition = {this.state.isLoading}/>
-        </View>
+        </ScrollView>
       )
   }
 }

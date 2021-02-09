@@ -15,6 +15,10 @@ class Login extends React.Component{
     this.userMail = "u@tapaproust.ch"
     this.password = "u"
 
+    this.myTextInput = {}
+
+    this.focusNextTextInput = this.focusNextTextInput.bind(this)
+
     this._login = this._login.bind(this)
     this._register = this._register.bind(this)
     this._onChangedInput = this._onChangedInput.bind(this)
@@ -81,6 +85,8 @@ class Login extends React.Component{
     })
     if(this.state.successfulLogin){
       this.props.navigation.replace('Home')
+    }else{
+      //ToDO
     }
   }
 
@@ -98,6 +104,10 @@ class Login extends React.Component{
     }
   }
 
+  focusNextTextInput(id) {
+   this.myTextInput[id].focus();
+  }
+
   _loginItemBox(){
     return (
       <View style = { styles.login_item_container}>
@@ -105,11 +115,19 @@ class Login extends React.Component{
           title = {'Mail'} placeholder = {'Mail'} input = {inputs.USER_MAIL}
           onChangedInput = {this._onChangedInput} onFocus = {()=> {}}
           defaultValue ={"u@tapaproust.ch"}
+          returnKeyType = {"next"}
+          onSubmitEditing = {() => this.focusNextTextInput("two")}
+          blurOnSubmit={false}
+          ref={input => {this.myTextInput["one"] = input;}}
           />
         <MyTextInput
           title = {'Mot de passe '} placeholder = {'Mot de passe'} input = {inputs.PASSWORD}
           secureTextEntry = {true} onChangedInput = {this._onChangedInput} onFocus = {()=> {}}
           defaultValue ={"u"}
+          returnKeyType = {"go"}
+          onSubmitEditing = {this._login}
+          blurOnSubmit={false}
+          ref={input => {this.myTextInput["two"] = input;}}
           />
           {this._getLoginFailure()}
         <MyButton

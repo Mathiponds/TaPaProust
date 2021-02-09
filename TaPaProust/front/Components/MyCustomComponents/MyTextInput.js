@@ -19,7 +19,7 @@ class MyTextInput extends React.Component{
         secureTextEntry = {this.props.secureTextEntry}
         returnKeyType = {this.props.returnKeyType}
         onSubmitEditing = {this.props.onSubmitEditing}
-        ref = {this.props.ref}
+        onSubmit = {this.onSubmit}
         blurOnSubmit = {this.props.blurOnSubmit}
         ref={input => {this.textInput["one"] = input; }}
         >
