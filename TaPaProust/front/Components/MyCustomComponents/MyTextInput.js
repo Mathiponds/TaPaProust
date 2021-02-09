@@ -13,7 +13,11 @@ class MyTextInput extends React.Component{
         keyboardType = {this.props.keyboardType}
         onFocus = {()=> this.props.onFocus()}
         onChangeText = {(text) => this.props.onChangedInput(text, this.props.input)}
-        secureTextEntry = {this.props.secureTextEntry}>
+        secureTextEntry = {this.props.secureTextEntry}
+        returnKeyType = {this.props.returnKeyType}
+        onSubmitEditing = {this.props.onSubmitEditing}
+        focus = {this.props.focus}
+        >
       </TextInput>
     )
   }
@@ -50,6 +54,24 @@ class MyTextInput extends React.Component{
         </View>
       )
   }
+  static propTypes = {
+        focus: PropTypes.bool,
+    }
+
+    static defaultProps = {
+        focus: false,
+    }
+
+    // Methods:
+    focus() {
+        this._component.focus();
+    }
+
+    componentWillReceiveProps(nextProps) {
+        const {focus} = nextProps;
+
+        focus && this.focus();
+    }
 }
 
 const styles = StyleSheet.create({
