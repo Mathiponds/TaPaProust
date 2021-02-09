@@ -3,7 +3,11 @@ import {View, Text, StyleSheet, TextInput} from 'react-native'
 
 import inputs from '../../Helpers/global.js'
 class MyTextInput extends React.Component{
+  constructor(props){
+    super(props)
 
+    this.textInput = {}
+  }
   _getTextInput(){
     return (
       <TextInput
@@ -11,13 +15,13 @@ class MyTextInput extends React.Component{
         defaultValue = {this.props.defaultValue}
         placeholder = {this.props.placeholder}
         keyboardType = {this.props.keyboardType}
-        onFocus = {()=> this.props.onFocus()}
         onChangeText = {(text) => this.props.onChangedInput(text, this.props.input)}
         secureTextEntry = {this.props.secureTextEntry}
         returnKeyType = {this.props.returnKeyType}
         onSubmitEditing = {this.props.onSubmitEditing}
         ref = {this.props.ref}
         blurOnSubmit = {this.props.blurOnSubmit}
+        ref={input => {this.textInput["one"] = input; }}
         >
       </TextInput>
     )
@@ -54,6 +58,9 @@ class MyTextInput extends React.Component{
           {this._getEmptyMessage()}
         </View>
       )
+  }
+  focus(){
+    this.textInput["one"].focus()
   }
 }
 
