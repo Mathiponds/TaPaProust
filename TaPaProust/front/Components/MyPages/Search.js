@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useRef } from 'react'
 import {StyleSheet, View, Text, TextInput, TouchableOpacity} from 'react-native'
 import * as Font from 'expo-font'
 import update from 'react-addons-update'
@@ -16,10 +16,10 @@ class Search extends React.Component{
       this.searched_author = ""
       this.searched_edition = ""
 
+      this.textInput = {}
 
       this._searchBooks = this._searchBooks.bind(this)
       this._onChangedInput = this._onChangedInput.bind(this)
-      this._focusNext = this._focusNext.bind(this)
 
       this.state = {
         isLoading : false,
@@ -79,15 +79,9 @@ class Search extends React.Component{
     }
   }
 
-  async _focusNext(fromTextInput){
-    const toFocus = [...this.state.toFocus]
-    toFocus[fromTextInput] = false
-    toFocus[fromTextInput+1] = true
-    await this.setState({
-      toFocus : toFocus
-    })
-    console.log(this.state.toFocus)
-  }
+  focusNextTextInput = (id) => {
+    this.textInput[id].focus();
+ }
 
   _searchedItemBox(){
     return (
@@ -95,20 +89,29 @@ class Search extends React.Component{
         <MyTextInput
           title = {'Titre'} placeholder = {'Titre'} input = {inputs.TITLE}
           onChangedInput = {this._onChangedInput} onFocus = {()=> {}}
-          returnKeyType = {"next"} onSubmitEditing = {() => this._focusNext(0)}
-          focus = {this.state.toFocus[0]}
+          returnKeyType = {"next"} onSubmitEditing = {() => focusNextTextInput("two")}
+          blurOnSubmit={false}
+          ref={input => {
+           this.textInput["one"] = input;
+         }}
           />
         <MyTextInput
           title = {'Auteur'} placeholder = {'Auteur'} input = {inputs.AUTHOR}
           onChangedInput = {this._onChangedInput} onFocus = {()=> {}}
-          returnKeyType = {"next"} onSubmitEditing = {() => this._focusNext(1)}
-          focus = {this.state.toFocus[1]}
+          returnKeyType = {"next"} onSubmitEditing = {() => focusNextTextInput("three")}
+          blurOnSubmit={false}
+          ref={input => {
+           this.textInput["two"] = input;
+         }}
           />
         <MyTextInput
           title = {'Edition'} placeholder = {'Edition'} input = {inputs.EDITION}
           onChangedInput = {this._onChangedInput} onFocus = {()=> {}}
           returnKeyType = {"search"} onSubmitEditing = {() => this._searchBooks}
-          focus = {this.state.toFocus[2]}
+          blurOnSubmit={false}
+          ref={input => {
+           this.textInput["three"] = input;
+         }}
           />
           {this._getCommentAllEntriesNull()}
         <MyButton

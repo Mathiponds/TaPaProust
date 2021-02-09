@@ -16,7 +16,8 @@ class MyTextInput extends React.Component{
         secureTextEntry = {this.props.secureTextEntry}
         returnKeyType = {this.props.returnKeyType}
         onSubmitEditing = {this.props.onSubmitEditing}
-        focus = {this.props.focus}
+        ref = {this.props.ref}
+        blurOnSubmit = {this.props.blurOnSubmit}
         >
       </TextInput>
     )
@@ -54,24 +55,6 @@ class MyTextInput extends React.Component{
         </View>
       )
   }
-  static propTypes = {
-        focus: PropTypes.bool,
-    }
-
-    static defaultProps = {
-        focus: false,
-    }
-
-    // Methods:
-    focus() {
-        this._component.focus();
-    }
-
-    componentWillReceiveProps(nextProps) {
-        const {focus} = nextProps;
-
-        focus && this.focus();
-    }
 }
 
 const styles = StyleSheet.create({
