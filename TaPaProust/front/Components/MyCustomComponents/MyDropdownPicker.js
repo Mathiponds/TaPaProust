@@ -7,7 +7,7 @@ class MyDropdownPicker extends React.Component{
     if(this.props.emptyInput){
       return(
         <Text style = {styles.empty_input_text}>
-          Sélectionner {this.props.emptyInputMessage} !
+          {this.props.emptyInputMessage}
         </Text>
       )
     }

@@ -1,5 +1,5 @@
 import React, { useRef } from 'react'
-import {StyleSheet, View, ScrollView, Text, TextInput, TouchableOpacity} from 'react-native'
+import {StyleSheet, View, ScrollView, Text, TextInput, TouchableOpacity, Keyboard} from 'react-native'
 import * as Font from 'expo-font'
 import update from 'react-addons-update'
 
@@ -105,8 +105,8 @@ class Search extends React.Component{
         <MyTextInput
           title = {'Edition'} placeholder = {'Edition'} input = {inputs.EDITION}
           onChangedInput = {this._onChangedInput}
-          returnKeyType = {"search"}
-          onSubmitEditing = {() => this._searchBooks}
+          returnKeyType = {"go"}
+          onSubmitEditing  = {Keyboard.dismiss}
           blurOnSubmit={false}
           ref={input => {this.myTextInput["three"] = input;}}
           />

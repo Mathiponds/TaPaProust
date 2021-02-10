@@ -32,7 +32,7 @@ class AddBook extends React.Component{
       isAuthorEmpty : true,
       isEditionEmpty : true,
       isLanguageEmpty : true,
-      isStateEmpty : true,
+      isBookStateEmpty : true,
       isPriceEmpty : true,
       photos : []
     }
@@ -68,8 +68,8 @@ class AddBook extends React.Component{
       case inputs.LANGUAGE :
         this.language = text
         break;
-      case inputs.STATE :
-        this.state = text
+      case inputs.BOOK_STATE :
+        this.bookState = text
         break;
       default :
         console.log("error addbook")
@@ -146,7 +146,7 @@ class AddBook extends React.Component{
         })}
         onClose={() => this._changePickerVisibility({})}
         defaultValue = {this.addBook ? null : this.language}
-        emptyInput = { !this.firstTime && this.state.isLanguageEmpty} emptyInputMessage = {"une langue"}
+        emptyInput = { !this.firstTime && this.state.isLanguageEmpty} emptyInputMessage = {"Veuillez sélectionner une langue."}
         defaultNull placeholder = {this.addBook ? "Choisir une langue" : null}
         input = {inputs.LANGUAGE} onChangedInput = {this._onChangedInput}/>
       <MyDropdownPicker
@@ -163,7 +163,7 @@ class AddBook extends React.Component{
             isViP2: false
         })}
         defaultValue = {this.addBook ? null : this.bookState}
-        emptyInput = { !this.firstTime && this.state.isBookStateEmpty} emptyInputMessage = {"un état"}
+        emptyInput = { !this.firstTime && this.state.isBookStateEmpty} emptyInputMessage = {"Veuillez sélectionner un état."}
         defaultNull placeholder = {this.addBook ? "Choisir l'état du livre" : null}
         input = {inputs.BOOK_STATE} onChangedInput = {this._onChangedInput}/>
         </View>
@@ -194,23 +194,21 @@ class AddBook extends React.Component{
       <ScrollView style = {styles.main_container}>
         <View style = { styles.search_item_container}>
           {this._getMyTextInput('Titre', 'Titre', this.addBook ? null : ""+this.props.route.params.title,
-            inputs.TITLE, this.state.isTitleEmpty, "un titre", "next", "one", () => this.focusNextTextInput("two"))}
+            inputs.TITLE, this.state.isTitleEmpty, "Veuillez sélectionner un titre.", "next", "one", () => this.focusNextTextInput("two"))}
           {this._getMyTextInput('Auteur', 'Auteur', this.addBook ? null : ""+this.props.route.params.author,
-            inputs.AUTHOR, this.state.isAuthorEmpty, "un auteur","next", "two", () => this.focusNextTextInput("three"))}
+            inputs.AUTHOR, this.state.isAuthorEmpty, "Veuillez sélectionner un auteur.","next", "two", () => this.focusNextTextInput("three"))}
           {this._getMyTextInput('Edition', 'Edition', this.addBook ? null : ""+this.props.route.params.edition,
-            inputs.EDITION, this.state.isEditionEmpty, "une edition","next", "three", () => this.focusNextTextInput("four"))}
+            inputs.EDITION, this.state.isEditionEmpty, "Veuillez sélectionner une edition.","next", "three", () => this.focusNextTextInput("four"))}
             <MyTextInput  title = {'Prix (en frs)'}
               placeholder = {this.addBook ? 'Prix' : ""+this.props.route.params.price}
               defaultValue = {this.addBook ? null : ""+this.props.route.params.price}
               input = {inputs.PRICE} onChangedInput = {this._onChangedInput}
-              emptyInput = { !this.firstTime && this.state.isPriceEmpty} emptyInputMessage = {"un prix"}
+              emptyInput = { !this.firstTime && this.state.isPriceEmpty} emptyInputMessage = {"Veuillez sélectionner un prix."}
               modify = {!this.addBook} onFocus={()=>this._changePickerVisibility({})}
               keyboardType = 'numeric'
               returnKeyType = {"next"}
-              onSubmitEditing = {() => {
-                Keyboard.dismiss
-                this.setState({isViP1 : true})
-              }}
+              onEndEditing = {this.props.onEndEditing}
+              onSubmitEditing = {Keyboard.dismiss}
               blurOnSubmit={false}
               ref={input => {this.myTextInput["four"] = input;}}/>
           {this._getAllMyDropDownPickers()}
