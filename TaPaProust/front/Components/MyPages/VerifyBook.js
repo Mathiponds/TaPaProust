@@ -1,12 +1,16 @@
 import React from 'react'
-import {View, Text, StyleSheet, ScrollView, Alert} from 'react-native'
+import {View, Text, StyleSheet, ScrollView, Alert, Image} from 'react-native'
 
-import MyButton from './MyButton'
+import MyButton from '../MyCustomComponents/MyButton'
+import PhotoRendering from '../MyCustomComponents/PhotoRendering'
+
+import API from '../../API/BooksAPI'
 
 class VerifyBook extends React.Component{
   constructor(props){
     super(props)
     this._confirmBook = this._confirmBook.bind(this)
+    this.modify = this.props.route.params.modify
   }
   async componentDidMount() {
     this.props.navigation.setOptions({headerTitleStyle : {
@@ -14,16 +18,32 @@ class VerifyBook extends React.Component{
     this.setState({ assetsLoaded: true });
   }
 
-  _confirmBook(){
+  async  _confirmBook(){
+    // TODO: Send the book to the backend
+    if(!this.modify){
+      await API.postBook(this.props.route.params.title, this.props.route.params.author,
+        this.props.route.params.edition, this.props.route.params.language,
+        this.props.route.params.price, this.props.route.params.bookState)
+    }else{
+      await API.modifyBook(this.props.route.params.id, this.props.route.params.title, this.props.route.params.author,
+        this.props.route.params.edition, this.props.route.params.language,
+        this.props.route.params.price, this.props.route.params.bookState)
+    }
+
+    const text = this.modify ?  "Votre livre a bien été modifié" :"Votre livre a bien été ajouté"
     Alert.alert(
       "Confirmation",
-      "Votre livre a bien été ajouté",
+      text,
       [
         { text: "OK"}
       ],
       { cancelable: true }
     );
-    this.props.navigation.navigate('Ajouter un livre')
+    if(this.modify){
+      this.props.navigation.navigate('Mes livres')
+    }else{
+      this.props.navigation.navigate('Ajouter un livre')
+    }
   }
 
   render(){
@@ -38,7 +58,10 @@ class VerifyBook extends React.Component{
             <Text style = {styles.text}><Text style = {styles.entry_text}>Edition: </Text>{this.props.route.params.edition}</Text>
             <Text style = {styles.text}><Text style = {styles.entry_text}>Langue: </Text>{this.props.route.params.language}</Text>
             <Text style = {styles.text}><Text style = {styles.entry_text}>Prix: </Text>{this.props.route.params.price}</Text>
-            <Text style = {styles.text}><Text style = {styles.entry_text}>Etat: </Text>{this.props.route.params.state}</Text>
+            <Text style = {styles.text}><Text style = {styles.entry_text}>Etat: </Text>{this.props.route.params.bookState}</Text>
+            <Text style = {styles.entry_text}>Photos: </Text>
+            <PhotoRendering withButton = {false} withDelete = {false}
+              photos = {this.props.route.params.photos}/>
           </View>
           <MyButton onPress = {this._confirmBook} title = {'Confirmer'}/>
         </ScrollView>
@@ -72,6 +95,12 @@ const styles = StyleSheet.create({
   text : {
     fontFamily : 'dancing-regular',
     fontSize : 25,
+  },
+  image : {
+    marginLeft : 2,
+    marginRight : 2,
+    height: 120,
+    width: 90
   }
 })
 
