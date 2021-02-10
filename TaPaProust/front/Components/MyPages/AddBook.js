@@ -1,5 +1,6 @@
 import React from 'react'
-import {View, Text, StyleSheet, TextInput, TouchableOpacity, ScrollView, Picker, Image, Keyboard} from 'react-native'
+import {View, Text, StyleSheet, TextInput, TouchableOpacity, ScrollView, Picker,
+   Image, Keyboard, TouchableWithoutFeedback} from 'react-native'
 import DropDownPicker from 'react-native-dropdown-picker';
 import {inputs} from '../../Helpers/global.js'
 
@@ -144,7 +145,9 @@ class AddBook extends React.Component{
         onOpen={() => this._changePickerVisibility({
             isViP1: true
         })}
-        onClose={() => this._changePickerVisibility({})}
+        onClose={() => this._changePickerVisibility({
+            isViP2: true
+        })}
         defaultValue = {this.addBook ? null : this.language}
         emptyInput = { !this.firstTime && this.state.isLanguageEmpty} emptyInputMessage = {"Veuillez sélectionner une langue."}
         defaultNull placeholder = {this.addBook ? "Choisir une langue" : null}
@@ -159,9 +162,7 @@ class AddBook extends React.Component{
         onOpen={() => this._changePickerVisibility({
             isViP2: true
         })}
-        onClose={() => this._changePickerVisibility({
-            isViP2: false
-        })}
+        onClose={() => this._changePickerVisibility({})}
         defaultValue = {this.addBook ? null : this.bookState}
         emptyInput = { !this.firstTime && this.state.isBookStateEmpty} emptyInputMessage = {"Veuillez sélectionner un état."}
         defaultNull placeholder = {this.addBook ? "Choisir l'état du livre" : null}
@@ -191,35 +192,42 @@ class AddBook extends React.Component{
 
   render(){
     return (
-      <ScrollView style = {styles.main_container}>
-        <View style = { styles.search_item_container}>
-          {this._getMyTextInput('Titre', 'Titre', this.addBook ? null : ""+this.props.route.params.title,
-            inputs.TITLE, this.state.isTitleEmpty, "Veuillez sélectionner un titre.", "next", "one", () => this.focusNextTextInput("two"))}
-          {this._getMyTextInput('Auteur', 'Auteur', this.addBook ? null : ""+this.props.route.params.author,
-            inputs.AUTHOR, this.state.isAuthorEmpty, "Veuillez sélectionner un auteur.","next", "two", () => this.focusNextTextInput("three"))}
-          {this._getMyTextInput('Edition', 'Edition', this.addBook ? null : ""+this.props.route.params.edition,
-            inputs.EDITION, this.state.isEditionEmpty, "Veuillez sélectionner une edition.","next", "three", () => this.focusNextTextInput("four"))}
-            <MyTextInput  title = {'Prix (en frs)'}
-              placeholder = {this.addBook ? 'Prix' : ""+this.props.route.params.price}
-              defaultValue = {this.addBook ? null : ""+this.props.route.params.price}
-              input = {inputs.PRICE} onChangedInput = {this._onChangedInput}
-              emptyInput = { !this.firstTime && this.state.isPriceEmpty} emptyInputMessage = {"Veuillez sélectionner un prix."}
-              modify = {!this.addBook} onFocus={()=>this._changePickerVisibility({})}
-              keyboardType = 'numeric'
-              returnKeyType = {"next"}
-              onEndEditing = {this.props.onEndEditing}
-              onSubmitEditing = {Keyboard.dismiss}
-              blurOnSubmit={false}
-              ref={input => {this.myTextInput["four"] = input;}}/>
-          {this._getAllMyDropDownPickers()}
+      <TouchableWithoutFeedback onPress={() => {Keyboard.dismiss();
+        this._changePickerVisibility({})
+        console.log(this.state)
+      }}>
+        <ScrollView style = {styles.main_container}>
+          <View style = { styles.search_item_container}>
+            {this._getMyTextInput('Titre', 'Titre', this.addBook ? null : ""+this.props.route.params.title,
+              inputs.TITLE, this.state.isTitleEmpty, "Veuillez sélectionner un titre.", "next", "one", () => this.focusNextTextInput("two"))}
+            {this._getMyTextInput('Auteur', 'Auteur', this.addBook ? null : ""+this.props.route.params.author,
+              inputs.AUTHOR, this.state.isAuthorEmpty, "Veuillez sélectionner un auteur.","next", "two", () => this.focusNextTextInput("three"))}
+            {this._getMyTextInput('Edition', 'Edition', this.addBook ? null : ""+this.props.route.params.edition,
+              inputs.EDITION, this.state.isEditionEmpty, "Veuillez sélectionner une edition.","next", "three", () => this.focusNextTextInput("four"))}
+              <MyTextInput  title = {'Prix (en frs)'}
+                placeholder = {this.addBook ? 'Prix' : ""+this.props.route.params.price}
+                defaultValue = {this.addBook ? null : ""+this.props.route.params.price}
+                input = {inputs.PRICE} onChangedInput = {this._onChangedInput}
+                emptyInput = { !this.firstTime && this.state.isPriceEmpty} emptyInputMessage = {"Veuillez sélectionner un prix."}
+                modify = {!this.addBook} onFocus={()=>this._changePickerVisibility({})}
+                keyboardType = 'numeric'
+                returnKeyType = {"next"}
+                onEndEditing = {this.props.onEndEditing}
+                onSubmitEditing = {() => {Keyboard.dismiss();this._changePickerVisibility({
+                    isViP1: true
+                })}}
+                blurOnSubmit={false}
+                ref={input => {this.myTextInput["four"] = input;}}/>
+            {this._getAllMyDropDownPickers()}
 
-          <PhotoRendering
-            photos = {this.state.photos}
-            withButton = {true} navigation = {this._navigateToImageBrowser}
-            withDelete = {true} deletePhoto = {(i) => this._deletePhoto(i)}/>
-          <MyButton onPress = {()=>this._verifyBook()} title = {this.addBook ? 'Ajouter ce livre' : 'Modifier le livre'}/>
-        </View>
-      </ScrollView>
+            <PhotoRendering
+              photos = {this.state.photos}
+              withButton = {true} navigation = {this._navigateToImageBrowser}
+              withDelete = {true} deletePhoto = {(i) => this._deletePhoto(i)}/>
+            <MyButton onPress = {()=>this._verifyBook()} title = {this.addBook ? 'Ajouter ce livre' : 'Modifier le livre'}/>
+          </View>
+        </ScrollView>
+      </TouchableWithoutFeedback>
     )
   }
 }

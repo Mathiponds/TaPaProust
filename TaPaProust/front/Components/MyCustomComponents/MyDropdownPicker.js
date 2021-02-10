@@ -29,6 +29,7 @@ class MyDropdownPicker extends React.Component{
           zIndex = {4000}
           labelStyle={styles.text_input}
           style = {[styles.dropdownStyle, this.props.emptyInput ? styles.dropdownStyle_error : {}]}
+          dropDownMaxHeight = {125}
           containerStyle={styles.dropdownPicker}
           onChangeItem={item => this.props.onChangedInput(item.label,this.props.input)}
         />

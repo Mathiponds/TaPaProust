@@ -1,5 +1,6 @@
 import React, { useRef } from 'react'
-import {StyleSheet, View, ScrollView, Text, TextInput, TouchableOpacity, Keyboard} from 'react-native'
+import {StyleSheet, View, ScrollView, Text, TextInput, TouchableOpacity,
+  Keyboard,TouchableWithoutFeedback } from 'react-native'
 import * as Font from 'expo-font'
 import update from 'react-addons-update'
 
@@ -83,38 +84,44 @@ class Search extends React.Component{
    this.myTextInput[id].focus();
   }
 
+
   _searchedItemBox(){
     return (
-      <View style = { styles.search_item_container}>
-        <MyTextInput
-          title = {'Titre'} placeholder = {'Titre'} input = {inputs.TITLE}
-          onChangedInput = {this._onChangedInput}
-          returnKeyType = {"next"}
-          onSubmitEditing = {() => this.focusNextTextInput("two")}
-          blurOnSubmit={false}
-          ref={input => {this.myTextInput["one"] = input;}}
-          />
-        <MyTextInput
-          title = {'Auteur'} placeholder = {'Auteur'} input = {inputs.AUTHOR}
-          onChangedInput = {this._onChangedInput}
-          returnKeyType = {"next"}
-          onSubmitEditing = {() => this.focusNextTextInput("three")}
-          blurOnSubmit={false}
-          ref={input => {this.myTextInput["two"] = input;}}
-          />
-        <MyTextInput
-          title = {'Edition'} placeholder = {'Edition'} input = {inputs.EDITION}
-          onChangedInput = {this._onChangedInput}
-          returnKeyType = {"go"}
-          onSubmitEditing  = {Keyboard.dismiss}
-          blurOnSubmit={false}
-          ref={input => {this.myTextInput["three"] = input;}}
-          />
-          {this._getCommentAllEntriesNull()}
-        <MyButton
-          onPress = {this._searchBooks}
-          title = {'Rechercher'}/>
-      </View>
+      <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+        <View style = { styles.search_item_container}>
+          <MyTextInput
+            title = {'Titre'} placeholder = {'Titre'} input = {inputs.TITLE}
+            onChangedInput = {this._onChangedInput}
+            returnKeyType = {"next"}
+            onSubmitEditing = {() => this.focusNextTextInput("two")}
+            blurOnSubmit={false}
+            ref={input => {this.myTextInput["one"] = input;}}
+            />
+          <MyTextInput
+            title = {'Auteur'} placeholder = {'Auteur'} input = {inputs.AUTHOR}
+            onChangedInput = {this._onChangedInput}
+            returnKeyType = {"next"}
+            onSubmitEditing = {() => this.focusNextTextInput("three")}
+            blurOnSubmit={false}
+            ref={input => {this.myTextInput["two"] = input;}}
+            />
+          <MyTextInput
+            title = {'Edition'} placeholder = {'Edition'} input = {inputs.EDITION}
+            onChangedInput = {this._onChangedInput}
+            returnKeyType = {"search"}
+            onSubmitEditing  = {() => {
+              Keyboard.dismiss()
+              this._searchBooks()
+            }}
+            blurOnSubmit={false}
+            ref={input => {this.myTextInput["three"] = input;}}
+            />
+            {this._getCommentAllEntriesNull()}
+          <MyButton
+            onPress = {this._searchBooks}
+            title = {'Rechercher'}/>
+        </View>
+      </TouchableWithoutFeedback>
     )
   }
 
@@ -132,6 +139,12 @@ class Search extends React.Component{
       )
   }
 }
+
+const DismissKeyboard = ({ children }) => (
+  <TouchableWithoutFeedback
+    onPress={() => Keyboard.dismiss()}> {children}
+  </TouchableWithoutFeedback>
+);
 
 const styles = StyleSheet.create({
   main_container : {
