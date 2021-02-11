@@ -14,7 +14,8 @@ Front
 - [ ] bouton pour quand on a vendu le livre
 - [ ] ajout photo dans la db
 - [x] restructurer les fichiers
-
+- [ ] faire en sorte que quand on appuie à coté dans le login ça enlève le clavier
+ 
 API
 
 // essayer de faire en sorte s'il y a une petite faute d'ortographe ce soit pas grave
