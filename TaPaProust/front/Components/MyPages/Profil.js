@@ -56,7 +56,7 @@ class Profil extends React.Component{
 
   _logout(){
     API.logout()
-    .then(response => this.props.navigation.navigate("Login"))
+    .then(response => this.props.navigation.replace("Login"))
     .catch((error) => console.log(error))
   }
 
