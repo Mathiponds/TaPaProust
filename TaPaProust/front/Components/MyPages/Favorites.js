@@ -5,16 +5,24 @@ import BookList from '../MyCustomComponents/BookList'
 
 import books from '../../Helpers/books'
 import {screens} from '../../Helpers/global'
+import API from '../../API/BooksAPI'
 
 class Favorites extends React.Component {
+  constructor(props){
+    super(props)
+    this.state = {
+      favBooks : []
+    }
+  }
   async componentDidMount() {
     this.props.navigation.setOptions({headerTitleStyle : {
       fontFamily : 'lobster-regular', fontSize : 30}})
   }
 
   _getMyFavoritesBooks(){
-    return books
-    //return API._getMyBooks
+    return API.getMyFavBooks().then(response => this.setState({
+      favBooks : response.data
+    })).catch(error => console.log(error))
   }
 
   _displayDetailForBook = (book) => {

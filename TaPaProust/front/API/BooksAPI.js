@@ -87,7 +87,6 @@ export default  {
       'headers' : { 'content-type':'multipart/form-data'}
   })},
 
-
   addUser : (mail, password, passwordBis, phone) => {
     var bodyFormData = new FormData();
     bodyFormData.append('mail', mail)
@@ -101,5 +100,27 @@ export default  {
       'headers' : { 'content-type':'multipart/form-data'}
     })},
 
-
+  addToFav : (bookId) => {
+    var bodyFormData = new FormData();
+    bodyFormData.append('bookId', bookId);
+    return instance({
+      'method':'POST',
+      'url':'/api/addToFav',
+      'data' : bodyFormData,
+      'headers' : { 'content-type':'multipart/form-data'}
+  })},
+  removeFromFav : (bookId) => {
+    var bodyFormData = new FormData();
+    bodyFormData.append('bookId', bookId);
+    return instance({
+      'method':'POST',
+      'url':'/api/removeFromFav',
+      'data' : bodyFormData,
+      'headers' : { 'content-type':'multipart/form-data'}
+  })},
+  getMyFavBooks : () =>
+    instance({
+      'method':'GET',
+      'url':'/api/getMyFavBooks'
+  }),
 }

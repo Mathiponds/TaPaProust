@@ -50,6 +50,8 @@ class BookDetails extends React.Component{
         id : this.book.id})
 
   }
+
+
   _getButton(){
     if(this.lastScreen === screens.RESULT_OF_SEARCH ||
         this.lastScreen === screens.FAVORITES){
