@@ -130,68 +130,67 @@ const BooksTabNavigator = createBottomTabNavigator()
 function MyBooksTabNavigator(){
   return (
     <BooksTabNavigator.Navigator tabBarOptions={{
-        activeBackgroundColor : '#000000',
-        inactiveBackgroundColor : '#000000',
-        labelStyle : {
-          color : '#ffffff'
-        }
+        activeBackgroundColor : '#fff',
+        inactiveBackgroundColor : '#000',
+        activeTintColor : '#000',
+        inactiveTintColor : '#fff'
       }}>
       <BooksTabNavigator.Screen name = "Recherche" component={MySearchStackNavigator}
        options= {{
-        tabBarIcon : () => (
+        tabBarIcon : ({focused}) => (
           <View>
             <Image
               resizeMode = 'contain'
               style={styles.favorite_image}
-              source={require('../Images/search_inv.png')}/>
+              source={focused ? require('../Images/search.png') :require('../Images/search_inv.png')}/>
           </View>
           )
         }}
       />
       <BooksTabNavigator.Screen name = "Ajouter un livre" component={MyAddBookStackNavigator}
       options= {{
-       tabBarIcon : () => (
+       tabBarIcon : ({focused}) => (
          <View>
             <Image
               resizeMode = 'contain'
               style={styles.favorite_image}
-              source={require('../Images/add_book_inv.png')}/>
+              source={focused ? require('../Images/add_book.png') :require('../Images/add_book_inv.png')}/>
          </View>
          )
        }}
       />
       <BooksTabNavigator.Screen name = "Mes Livres" component={MyUsersBooksStackNavigator}
        options= {{
-        tabBarIcon : () => (
+        tabBarIcon : ({focused}) => (
           <View>
             <Image
               resizeMode = 'contain'
               style={styles.favorite_image}
-              source={require('../Images/user_book_inv.png')}/>
+              source={focused ? require('../Images/user_book.png'): require('../Images/user_book_inv.png')}/>
           </View>
           )
         }}
       />
       <BooksTabNavigator.Screen name = "Mes favoris" component={MyFavoritesStackNavigator}
        options= {{
-        tabBarIcon : () => (
+        tabBarIcon : ({focused}) => (
           <View>
             <Image
               resizeMode = 'contain'
               style={styles.favorite_image}
-              source={require('../Images/favori_inv.png')}/>
+              source={focused ? require('../Images/favori.png') : require('../Images/favori_inv.png')}/>
           </View>
           )
         }}
       />
       <BooksTabNavigator.Screen name = "Mon profil" component={MyProfileStackNavigator}
        options= {{
-        tabBarIcon : () => (
+        tabBarIcon : ({focused}) => (
           <View>
             <Image
               resizeMode = 'contain'
               style={styles.favorite_image}
-              source={require('../Images/user_inv.png')}/>
+              source={focused ? require('../Images/user.png') : require('../Images/user_inv.png')}/>
           </View>
           )
         }}
