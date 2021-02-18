@@ -5,6 +5,7 @@ import MyButton from '../MyCustomComponents/MyButton'
 import PhotoRendering from '../MyCustomComponents/PhotoRendering'
 
 import {screens} from '../../Helpers/global'
+import {connect} from 'react-redux'
 
 class BookDetails extends React.Component{
   constructor(props){
@@ -42,6 +43,24 @@ class BookDetails extends React.Component{
       });
 
   }
+  _toggleFavorite() {
+    const action = { type: "TOGGLE_FAVORITE", value: this.book }
+    this.props.dispatch(action)
+  }
+
+  _displayFavoriteImage() {
+    var sourceImage = require('../../Images/coeur_vide.png')
+    if (this.props.favoritesBook.findIndex(item => item.id === this.book.id) !== -1) {
+      // book dans nos favoris
+      sourceImage = require('../../Images/coeur_plein.png')
+    }
+    return (
+      <Image
+        style={styles.favorite_image}
+        source={sourceImage}
+      />
+    )
+  }
 
   _modify(){
     this.props.navigation.navigate('Modifier un livre',// Link à addBook
@@ -65,11 +84,17 @@ class BookDetails extends React.Component{
     }
   }
   render(){
+    console.log(this.props)
     return (
       <View style = {styles.main_container}>
         <View style = {styles.image_box}>
           <Image style = {styles.image}></Image>
         </View>
+        <TouchableOpacity
+            style={styles.favorite_container}
+            onPress={() => this._toggleFavorite()}>
+            {this._displayFavoriteImage()}
+        </TouchableOpacity>
         <View style = {styles.text_box}>
           <View style = {styles.price_box}>
             <Text style = {styles.price}>{this.book.price} Frs</Text>
@@ -132,6 +157,21 @@ const styles = StyleSheet.create({
   text : {
     fontSize : 20,
     fontFamily : 'dancing-regular'
+  },
+  favorite_container: {
+    alignItems: 'center', // Alignement des components enfants sur l'axe secondaire, X ici
+  },
+  favorite_image: {
+    width: 40,
+    height: 40
   }
 })
-export default BookDetails
+
+//state ici est le state global
+const mapStateToProps = (state) => {
+  return {
+    favoritesBook: state.favoritesBook
+  }
+}
+
+export default connect(mapStateToProps)(BookDetails)
