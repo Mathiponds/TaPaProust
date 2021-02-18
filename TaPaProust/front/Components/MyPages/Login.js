@@ -7,6 +7,7 @@ import MyButton from '../MyCustomComponents/MyButton'
 import MyActivityIndicator from '../MyCustomComponents/MyActivityIndicator'
 
 import {inputs} from '../../Helpers/global'
+import {connect} from 'react-redux'
 import API from '../../API/BooksAPI'
 
 class Login extends React.Component{
@@ -184,5 +185,9 @@ const styles = StyleSheet.create({
     color : '#ff0000'
   },
 })
-
-export default Login
+const mapStateToProps = (state) => {
+  return {
+    favoritesBook: state.favoritesBook
+  }
+}
+export default connect(mapStateToProps)(Login)

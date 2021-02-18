@@ -194,7 +194,6 @@ class AddBook extends React.Component{
     return (
       <TouchableWithoutFeedback onPress={() => {Keyboard.dismiss();
         this._changePickerVisibility({})
-        console.log(this.state)
       }}>
         <ScrollView style = {styles.main_container}>
           <View style = { styles.search_item_container}>

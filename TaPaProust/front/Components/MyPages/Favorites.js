@@ -7,6 +7,8 @@ import books from '../../Helpers/books'
 import {screens} from '../../Helpers/global'
 import API from '../../API/BooksAPI'
 
+import {connect} from 'react-redux'
+
 class Favorites extends React.Component {
   constructor(props){
     super(props)
@@ -19,12 +21,6 @@ class Favorites extends React.Component {
       fontFamily : 'lobster-regular', fontSize : 30}})
   }
 
-  _getMyFavoritesBooks(){
-    return API.getMyFavBooks().then(response => this.setState({
-      favBooks : response.data
-    })).catch(error => console.log(error))
-  }
-
   _displayDetailForBook = (book) => {
     this.props.navigation.navigate('Détails du livre', { book : book, lastScreen : screens.FAVORITES})
   }
@@ -33,7 +29,7 @@ class Favorites extends React.Component {
     return(
       <View style={styles.main_container}>
         <BookList
-          books = {this._getMyFavoritesBooks()}
+          books = {this.props.favoritesBook}
           displayDetailForBook = {this._displayDetailForBook}/>
       </View>
     )
@@ -46,4 +42,10 @@ const styles = StyleSheet.create({
   }
 })
 
-export default Favorites
+const mapStateToProps = (state) => {
+  return {
+    favoritesBook: state.favoritesBook
+  }
+}
+
+export default connect(mapStateToProps)(Favorites)

@@ -84,7 +84,6 @@ class BookDetails extends React.Component{
     }
   }
   render(){
-    console.log(this.props)
     return (
       <View style = {styles.main_container}>
         <View style = {styles.image_box}>

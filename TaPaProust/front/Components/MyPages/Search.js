@@ -23,6 +23,10 @@ class Search extends React.Component{
       this._searchBooks = this._searchBooks.bind(this)
       this._onChangedInput = this._onChangedInput.bind(this)
 
+      API.getMyFavBooks().then(response => {
+        action = {type : 'INIT_FAVORITE', value : response.data}
+        this.props.dispatch(action)
+      })
       this.state = {
         isLoading : false,
         areAllEntriesNull : false
