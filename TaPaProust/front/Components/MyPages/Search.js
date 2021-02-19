@@ -9,6 +9,7 @@ import MyButton from '../MyCustomComponents/MyButton'
 import {inputs} from '../../Helpers/global.js'
 import API from '../../API/BooksAPI'
 import MyActivityIndicator from '../MyCustomComponents/MyActivityIndicator'
+import {connect} from 'react-redux'
 
 class Search extends React.Component{
   constructor(props){
@@ -172,5 +173,9 @@ const styles = StyleSheet.create({
     color : '#ff0000'
   }
 })
-
-export default Search
+const mapStateToProps = (state) => {
+  return {
+    favoritesBook: state.favoritesBook
+  }
+}
+export default connect(mapStateToProps)(Search)

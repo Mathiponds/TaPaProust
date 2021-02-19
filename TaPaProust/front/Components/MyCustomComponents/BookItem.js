@@ -77,8 +77,11 @@ const styles = StyleSheet.create({
     fontSize : 18,
   },
   favorite_image : {
-    height : 25,
-    width : 25,
+    position : 'absolute',
+    bottom : 0,
+    right :0,
+    height : 35,
+    width : 35,
     marginRight: 5
   }
 })
