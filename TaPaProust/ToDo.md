@@ -17,6 +17,7 @@ Front
 - [ ] faire en sorte que quand on appuie à coté dans le login ça enlève le clavier
 - [ ] s'occuper des erreur de l'API
 - [ ] regarder si dans l'API on peut utiliser application/x-www-form-urlencoded
+- [ ] enlever le bottomtab quand le clavier monte
 
 API
 

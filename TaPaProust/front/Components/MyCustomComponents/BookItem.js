@@ -1,8 +1,17 @@
 import React from 'react'
 import {View, Text, Image, StyleSheet, TouchableOpacity} from 'react-native'
 import * as Font from 'expo-font'
+import {connect} from 'react-redux'
 
 class BookItem extends React.Component{
+  _displayFavorite(){
+    if(this.props.favoritesBook.findIndex(item => item.id === this.props.book.id) !== -1){
+      return <Image
+        style={styles.favorite_image}
+        source={require('../../Images/coeur_plein.png')}
+      />
+    }
+  }
   render(){
     const book = this.props.book
     return (
@@ -14,6 +23,7 @@ class BookItem extends React.Component{
           <Text style = {styles.price}>{book.price} frs</Text>
         </View>
         <View style = {styles.text_box}>
+          {this._displayFavorite()}
           <Text style = {styles.text}><Text style = {styles.entry_text}>Title: </Text>{book.title}</Text>
           <Text style = {styles.text}><Text style = {styles.entry_text}>Author: </Text>{book.author}</Text>
           <Text style = {styles.text}><Text style = {styles.entry_text}>Édition: </Text>{book.edition}</Text>
@@ -65,6 +75,17 @@ const styles = StyleSheet.create({
   text : {
     fontFamily : 'LobsterTwo-Italic',
     fontSize : 18,
+  },
+  favorite_image : {
+    height : 25,
+    width : 25,
+    marginRight: 5
   }
 })
-export default BookItem
+
+const mapStateToProps = (state) => {
+  return {
+    favoritesBook: state.favoritesBook
+  }
+}
+export default connect(mapStateToProps)(BookItem)
