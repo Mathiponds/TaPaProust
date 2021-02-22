@@ -222,7 +222,8 @@ class AddBook extends React.Component{
             <PhotoRendering
               photos = {this.state.photos}
               withButton = {true} navigation = {this._navigateToImageBrowser}
-              withDelete = {true} deletePhoto = {(i) => this._deletePhoto(i)}/>
+              withDelete = {true} deletePhoto = {(i) => this._deletePhoto(i)}
+              addBook = {this.addBook}/>
             <MyButton onPress = {()=>this._verifyBook()} title = {this.addBook ? 'Ajouter ce livre' : 'Modifier le livre'}/>
           </View>
         </ScrollView>

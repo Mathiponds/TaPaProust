@@ -11,6 +11,8 @@ class VerifyBook extends React.Component{
     super(props)
     this._confirmBook = this._confirmBook.bind(this)
     this.modify = this.props.route.params.modify
+
+    this.photosInBase64 = []
   }
   async componentDidMount() {
     this.props.navigation.setOptions({headerTitleStyle : {
@@ -19,17 +21,18 @@ class VerifyBook extends React.Component{
   }
 
   async  _confirmBook(){
-    // TODO: Send the book to the backend
+    this._getPhotosInBase64()
     if(!this.modify){
       await API.postBook(this.props.route.params.title, this.props.route.params.author,
         this.props.route.params.edition, this.props.route.params.language,
-        this.props.route.params.price, this.props.route.params.bookState)
+        this.props.route.params.price, this.props.route.params.bookState,
+        this.props.route.params.photos.map(item => item.base64))
     }else{
       await API.modifyBook(this.props.route.params.id, this.props.route.params.title, this.props.route.params.author,
         this.props.route.params.edition, this.props.route.params.language,
-        this.props.route.params.price, this.props.route.params.bookState)
+        this.props.route.params.price, this.props.route.params.bookState,
+        this.props.route.params.photos.map(item => item.base64))
     }
-
     const text = this.modify ?  "Votre livre a bien été modifié" :"Votre livre a bien été ajouté"
     Alert.alert(
       "Confirmation",
@@ -46,6 +49,12 @@ class VerifyBook extends React.Component{
     }
   }
 
+  _getPhotosInBase64(){
+    //photos = [{uri : , name: , type : }, {} ]
+    const photos = this.props.route.params.photos
+    var photosInString = this.props.route.params.photos.map(item => item.base64)
+    return photosInString
+  }
   render(){
       return (
         <ScrollView style = {styles.main_container}>

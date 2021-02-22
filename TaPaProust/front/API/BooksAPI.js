@@ -57,7 +57,7 @@ export default  {
       'headers' : { 'content-type':'application/octet-stream' // override instance defaults
             }
   }),
-  postBook : (title, author, edition, language, price, bookState) => {
+  postBook : (title, author, edition, language, price, bookState, photos) => {
     var bodyFormData = new FormData();
     bodyFormData.append('title', title);
     bodyFormData.append('author', author);
@@ -65,13 +65,14 @@ export default  {
     bodyFormData.append('state', bookState);
     bodyFormData.append('language', language);
     bodyFormData.append('price', price);
+    bodyFormData.append('photos', photos);
     return instance({
       'method':'POST',
       'url':'/api/addBook',
       'data' : bodyFormData,
       'headers' : { 'content-type':'multipart/form-data'}
   })},
-  modifyBook : (id, title, author, edition, language, price, bookState) => {
+  modifyBook : (id, title, author, edition, language, price, bookState, photos) => {
     var bodyFormData = new FormData();
     bodyFormData.append('bookId', id)
     bodyFormData.append('title', title);
@@ -80,6 +81,7 @@ export default  {
     bodyFormData.append('state', bookState);
     bodyFormData.append('language', language);
     bodyFormData.append('price', price);
+    bodyFormData.append('photos', photos);
     return instance({
       'method':'POST',
       'url':'/api/modifyBook',

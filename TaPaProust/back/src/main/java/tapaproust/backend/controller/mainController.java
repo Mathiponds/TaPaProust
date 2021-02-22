@@ -3,6 +3,7 @@ package tapaproust.backend.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import tapaproust.backend.entity.Book;
@@ -11,6 +12,9 @@ import tapaproust.backend.service.BookService;
 import tapaproust.backend.service.FavoriteService;
 import tapaproust.backend.service.UserService;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.security.Principal;
 import java.util.List;
 
@@ -168,6 +172,53 @@ public class mainController {
     @GetMapping("/api/getMyFavBooks")
     public List<Book> getMyFavBooks(Principal principal){
         return favoriteService.getFavBooksOfUser(userService.getUserByMail(principal.getName()));
+    }
+
+    /*******************************************/
+    /*************     IMAGES      *************/
+    /*******************************************/
+    /**
+     * Get an image from path
+     *
+     * @param path : should start with 'resources/'
+     * @return the image data as byte array
+     * @throws IOException
+     * @use ip:8080/static/image/jpg?<path> where <path> was received from a previous query
+     */
+    @GetMapping(
+            value = "/static/image/jpg",
+            produces = MediaType.IMAGE_JPEG_VALUE
+    )
+    public @ResponseBody
+    byte[] getJPG(@RequestParam String path) throws IOException {
+        if(path.contains("resources/")){
+            return Files.readAllBytes(Paths.get("src/main/" + path));
+        }
+        else {
+            return new byte[]{};
+        }
+    }
+
+    /**
+     * Get an image from path
+     *
+     * @param path : should start with 'resources/'
+     * @return the image data as byte array
+     * @throws IOException
+     * @use ip:8080/static/image/png?<path> where <path> was received from a previous query
+     */
+    @GetMapping(
+            value = "/static/image/png",
+            produces = MediaType.IMAGE_PNG_VALUE
+    )
+    public @ResponseBody
+    byte[] getPNG(@RequestParam String path) throws IOException {
+        if(path.contains("resources/")){
+            return Files.readAllBytes(Paths.get("src/main/" + path));
+        }
+        else {
+            return new byte[]{};
+        }
     }
 
 

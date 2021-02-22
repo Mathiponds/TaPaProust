@@ -29,10 +29,11 @@ export default class ImageBrowserScreen extends React.Component {
         cPhotos.push({
           uri: pPhoto.uri,
           name: photo.filename,
-          type: 'image/jpg'
+          type: 'image/jpg',
+          base64 : pPhoto.base64
         })
       }
-      navigation.navigate('Ajouter un livre', {photos: cPhotos});
+      navigation.navigate(this.props.addBook? 'Ajouter un livre' : 'Modifier un livre', {photos: cPhotos});
     })
     .catch((e) => console.log(e));
   };
@@ -41,7 +42,7 @@ export default class ImageBrowserScreen extends React.Component {
     const file = await ImageManipulator.manipulateAsync(
       uri,
       [{resize: { width: 1000 }}],
-      { compress: 0.8, format: ImageManipulator.SaveFormat.JPEG }
+      { compress: 0.8, format: ImageManipulator.SaveFormat.JPEG, base64 : true}
     );
     return file;
   };

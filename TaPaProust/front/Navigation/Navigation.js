@@ -88,6 +88,9 @@ function MyUsersBooksStackNavigator(){
       <UsersBooksStackNavigator.Screen
         name = "Modifier un livre" component={AddBook}/>
       <UsersBooksStackNavigator.Screen
+        name='ImageBrowser' component={ImageBrowser}
+          options={{ title: '0 photo choisie'}}/>
+      <UsersBooksStackNavigator.Screen
         name = "Vérification" component={VerifyBook}/>
     </UsersBooksStackNavigator.Navigator>
   )
