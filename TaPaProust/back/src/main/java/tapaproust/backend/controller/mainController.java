@@ -177,51 +177,6 @@ public class mainController {
     /*******************************************/
     /*************     IMAGES      *************/
     /*******************************************/
-    /**
-     * Get an image from path
-     *
-     * @param path : should start with 'resources/'
-     * @return the image data as byte array
-     * @throws IOException
-     * @use ip:8080/static/image/jpg?<path> where <path> was received from a previous query
-     */
-    @GetMapping(
-            value = "/static/image/jpg",
-            produces = MediaType.IMAGE_JPEG_VALUE
-    )
-    public @ResponseBody
-    byte[] getJPG(@RequestParam String path) throws IOException {
-        if(path.contains("resources/")){
-            return Files.readAllBytes(Paths.get("src/main/" + path));
-        }
-        else {
-            return new byte[]{};
-        }
-    }
-
-    /**
-     * Get an image from path
-     *
-     * @param path : should start with 'resources/'
-     * @return the image data as byte array
-     * @throws IOException
-     * @use ip:8080/static/image/png?<path> where <path> was received from a previous query
-     */
-    @GetMapping(
-            value = "/static/image/png",
-            produces = MediaType.IMAGE_PNG_VALUE
-    )
-    public @ResponseBody
-    byte[] getPNG(@RequestParam String path) throws IOException {
-        if(path.contains("resources/")){
-            return Files.readAllBytes(Paths.get("src/main/" + path));
-        }
-        else {
-            return new byte[]{};
-        }
-    }
-
-
 
     //ToDo
     // lien pour enlever le livre dans le message
