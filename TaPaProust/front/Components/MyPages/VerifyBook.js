@@ -20,19 +20,25 @@ class VerifyBook extends React.Component{
     this.setState({ assetsLoaded: true });
   }
 
+  _reducePhotosToString(){
+    var out = ''
+    for(let s of this.props.route.params.photos.map(item => item.base64)){
+      out = out + s +';'
+    }
+    return out
+  }
+
   async  _confirmBook(){
-    this._getPhotosInBase64()
     if(!this.modify){
       await API.postBook(this.props.route.params.title, this.props.route.params.author,
         this.props.route.params.edition, this.props.route.params.language,
         this.props.route.params.price, this.props.route.params.bookState,
-        this.props.route.params.photos.map(item => item.base64))
+        this._reducePhotosToString())
     }else{
-      console.log(this.props.route.params.photos.map(item => item.base64))
       await API.modifyBook(this.props.route.params.id, this.props.route.params.title, this.props.route.params.author,
         this.props.route.params.edition, this.props.route.params.language,
         this.props.route.params.price, this.props.route.params.bookState,
-        this.props.route.params.photos.map(item => item.base64))
+        this._reducePhotosToString())
     }
     const text = this.modify ?  "Votre livre a bien été modifié" :"Votre livre a bien été ajouté"
     Alert.alert(
@@ -48,13 +54,6 @@ class VerifyBook extends React.Component{
     }else{
       this.props.navigation.navigate('Ajouter un livre')
     }
-  }
-
-  _getPhotosInBase64(){
-    //photos = [{uri : , name: , type : }, {} ]
-    const photos = this.props.route.params.photos
-    var photosInString = this.props.route.params.photos.map(item => item.base64)
-    return photosInString
   }
   render(){
       return (

@@ -91,6 +91,7 @@ export default  {
   sendArray : (ls) => {
     var bodyFormData = new FormData();
     bodyFormData.append('ls', ls)
+    console.log("e")
     return instance({
       'method':'POST',
       'url':'/sendArray',

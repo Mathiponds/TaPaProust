@@ -74,22 +74,21 @@ class Login extends React.Component{
   }
 //// TODO: Remove default login
   async _login(){
-    await API.sendArray([1,2,3])
-    // this.setState({
-    //   isLoading : true,
-    // })
-    // await API.login(this.userMail, this.password).then(response => {
-    //   this.setState({
-    //     isLoading : false,
-    //     successfulLogin : response.data === "Login is successful",
-    //     firstTime : false
-    //   })
-    // })
-    // if(this.state.successfulLogin){
-    //   this.props.navigation.replace('Home')
-    // }else{
-    //   //ToDO
-    // }
+    this.setState({
+      isLoading : true,
+    })
+    await API.login(this.userMail, this.password).then(response => {
+      this.setState({
+        isLoading : false,
+        successfulLogin : response.data === "Login is successful",
+        firstTime : false
+      })
+    })
+    if(this.state.successfulLogin){
+      this.props.navigation.replace('Home')
+    }else{
+      //ToDO
+    }
   }
 
   _register(){
