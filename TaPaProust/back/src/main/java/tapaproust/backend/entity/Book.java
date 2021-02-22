@@ -3,6 +3,8 @@ package tapaproust.backend.entity;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Book {
@@ -31,18 +33,22 @@ public class Book {
     @Column(nullable = false)
     private String price;
 
+    @Column(name="photos")
+    @ElementCollection(targetClass=String.class)
+    private List<String> photos;
 
     ///////////////////////////////////////
     //////////     Methodes      //////////
     ///////////////////////////////////////
 
-    public void update(String title, String author, String edition, String state, String language, String price){
+    public void update(String title, String author, String edition, String state, String language, String price, List<String> photos){
         this.title = title;
         this.author = author;
         this.edition = edition;
         this.state = state;
         this.language = language;
         this.price = price;
+        this.photos = new ArrayList<>(photos);
     }
 
     ///////////////////////////////////////
@@ -81,6 +87,10 @@ public class Book {
         return soldById;
     }
 
+    public List<String> getPhotos() {
+        return photos;
+    }
+
     ///////////////////////////////////////
     //////////      Setters      //////////
     ///////////////////////////////////////
@@ -115,5 +125,9 @@ public class Book {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public void setPhotos(List<String> photos) {
+        this.photos = new ArrayList<>(photos);
     }
 }

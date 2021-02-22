@@ -3,6 +3,7 @@ package tapaproust.backend.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.server.ResponseStatusException;
 import tapaproust.backend.entity.Book;
 import tapaproust.backend.entity.User;
@@ -34,13 +35,15 @@ public class BookService {
 //    }
 
 
-    public void modifyBook(long bookId, String title, String author, String edition, String state, String language, String price) {
+    public void modifyBook(long bookId, String title, String author, String edition,
+                           String state, String language, String price, List<String> photos) {
         Book b = checkBookExists(bookRepository.findById(bookId), "id", ""+bookId);
-        b.update(title,author, edition, state, language, price);
+        b.update(title,author, edition, state, language, price, photos);
         bookRepository.save(b);
     }
 
-    public void addBook(String title, String author, String edition, String state, String mailOfOwner, String language, String price) {
+    public void addBook(String title, String author, String edition, String state,
+                        String mailOfOwner, String language, String price, List<String> photos) {
         Book book = new Book();
         book.setTitle(title);
         book.setAuthor(author);
@@ -49,6 +52,7 @@ public class BookService {
         book.setLanguage(language);
         book.setPrice(price);
         book.setSoldById(userRepository.findByMail(mailOfOwner).get().getId());
+        book.setPhotos(photos);
         bookRepository.save(book);
     }
 
