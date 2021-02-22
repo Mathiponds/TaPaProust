@@ -4,6 +4,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Entity
@@ -41,14 +42,18 @@ public class Book {
     //////////     Methodes      //////////
     ///////////////////////////////////////
 
-    public void update(String title, String author, String edition, String state, String language, String price, List<String> photos){
+    public void update(String title, String author, String edition, String state, String language, String price, String photos){
         this.title = title;
         this.author = author;
         this.edition = edition;
         this.state = state;
         this.language = language;
         this.price = price;
-        this.photos = new ArrayList<>(photos);
+        this.photos = stringToList(photos);
+    }
+
+    private List<String> stringToList(String s){
+        return new ArrayList<String>(Arrays.asList(s.split(";")));
     }
 
     ///////////////////////////////////////
@@ -127,7 +132,7 @@ public class Book {
         this.title = title;
     }
 
-    public void setPhotos(List<String> photos) {
-        this.photos = new ArrayList<>(photos);
+    public void setPhotos(String photos) {
+        this.photos = stringToList(photos);
     }
 }

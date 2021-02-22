@@ -96,7 +96,7 @@ public class mainController {
                         @RequestParam String state,
                         @RequestParam String language,
                         @RequestParam String price,
-                        @RequestParam List<String> photos) {
+                        @RequestParam String photos) {
         bookService.addBook(title, author, edition, state,
                 principal.getName(), language, price, photos);
     }
@@ -120,7 +120,7 @@ public class mainController {
                            @RequestParam String state,
                            @RequestParam String language,
                            @RequestParam String price,
-                           @RequestParam List<String> photos){
+                           @RequestParam String photos){
         bookService.modifyBook(bookId, title, author, edition, state, language, price, photos);
     }
 

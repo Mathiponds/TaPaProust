@@ -36,14 +36,14 @@ public class BookService {
 
 
     public void modifyBook(long bookId, String title, String author, String edition,
-                           String state, String language, String price, List<String> photos) {
+                           String state, String language, String price, String photos) {
         Book b = checkBookExists(bookRepository.findById(bookId), "id", ""+bookId);
         b.update(title,author, edition, state, language, price, photos);
         bookRepository.save(b);
     }
 
     public void addBook(String title, String author, String edition, String state,
-                        String mailOfOwner, String language, String price, List<String> photos) {
+                        String mailOfOwner, String language, String price, String photos) {
         Book book = new Book();
         book.setTitle(title);
         book.setAuthor(author);
