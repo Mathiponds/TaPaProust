@@ -28,6 +28,7 @@ class VerifyBook extends React.Component{
         this.props.route.params.price, this.props.route.params.bookState,
         this.props.route.params.photos.map(item => item.base64))
     }else{
+      console.log(this.props.route.params.photos.map(item => item.base64))
       await API.modifyBook(this.props.route.params.id, this.props.route.params.title, this.props.route.params.author,
         this.props.route.params.edition, this.props.route.params.language,
         this.props.route.params.price, this.props.route.params.bookState,

@@ -47,6 +47,10 @@ public class mainController {
         return "Logout is successful";
     }
 
+    @PostMapping("/sendArray")
+    public void sendArray(@RequestParam List<String> ls){
+        System.out.println(ls);
+    }
     /**
      * Returns all the books with a certain author title and edition that are each optional
      * @param title
