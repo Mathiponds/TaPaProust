@@ -45,7 +45,8 @@ public class Book {
     //////////     Methodes      //////////
     ///////////////////////////////////////
 
-    public void update(String title, String author, String edition, String state, String language, String price, String photos) throws IOException {
+    public void update(String title, String author, String edition, String state,
+                       String language, String price, String photos){
         setTitle(title);
         setAuthor(author);
         setEdition(edition);
@@ -135,7 +136,7 @@ public class Book {
         this.title = title;
     }
 
-    public void setPhotos(String photos) throws IOException {
+    public void setPhotos(String photos) {
         List<String> photosBase64 = stringToList(photos);
         this.photos = new ArrayList<>();
         Random rn = new Random(); int rand = rn.nextInt(900000)+100000;
@@ -144,10 +145,13 @@ public class Book {
             String destinationPath = "resources/"
                     + Long.toString(getId()) + "_" + rand
                     + ".jpg";
-
-            byte[] byteImg = Base64.getDecoder().decode(imgBase64);
-            BufferedImage img = ImageIO.read(new ByteArrayInputStream(byteImg));
-            ImageIO.write(img, "jpg", new File("src/main/" + destinationPath));
+            try {
+                byte[] byteImg = Base64.getDecoder().decode(imgBase64);
+                BufferedImage img = ImageIO.read(new ByteArrayInputStream(byteImg));
+                ImageIO.write(img, "jpg", new File("src/main/" + destinationPath));
+            }catch(IOException e){
+                System.err.println(e);
+            }
             this.photos.add(destinationPath);
         }
     }
