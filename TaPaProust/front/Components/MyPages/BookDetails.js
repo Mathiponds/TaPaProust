@@ -3,6 +3,7 @@ import {View, Text, Image, StyleSheet, Button, TouchableOpacity, Linking} from '
 
 import MyButton from '../MyCustomComponents/MyButton'
 import PhotoRendering from '../MyCustomComponents/PhotoRendering'
+import API from '../../API/BooksAPI'
 
 import {screens} from '../../Helpers/global'
 import {connect} from 'react-redux'
@@ -83,12 +84,26 @@ class BookDetails extends React.Component{
         onPress = {() => {this._modify()}}/>)
     }
   }
+
+  _getImages(){
+    if(this.book.photos.length === 1){
+      let image
+      API.getImage(this.book.photos[0])
+          .then(response => console.log(response.data))
+          .catch(error => console.log(err))
+      console.log(image)
+    }
+    return (
+      <View style = {styles.image_box}>
+        <Image style = {styles.image}></Image>
+      </View>)
+
+  }
+
   render(){
     return (
       <View style = {styles.main_container}>
-        <View style = {styles.image_box}>
-          <Image style = {styles.image}></Image>
-        </View>
+        {this._getImages()}
         <TouchableOpacity
             style={styles.favorite_container}
             onPress={() => this._toggleFavorite()}>

@@ -142,7 +142,7 @@ public class Book {
         Random rn = new Random(); int rand = rn.nextInt(900000)+100000;
 
         for(String imgBase64 : photosBase64){
-            String destinationPath = "resources/"
+            String destinationPath = "resources/Images"
                     + Long.toString(getId()) + "_" + rand
                     + ".jpg";
             try {

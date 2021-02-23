@@ -28,6 +28,9 @@ class Search extends React.Component{
         action = {type : 'INIT_FAVORITE', value : response.data}
         this.props.dispatch(action)
       })
+
+
+
       this.state = {
         isLoading : false,
         areAllEntriesNull : false
