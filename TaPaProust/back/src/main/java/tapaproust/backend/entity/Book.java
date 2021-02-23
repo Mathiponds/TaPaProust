@@ -46,12 +46,12 @@ public class Book {
     ///////////////////////////////////////
 
     public void update(String title, String author, String edition, String state, String language, String price, String photos) throws IOException {
-        this.title = title;
-        this.author = author;
-        this.edition = edition;
-        this.state = state;
-        this.language = language;
-        this.price = price;
+        setTitle(title);
+        setAuthor(author);
+        setEdition(edition);
+        setState(state);
+        setLanguage(language);
+        setPrice(price);
         setPhotos(photos);
     }
 
