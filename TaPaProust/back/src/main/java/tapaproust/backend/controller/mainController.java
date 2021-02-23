@@ -183,6 +183,30 @@ public class mainController {
     /*******************************************/
     /*************     IMAGES      *************/
     /*******************************************/
+    /**
+     * Get an image from path
+     *
+     * @param path : should start with 'resources/'
+     * @return the image data as byte array
+     * @throws IOException
+     * @use ip:8080/static/image/jpg?<path> where <path> was received from a previous query
+     */
+    @GetMapping(
+            value = "/api/getImage",
+            produces = MediaType.IMAGE_JPEG_VALUE
+    )
+    public @ResponseBody
+    byte[] getJPG(@RequestParam String path) throws IOException {
+        if(path.contains("resources/")){
+            return Files.readAllBytes(Paths.get("src/main/" + path));
+        }
+        else {
+            return new byte[]{};
+        }
+    }
+
+
+
 
     //ToDo
     // lien pour enlever le livre dans le message
