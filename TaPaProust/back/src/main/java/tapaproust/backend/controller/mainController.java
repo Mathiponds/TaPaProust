@@ -197,10 +197,8 @@ public class mainController {
     )
     public @ResponseBody
     byte[] getJPG(@RequestParam String path) throws IOException {
-        System.out.println("path : "+path);
-        System.out.println(Files.readAllBytes(Paths.get("src/main/resources/Images/add_book.png")));
         if(path.contains("resources/")){
-            return Files.readAllBytes(Paths.get("src/main/resources/Images/add_book.png"));
+            return Files.readAllBytes(Paths.get("src/main/"+path));
         }
         else {
             return new byte[]{};
