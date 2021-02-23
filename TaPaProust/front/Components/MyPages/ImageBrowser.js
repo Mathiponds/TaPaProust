@@ -42,7 +42,7 @@ export default class ImageBrowserScreen extends React.Component {
     const file = await ImageManipulator.manipulateAsync(
       uri,
       [{resize: { width: 1000 }}],
-      { compress: 0.8, format: ImageManipulator.SaveFormat.JPEG, base64 : true}
+      { compress: 0.6, format: ImageManipulator.SaveFormat.JPEG, base64 : true}
     );
     return file;
   };

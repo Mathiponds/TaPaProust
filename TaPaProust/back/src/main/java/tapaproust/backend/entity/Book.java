@@ -2,10 +2,13 @@ package tapaproust.backend.entity;
 
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.imageio.ImageIO;
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.IOException;
+import java.util.*;
 
 @Entity
 public class Book {
@@ -42,14 +45,14 @@ public class Book {
     //////////     Methodes      //////////
     ///////////////////////////////////////
 
-    public void update(String title, String author, String edition, String state, String language, String price, String photos){
+    public void update(String title, String author, String edition, String state, String language, String price, String photos) throws IOException {
         this.title = title;
         this.author = author;
         this.edition = edition;
         this.state = state;
         this.language = language;
         this.price = price;
-        this.photos = stringToList(photos);
+        setPhotos(photos);
     }
 
     private List<String> stringToList(String s){
@@ -132,7 +135,20 @@ public class Book {
         this.title = title;
     }
 
-    public void setPhotos(String photos) {
-        this.photos = stringToList(photos);
+    public void setPhotos(String photos) throws IOException {
+        List<String> photosBase64 = stringToList(photos);
+        this.photos = new ArrayList<>();
+        Random rn = new Random(); int rand = rn.nextInt(900000)+100000;
+
+        for(String imgBase64 : photosBase64){
+            String destinationPath = "resources/"
+                    + Long.toString(getId()) + "_" + rand
+                    + ".jpg";
+
+            byte[] byteImg = Base64.getDecoder().decode(imgBase64);
+            BufferedImage img = ImageIO.read(new ByteArrayInputStream(byteImg));
+            ImageIO.write(img, "jpg", new File("src/main/" + destinationPath));
+            this.photos.add(destinationPath);
+        }
     }
 }
