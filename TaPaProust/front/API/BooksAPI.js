@@ -138,10 +138,7 @@ export default  {
   getImage : (path) =>
     instance({
       'method':'GET',
-      'url':'/api/getImage',
-      'params' : {
-        path : path
-      },
+      'url':'/api/getImage?path='+path,
       'headers' : { 'content-type':'application/octet-stream' // override instance defaults
             }
   }),

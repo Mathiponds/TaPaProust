@@ -86,10 +86,13 @@ class BookDetails extends React.Component{
   }
 
   _getImages(){
+    if(this.book.photos.length === 1){
       let image
-      API.getImage("resources/ere").then(response => console.log(response))
+      API.getImage("resources/Images/322_866544.jpg")
+        .then(response => console.log(response))
           .catch(error => console.log(error))
       console.log("e"+image)
+    }
     return (
       <View style = {styles.image_box}>
         <Image style = {styles.image}></Image>
