@@ -135,11 +135,6 @@ export default  {
       'method':'GET',
       'url':'/api/getMyFavBooks'
   }),
-  getImage : (path) =>
-    instance({
-      'method':'GET',
-      'url':'/api/getImage?path='+path,
-      'headers' : { 'content-type':'application/octet-stream' // override instance defaults
-            }
-  }),
+  getImage : (path) => HOST+'/api/getImage?path='+path
+  ,
 }

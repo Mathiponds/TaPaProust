@@ -87,16 +87,18 @@ class BookDetails extends React.Component{
 
   _getImages(){
     if(this.book.photos.length === 1){
-      let image
-      API.getImage("resources/Images/322_866544.jpg")
-        .then(response => console.log(response))
-          .catch(error => console.log(error))
-      console.log("e"+image)
-    }
-    return (
+      console.log(API.getImage("resources/Images/322_717727.jpg"))
+      return (
+        <View style = {styles.image_box}>
+          <Image style = {styles.image2}
+          source = {{uri : 'https://tapaproust.herokuapp.com/api/getImage?path=resources/Images/add_book.png'}}/>
+        </View>)
+    }else{
+      return (
       <View style = {styles.image_box}>
         <Image style = {styles.image}></Image>
       </View>)
+    }
 
   }
 
@@ -137,6 +139,10 @@ const styles = StyleSheet.create({
   image : {
     flex :1,
     backgroundColor : 'grey',
+  },
+  image2 : {
+    flex :1,
+    backgroundColor : 'red',
   },
   price_box:{
     alignItems : 'center',
