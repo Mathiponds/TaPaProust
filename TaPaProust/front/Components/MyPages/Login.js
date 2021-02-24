@@ -1,5 +1,5 @@
 import React from 'react'
-import {View, Text, StyleSheet, TextInput} from 'react-native'
+import {View, Text, StyleSheet, TextInput, Keyboard, TouchableWithoutFeedback} from 'react-native'
 import * as Font from 'expo-font'
 
 import MyTextInput from '../MyCustomComponents/MyTextInput'
@@ -146,15 +146,17 @@ class Login extends React.Component{
   render(){
     if(this.state.assetsLoaded) {
       return (
-        <View style = {styles.main_container}>
-          <View style = { styles.title_box}>
-            <Text style = {styles.title}>
-              TaPaProust
-            </Text>
+        <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+          <View style = {styles.main_container}>
+            <View style = { styles.title_box}>
+              <Text style = {styles.title}>
+                TaPaProust
+              </Text>
+            </View>
+            {this._loginItemBox()}
+            <MyActivityIndicator condition ={this.state.isLoading}/>
           </View>
-          {this._loginItemBox()}
-          <MyActivityIndicator condition ={this.state.isLoading}/>
-        </View>
+        </TouchableWithoutFeedback>
       )
     }else{
       return <MyActivityIndicator condition ={true}/>
