@@ -19,6 +19,8 @@ public class User {
 
     private String phone;
 
+    private String token;
+
     public long getId() {
         return Id;
     }
@@ -57,5 +59,13 @@ public class User {
 
     public void setEnabled(boolean enabled) {
         this.enabled = enabled;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
     }
 }

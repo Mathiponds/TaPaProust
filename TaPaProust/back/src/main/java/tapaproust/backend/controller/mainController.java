@@ -30,18 +30,29 @@ public class mainController {
     }
 
     @GetMapping("/login_successful")
-    public String loginSucess(){ //Ajouter ?name=Votreprenom à la fin de l'URL
+    public String loginSucess(){
         return "Login is successful";
     }
 
     @GetMapping("/login_failure")
-    public String loginFailure(){ //Ajouter ?name=Votreprenom à la fin de l'URL
+    public String loginFailure(){
         return "Login is failure";
     }
 
     @GetMapping("/logout_successful")
-    public String logoutSucess(){ //Ajouter ?name=Votreprenom à la fin de l'URL
+    public String logoutSucess(){
         return "Logout is successful";
+    }
+
+    @PostMapping("/confirm_token")
+    public String confirmToken(@RequestParam String email, @RequestParam String token){
+        User u = userService.getUserByMail(email);
+        if(u.getToken().equals(token)){
+            u.setEnabled(true);
+            return "Merci d'avoir confirmé votre compte \n" +
+                    "Vous pouvez maintenant retourner sur l'application et vous connecter";
+        }
+        return "Ce lien n'est pas valide" ;
     }
 
     /**
