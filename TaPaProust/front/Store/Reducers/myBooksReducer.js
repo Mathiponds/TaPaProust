@@ -13,15 +13,13 @@ function toggleMyBooks(state = initialState, action) {
       return nextState || state
     break;
     case 'POST_BOOK' :
-      API.postBook(action.value.book)
-      nextState ={
+      nextState = {
         ...state,
         myBooks : [...state.myBooks, action.value.book]
       }
       return nextState || state
     case 'MODIFY_BOOK' :
       const myBookIndex = state.myBooks.findIndex(item => item.id === action.value.book.id)
-      API.modifyBook(action.value.book)
       let nextMyBooks = [...state.myBooks]
       nextMyBooks[myBookIndex] = action.value.book
       nextState ={

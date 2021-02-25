@@ -49,7 +49,6 @@ class BookDetails extends React.Component{
   }
 
   _displayFavoriteImage() {
-    console.log(this.props)
     var sourceImage = require('../../Images/coeur_vide.png')
     if (this.props.favoritesBook.findIndex(item => item.id === this.book.id) !== -1) {
       // book dans nos favoris

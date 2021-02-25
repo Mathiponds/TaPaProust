@@ -58,6 +58,7 @@ export default  {
             }
   }),
   postBook : (book) => {
+    console.log(book)
     var bodyFormData = new FormData();
     bodyFormData.append('title', book.title);
     bodyFormData.append('author', book.author);

@@ -100,12 +100,11 @@ class AddBook extends React.Component{
 
 
   _verifyBook(){
-    console.log(this.state)
     console.log(this.book)
     this.firstTime = false
-    if(!this._isOneInputEmpty()){
+    //if(!this._isOneInputEmpty()){
       this.props.navigation.navigate('Vérification', {book : {...this.book, photos : this.state.photos}, modify : !this.addBook})
-     }
+     //}
   }
 
   focusNextTextInput(id) {
@@ -145,7 +144,7 @@ class AddBook extends React.Component{
             isViP1: true
         })}
         onClose={() => this._changePickerVisibility({
-            isViP2: true
+            isViP2: this.addBook
         })}
         defaultValue = {this.addBook ? null : this.book.language}
         emptyInput = { !this.firstTime && this.state.isLanguageEmpty} emptyInputMessage = {"Veuillez sélectionner une langue."}

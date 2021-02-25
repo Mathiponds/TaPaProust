@@ -23,21 +23,25 @@ class VerifyBook extends React.Component{
   _confirmBook(){
     // TODO: Send the book to the backend
     if(!this.modify){
-      action = {
-        type : 'POST_BOOK',
-        value : {
-          book : this.book
+      API.postBook(this.book).then(response => {
+        action = {
+          type : 'POST_BOOK',
+          value : {
+            book : response.data
+          }
         }
-      }
-      this.props.dispatch(action)
+        this.props.dispatch(action)
+      }).catch(error => console.log(error))
     }else{
-      action = {
-        type : 'MODIFY_BOOK',
-        value : {
-          book : this.book
+      API.modifyBook(this.book).then(response => {
+        action = {
+          type : 'MODIFY_BOOK',
+          value : {
+            book : this.book
+          }
         }
-      }
-      this.props.dispatch(action)
+        this.props.dispatch(action)
+      }).catch(error => console.log(error))
     }
 
     const text = this.modify ?  "Votre livre a bien été modifié" :"Votre livre a bien été ajouté"
