@@ -100,11 +100,10 @@ class AddBook extends React.Component{
 
 
   _verifyBook(){
-    console.log(this.book)
     this.firstTime = false
-    //if(!this._isOneInputEmpty()){
+    if(!this._isOneInputEmpty()){
       this.props.navigation.navigate('Vérification', {book : {...this.book, photos : this.state.photos}, modify : !this.addBook})
-     //}
+    }
   }
 
   focusNextTextInput(id) {

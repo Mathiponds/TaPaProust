@@ -1,14 +1,14 @@
 Front 
 
 - [x] Ajouter mes livres
-- [ ] Système de favoris
+- [x] Système de favoris
 - [x] Améliorer la recherche
 - [x] Pouvoir passer d'un input à l'autre
 - [ ] Page mon profil
 - [x] Regarder comment mettre l'appli sur internet
 - [ ] l'app cherche directement dès le début _> gérer mieux les font
 - [x] regarder l'état dans le modifier livre et dans verfication 
-- [ ] regarder comment recharger les livres après la modification
+- [x] regarder comment recharger les livres après la modification
 - [x] api pour register
 - [ ] verifier toutes les input pour le register
 - [ ] bouton pour quand on a vendu le livre
