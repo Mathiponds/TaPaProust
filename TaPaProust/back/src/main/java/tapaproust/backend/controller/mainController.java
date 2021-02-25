@@ -81,14 +81,14 @@ public class mainController {
      * @param price
      */
     @PostMapping("/api/addBook")
-    public addBook(Principal principal,
+    public Book addBook(Principal principal,
                         @RequestParam String title,
                         @RequestParam String author,
                         @RequestParam String edition,
                         @RequestParam String state,
                         @RequestParam String language,
                         @RequestParam String price) {
-        bookService.addBook(title, author, edition, state,
+        return bookService.addBook(title, author, edition, state,
                 principal.getName(), language, price);
     }
 

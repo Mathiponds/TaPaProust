@@ -40,7 +40,7 @@ public class BookService {
         bookRepository.save(b);
     }
 
-    public void addBook(String title, String author, String edition, String state, String mailOfOwner, String language, String price) {
+    public Book addBook(String title, String author, String edition, String state, String mailOfOwner, String language, String price) {
         Book book = new Book();
         book.setTitle(title);
         book.setAuthor(author);
@@ -50,6 +50,7 @@ public class BookService {
         book.setPrice(price);
         book.setSoldById(userRepository.findByMail(mailOfOwner).get().getId());
         bookRepository.save(book);
+        return book;
     }
 
     public List<Book> getBooks(String title, String author, String edition) {
