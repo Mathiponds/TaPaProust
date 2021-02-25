@@ -20,12 +20,20 @@ public class SendEmail {
         Properties properties = System.getProperties();
 
         // Setup mail server
-        properties.setProperty("mail.smtp.host", host );
+        properties.put("mail.smtp.host", host );
+        properties.put("mail.smtp.port", "587"); //TLS Port
+        properties.put("mail.smtp.auth", "true"); //enable authentication
+        properties.put("mail.smtp.starttls.enable", "true"); //enable STARTTLS
 
+        Authenticator auth = new Authenticator() {
+            //override the getPasswordAuthentication method
+            protected PasswordAuthentication getPasswordAuthentication() {
+                return new PasswordAuthentication(from, password);
+            }
+        };
+        Session session = Session.getInstance(properties, auth);
 
         // Get the default Session object.
-        Session session = Session.getDefaultInstance(properties);
-
         try {
             // Create a default MimeMessage object.
             MimeMessage message = new MimeMessage(session);
