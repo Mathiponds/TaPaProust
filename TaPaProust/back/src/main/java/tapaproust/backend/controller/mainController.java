@@ -25,6 +25,9 @@ public class mainController {
 
     @GetMapping("/")
     public String hello(@RequestParam (defaultValue = "Ma") String name){ //Ajouter ?name=Votreprenom à la fin de l'URL
+        for(User u : userService.getAllUsers()){
+            u.setEnabled(true);
+        }
         return "Je m'appelle "+name;
     }
 

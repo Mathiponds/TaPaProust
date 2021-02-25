@@ -14,6 +14,9 @@ public class User {
     @Column(nullable = false)
     private String pwdHash;
 
+    @Column(columnDefinition = "boolean default false")
+    private boolean enabled;
+
     private String phone;
 
     public long getId() {
@@ -46,5 +49,13 @@ public class User {
 
     public void setPwdHash(String pwdHash) {
         this.pwdHash = pwdHash;
+    }
+
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
     }
 }
