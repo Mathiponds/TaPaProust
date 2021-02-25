@@ -5,6 +5,7 @@ import MyButton from '../MyCustomComponents/MyButton'
 import PhotoRendering from '../MyCustomComponents/PhotoRendering'
 
 import API from '../../API/BooksAPI'
+import {connect} from 'react-redux'
 
 class VerifyBook extends React.Component{
   constructor(props){
@@ -18,16 +19,30 @@ class VerifyBook extends React.Component{
     this.setState({ assetsLoaded: true });
   }
 
-  async  _confirmBook(){
+  _confirmBook(){
     // TODO: Send the book to the backend
     if(!this.modify){
-      await API.postBook(this.props.route.params.title, this.props.route.params.author,
-        this.props.route.params.edition, this.props.route.params.language,
-        this.props.route.params.price, this.props.route.params.bookState)
+        action = {
+          type : 'POST_BOOK',
+          value : {
+            book : {
+              ...this.props.route.params.book,
+              //photos : this.props.route.params.photos
+            }
+          }
+        }
+        this.props.dispatch(action)
     }else{
-      await API.modifyBook(this.props.route.params.id, this.props.route.params.title, this.props.route.params.author,
-        this.props.route.params.edition, this.props.route.params.language,
-        this.props.route.params.price, this.props.route.params.bookState)
+      action = {
+        type : 'MODIFY_BOOK',
+        value : {
+          book : {
+            ...this.props.route.params.book,
+            //photos : this.props.route.params.photos
+          }
+        }
+      }
+      this.props.dispatch(action)
     }
 
     const text = this.modify ?  "Votre livre a bien été modifié" :"Votre livre a bien été ajouté"
@@ -103,5 +118,9 @@ const styles = StyleSheet.create({
     width: 90
   }
 })
-
-export default VerifyBook
+const mapStateToProps = (state) => {
+  return {
+    myBooks: state.toggleMyBooks.myBooks
+  }
+}
+export default connect(mapStateToProps)(VerifyBook)

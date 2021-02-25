@@ -15,14 +15,7 @@ class AddBook extends React.Component{
     //Sinon on vient de booksdetail
     this.addBook = this.props.route.name === "Ajouter un livre"
     //this.modify = !this.addBook
-
-    this.id = this.addBook ? "" : this.props.route.params.id
-    this.title = this.addBook ? "" : this.props.route.params.title
-    this.author = this.addBook ? "" : this.props.route.params.author
-    this.edition = this.addBook ? "" : this.props.route.params.edition
-    this.price = this.addBook ? "" : this.props.route.params.price
-    this.bookState = this.addBook ? "" : this.props.route.params.bookState
-    this.language = this.addBook ? "" : this.props.route.params.language
+    this.book = this.addBook ? "" : this.props.route.params.book
 
     this.firstTime = true
 
@@ -55,22 +48,22 @@ class AddBook extends React.Component{
   _onChangedInput(text, input){
     switch(input){
       case inputs.TITLE :
-        this.title = text
+        this.book.title = text
         break;
       case inputs.AUTHOR :
-        this.author = text
+        this.book.author = text
         break;
       case inputs.EDITION :
-        this.edition = text
+        this.book.edition = text
         break;
       case inputs.PRICE :
-        this.price = text
+        this.book.price = text
         break;
       case inputs.LANGUAGE :
-        this.language = text
+        this.book.language = text
         break;
       case inputs.BOOK_STATE :
-        this.bookState = text
+        this.book.bookState = text
         break;
       default :
         console.log("error addbook")
@@ -87,25 +80,22 @@ class AddBook extends React.Component{
 
   _isOneInputEmpty(){
     this.setState({
-        isTitleEmpty : this.title === "",
-        isAuthorEmpty : this.author === "",
-        isEditionEmpty : this.edition === "",
-        isLanguageEmpty : this.language === "",
-        isBookStateEmpty : this.bookState === "",
-        isPriceEmpty : this.price === ""
+        isTitleEmpty : this.book.title === "",
+        isAuthorEmpty : this.book.author === "",
+        isEditionEmpty : this.book.edition === "",
+        isLanguageEmpty : this.book.language === "",
+        isBookStateEmpty : this.book.bookState === "",
+        isPriceEmpty : this.book.price === ""
       })
-      return this.title === "" || this.author === "" || this.edition === ""||
-          this.language === "" || this.bookState === "" || this.price === ""
+      return this.book.title === "" || this.book.author === "" || this.book.edition === ""||
+          this.book.language === "" || this.book.bookState === "" || this.book.price === ""
   }
 
 
   _verifyBook(){
     this.firstTime = false
     if(!this._isOneInputEmpty()){
-      this.props.navigation.navigate('Vérification', {title :this.title,
-        author : this.author, edition : this.edition, language : this.language,
-        price : this.price, bookState : this.bookState, modify : !this.addBook,
-        photos : this.state.photos, id : this.id})
+      this.props.navigation.navigate('Vérification', {book : this.book, photos : this.photos})
      }
   }
 
@@ -148,7 +138,7 @@ class AddBook extends React.Component{
         onClose={() => this._changePickerVisibility({
             isViP2: true
         })}
-        defaultValue = {this.addBook ? null : this.language}
+        defaultValue = {this.addBook ? null : this.book.language}
         emptyInput = { !this.firstTime && this.state.isLanguageEmpty} emptyInputMessage = {"Veuillez sélectionner une langue."}
         defaultNull placeholder = {this.addBook ? "Choisir une langue" : null}
         input = {inputs.LANGUAGE} onChangedInput = {this._onChangedInput}/>
@@ -163,7 +153,7 @@ class AddBook extends React.Component{
             isViP2: true
         })}
         onClose={() => this._changePickerVisibility({})}
-        defaultValue = {this.addBook ? null : this.bookState}
+        defaultValue = {this.addBook ? null : this.book.bookState}
         emptyInput = { !this.firstTime && this.state.isBookStateEmpty} emptyInputMessage = {"Veuillez sélectionner un état."}
         defaultNull placeholder = {this.addBook ? "Choisir l'état du livre" : null}
         input = {inputs.BOOK_STATE} onChangedInput = {this._onChangedInput}/>
@@ -197,15 +187,15 @@ class AddBook extends React.Component{
       }}>
         <ScrollView style = {styles.main_container}>
           <View style = { styles.search_item_container}>
-            {this._getMyTextInput('Titre', 'Titre', this.addBook ? null : ""+this.props.route.params.title,
+            {this._getMyTextInput('Titre', 'Titre', this.addBook ? null : ""+this.book.title,
               inputs.TITLE, this.state.isTitleEmpty, "Veuillez sélectionner un titre.", "next", "one", () => this.focusNextTextInput("two"))}
-            {this._getMyTextInput('Auteur', 'Auteur', this.addBook ? null : ""+this.props.route.params.author,
+            {this._getMyTextInput('Auteur', 'Auteur', this.addBook ? null : ""+this.book.author,
               inputs.AUTHOR, this.state.isAuthorEmpty, "Veuillez sélectionner un auteur.","next", "two", () => this.focusNextTextInput("three"))}
-            {this._getMyTextInput('Edition', 'Edition', this.addBook ? null : ""+this.props.route.params.edition,
+            {this._getMyTextInput('Edition', 'Edition', this.addBook ? null : ""+this.book.edition,
               inputs.EDITION, this.state.isEditionEmpty, "Veuillez sélectionner une edition.","next", "three", () => this.focusNextTextInput("four"))}
               <MyTextInput  title = {'Prix (en frs)'}
-                placeholder = {this.addBook ? 'Prix' : ""+this.props.route.params.price}
-                defaultValue = {this.addBook ? null : ""+this.props.route.params.price}
+                placeholder = {this.addBook ? 'Prix' : ""+this.book.price}
+                defaultValue = {this.addBook ? null : ""+this.book.price}
                 input = {inputs.PRICE} onChangedInput = {this._onChangedInput}
                 emptyInput = { !this.firstTime && this.state.isPriceEmpty} emptyInputMessage = {"Veuillez sélectionner un prix."}
                 modify = {!this.addBook} onFocus={()=>this._changePickerVisibility({})}

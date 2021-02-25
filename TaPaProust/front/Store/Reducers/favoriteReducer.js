@@ -20,7 +20,7 @@ function toggleFavorite(state = initialState, action) {
         API.removeFromFav(action.value.id).catch(error => console.error(error))
         nextState = {
           ...state,
-          favoritesBook: state.favoritesBook.filter( (item, index) => index !== favoriteBookIndex)
+          favoritesBook: state.favoritesBook.filter((item, index) => index !== favoriteBookIndex)
         }
       }
       else {

@@ -49,6 +49,7 @@ class BookDetails extends React.Component{
   }
 
   _displayFavoriteImage() {
+    console.log(this.props)
     var sourceImage = require('../../Images/coeur_vide.png')
     if (this.props.favoritesBook.findIndex(item => item.id === this.book.id) !== -1) {
       // book dans nos favoris
@@ -64,9 +65,7 @@ class BookDetails extends React.Component{
 
   _modify(){
     this.props.navigation.navigate('Modifier un livre',// Link à addBook
-      {title :this.book.title, author : this.book.author, edition : this.book.edition,
-        language : this.book.language, price : this.book.price, bookState : this.book.state,
-        id : this.book.id})
+      {book : this.book})
 
   }
 
@@ -169,7 +168,7 @@ const styles = StyleSheet.create({
 //state ici est le state global
 const mapStateToProps = (state) => {
   return {
-    favoritesBook: state.favoritesBook
+    favoritesBook: state.toggleFavorite.favoritesBook
   }
 }
 

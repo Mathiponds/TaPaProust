@@ -57,29 +57,29 @@ export default  {
       'headers' : { 'content-type':'application/octet-stream' // override instance defaults
             }
   }),
-  postBook : (title, author, edition, language, price, bookState) => {
+  postBook : (book) => {
     var bodyFormData = new FormData();
-    bodyFormData.append('title', title);
-    bodyFormData.append('author', author);
-    bodyFormData.append('edition', edition);
-    bodyFormData.append('state', bookState);
-    bodyFormData.append('language', language);
-    bodyFormData.append('price', price);
+    bodyFormData.append('title', book.title);
+    bodyFormData.append('author', book.author);
+    bodyFormData.append('edition', book.edition);
+    bodyFormData.append('state', book.bookState);
+    bodyFormData.append('language', book.language);
+    bodyFormData.append('price', book.price);
     return instance({
       'method':'POST',
       'url':'/api/addBook',
       'data' : bodyFormData,
       'headers' : { 'content-type':'multipart/form-data'}
   })},
-  modifyBook : (id, title, author, edition, language, price, bookState) => {
+  modifyBook : (book) => {
     var bodyFormData = new FormData();
-    bodyFormData.append('bookId', id)
-    bodyFormData.append('title', title);
-    bodyFormData.append('author', author);
-    bodyFormData.append('edition', edition);
-    bodyFormData.append('state', bookState);
-    bodyFormData.append('language', language);
-    bodyFormData.append('price', price);
+    bodyFormData.append('bookId', book.id)
+    bodyFormData.append('title', book.title);
+    bodyFormData.append('author', book.author);
+    bodyFormData.append('edition', book.edition);
+    bodyFormData.append('state', book.bookState);
+    bodyFormData.append('language', book.language);
+    bodyFormData.append('price', book.price);
     return instance({
       'method':'POST',
       'url':'/api/modifyBook',
