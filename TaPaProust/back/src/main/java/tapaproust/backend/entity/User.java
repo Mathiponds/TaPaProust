@@ -14,7 +14,7 @@ public class User {
     @Column(nullable = false)
     private String pwdHash;
 
-    @Column(columnDefinition = "boolean default false")
+    @Column
     private boolean enabled;
 
     private String phone;
