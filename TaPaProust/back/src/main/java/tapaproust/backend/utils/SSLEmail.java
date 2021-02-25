@@ -7,17 +7,15 @@ import javax.mail.PasswordAuthentication;
 import javax.mail.Session;
 
 public class SSLEmail {
-
     /**
      Outgoing Mail (SMTP) Server
      requires TLS or SSL: smtp.gmail.com (use authentication)
      Use Authentication: Yes
      Port for SSL: 465
      */
-    public static void main(String[] args) {
+    public SSLEmail(String toEmail) {
         final String fromEmail = "tapaproust@gmail.com"; //requires valid gmail id
         final String password = "YVP1tvI7JKejFstjNOch"; // correct password for gmail id
-        final String toEmail = "mathdesponds@gmail.com"; // can be any email id
 
         System.out.println("SSLEmail Start");
         Properties props = new Properties();
