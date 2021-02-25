@@ -22,9 +22,11 @@ function toggleMyBooks(state = initialState, action) {
     case 'MODIFY_BOOK' :
       const myBookIndex = state.myBooks.findIndex(item => item.id === action.value.book.id)
       API.modifyBook(action.value.book)
+      let nextMyBooks = [...state.myBooks]
+      nextMyBooks[myBookIndex] = action.value.book
       nextState ={
         ...state,
-        myBooks : [...state.myBooks.filter((item, index) => index !== myBookIndex), action.value.book]
+        myBooks : nextMyBooks
       }
       return nextState || state
     break;

@@ -11,6 +11,7 @@ class VerifyBook extends React.Component{
   constructor(props){
     super(props)
     this._confirmBook = this._confirmBook.bind(this)
+    this.book = this.props.route.params.book
     this.modify = this.props.route.params.modify
   }
   async componentDidMount() {
@@ -22,24 +23,18 @@ class VerifyBook extends React.Component{
   _confirmBook(){
     // TODO: Send the book to the backend
     if(!this.modify){
-        action = {
-          type : 'POST_BOOK',
-          value : {
-            book : {
-              ...this.props.route.params.book,
-              //photos : this.props.route.params.photos
-            }
-          }
+      action = {
+        type : 'POST_BOOK',
+        value : {
+          book : this.book
         }
-        this.props.dispatch(action)
+      }
+      this.props.dispatch(action)
     }else{
       action = {
         type : 'MODIFY_BOOK',
         value : {
-          book : {
-            ...this.props.route.params.book,
-            //photos : this.props.route.params.photos
-          }
+          book : this.book
         }
       }
       this.props.dispatch(action)
@@ -55,9 +50,9 @@ class VerifyBook extends React.Component{
       { cancelable: true }
     );
     if(this.modify){
-      this.props.navigation.navigate('Mes livres')
+      this.props.navigation.replace('Mes livres')
     }else{
-      this.props.navigation.navigate('Ajouter un livre')
+      this.props.navigation.replace('Ajouter un livre')
     }
   }
 
@@ -68,15 +63,15 @@ class VerifyBook extends React.Component{
             <Text style = {styles.header_text}>Veuillez vérifier les informations que vous venez de rentrer:</Text>
           </View>
           <View style = {styles.text_box}>
-            <Text style = {styles.text}><Text style = {styles.entry_text}>Title: </Text>{this.props.route.params.title}</Text>
-            <Text style = {styles.text}><Text style = {styles.entry_text}>Author: </Text>{this.props.route.params.author}</Text>
-            <Text style = {styles.text}><Text style = {styles.entry_text}>Edition: </Text>{this.props.route.params.edition}</Text>
-            <Text style = {styles.text}><Text style = {styles.entry_text}>Langue: </Text>{this.props.route.params.language}</Text>
-            <Text style = {styles.text}><Text style = {styles.entry_text}>Prix: </Text>{this.props.route.params.price}</Text>
-            <Text style = {styles.text}><Text style = {styles.entry_text}>Etat: </Text>{this.props.route.params.bookState}</Text>
+            <Text style = {styles.text}><Text style = {styles.entry_text}>Title: </Text>{this.book.title}</Text>
+            <Text style = {styles.text}><Text style = {styles.entry_text}>Author: </Text>{this.book.author}</Text>
+            <Text style = {styles.text}><Text style = {styles.entry_text}>Edition: </Text>{this.book.edition}</Text>
+            <Text style = {styles.text}><Text style = {styles.entry_text}>Langue: </Text>{this.book.language}</Text>
+            <Text style = {styles.text}><Text style = {styles.entry_text}>Prix: </Text>{this.book.price}</Text>
+            <Text style = {styles.text}><Text style = {styles.entry_text}>Etat: </Text>{this.book.state}</Text>
             <Text style = {styles.entry_text}>Photos: </Text>
             <PhotoRendering withButton = {false} withDelete = {false}
-              photos = {this.props.route.params.photos}/>
+              photos = {this.book.photos}/>
           </View>
           <MyButton onPress = {this._confirmBook} title = {'Confirmer'}/>
         </ScrollView>

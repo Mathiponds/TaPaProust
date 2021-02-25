@@ -15,7 +15,14 @@ class AddBook extends React.Component{
     //Sinon on vient de booksdetail
     this.addBook = this.props.route.name === "Ajouter un livre"
     //this.modify = !this.addBook
-    this.book = this.addBook ? "" : this.props.route.params.book
+    this.book = this.addBook ? {
+      title : "",
+      author : "",
+      edition : "",
+      language : "",
+      state : "",
+      price : ""
+    } : this.props.route.params.book
 
     this.firstTime = true
 
@@ -63,7 +70,7 @@ class AddBook extends React.Component{
         this.book.language = text
         break;
       case inputs.BOOK_STATE :
-        this.book.bookState = text
+        this.book.state= text
         break;
       default :
         console.log("error addbook")
@@ -84,18 +91,20 @@ class AddBook extends React.Component{
         isAuthorEmpty : this.book.author === "",
         isEditionEmpty : this.book.edition === "",
         isLanguageEmpty : this.book.language === "",
-        isBookStateEmpty : this.book.bookState === "",
+        isBookStateEmpty : this.book.state === "",
         isPriceEmpty : this.book.price === ""
       })
       return this.book.title === "" || this.book.author === "" || this.book.edition === ""||
-          this.book.language === "" || this.book.bookState === "" || this.book.price === ""
+          this.book.language === "" || this.book.state === "" || this.book.price === ""
   }
 
 
   _verifyBook(){
+    console.log(this.state)
+    console.log(this.book)
     this.firstTime = false
     if(!this._isOneInputEmpty()){
-      this.props.navigation.navigate('Vérification', {book : this.book, photos : this.photos})
+      this.props.navigation.navigate('Vérification', {book : {...this.book, photos : this.state.photos}, modify : !this.addBook})
      }
   }
 
@@ -153,7 +162,7 @@ class AddBook extends React.Component{
             isViP2: true
         })}
         onClose={() => this._changePickerVisibility({})}
-        defaultValue = {this.addBook ? null : this.book.bookState}
+        defaultValue = {this.addBook ? null : this.book.state}
         emptyInput = { !this.firstTime && this.state.isBookStateEmpty} emptyInputMessage = {"Veuillez sélectionner un état."}
         defaultNull placeholder = {this.addBook ? "Choisir l'état du livre" : null}
         input = {inputs.BOOK_STATE} onChangedInput = {this._onChangedInput}/>

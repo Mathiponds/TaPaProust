@@ -81,7 +81,7 @@ public class mainController {
      * @param price
      */
     @PostMapping("/api/addBook")
-    public void addBook(Principal principal,
+    public addBook(Principal principal,
                         @RequestParam String title,
                         @RequestParam String author,
                         @RequestParam String edition,

@@ -62,7 +62,7 @@ export default  {
     bodyFormData.append('title', book.title);
     bodyFormData.append('author', book.author);
     bodyFormData.append('edition', book.edition);
-    bodyFormData.append('state', book.bookState);
+    bodyFormData.append('state', book.state);
     bodyFormData.append('language', book.language);
     bodyFormData.append('price', book.price);
     return instance({
@@ -77,7 +77,7 @@ export default  {
     bodyFormData.append('title', book.title);
     bodyFormData.append('author', book.author);
     bodyFormData.append('edition', book.edition);
-    bodyFormData.append('state', book.bookState);
+    bodyFormData.append('state', book.state);
     bodyFormData.append('language', book.language);
     bodyFormData.append('price', book.price);
     return instance({
