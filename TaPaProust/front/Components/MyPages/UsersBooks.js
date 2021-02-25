@@ -5,8 +5,7 @@ import BookList from '../MyCustomComponents/BookList'
 import MyActivityIndicator from '../MyCustomComponents/MyActivityIndicator'
 import books from '../../Helpers/books'
 import {screens} from '../../Helpers/global'
-//ToDo enlever l'API
-import API from '../../API/BooksAPI'
+import {connect} from 'react-redux'
 
 class UsersBooks extends React.Component {
   constructor(props){
@@ -18,23 +17,10 @@ class UsersBooks extends React.Component {
     }
   }
   componentDidMount() {
-    this._getMyBooks()
     this.props.navigation.setOptions({headerTitleStyle : {
       fontFamily : 'lobster-regular', fontSize : 30}})
   }
 
-  async _getMyBooks(){
-    this.setState({
-      isLoading : true
-    })
-    await API.getMyBooks().then((response) =>{
-      this.setState({
-        data: response.data,
-        isLoading : false
-      })
-    })
-    return this.state.data
-  }
 
   _displayDetailForBook = (book) => {
     this.props.navigation.navigate('Détails du livre', { book : book, lastScreen : screens.USERS_BOOK})
@@ -44,7 +30,7 @@ class UsersBooks extends React.Component {
     return(
       <View style={styles.main_container}>
         <BookList
-          books = {this.state.data}
+          books = {this.props.myBooks}
           displayDetailForBook = {this._displayDetailForBook}/>
           <MyActivityIndicator condition = {this.state.isLoading}/>
       </View>
@@ -58,4 +44,9 @@ const styles = StyleSheet.create({
   },
 })
 
-export default UsersBooks
+const mapStateToProps = (state) => {
+  return {
+    myBooks: state.toggleMyBooks.myBooks
+  }
+}
+export default connect(mapStateToProps)(UsersBooks)
