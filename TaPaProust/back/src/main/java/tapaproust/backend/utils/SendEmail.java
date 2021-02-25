@@ -6,22 +6,22 @@ import javax.mail.internet.*;
 import javax.activation.*;
 
 public class SendEmail {
-
     public static void main(String [] args) {
         // Recipient's email ID needs to be mentioned.
-        String to = "abcd@gmail.com";
+        String to = "mathdesponds@gmail.com";
 
         // Sender's email ID needs to be mentioned
-        String from = "web@gmail.com";
-
+        String from = "tapaproust@gmail.com";
+        String password = "YVP1tvI7JKejFstjNOch";
         // Assuming you are sending email from localhost
-        String host = "localhost";
+        String host = "smtp.gmail.com";
 
         // Get system properties
         Properties properties = System.getProperties();
 
         // Setup mail server
-        properties.setProperty("mail.smtp.host", host);
+        properties.setProperty("mail.smtp.host", host );
+
 
         // Get the default Session object.
         Session session = Session.getDefaultInstance(properties);
