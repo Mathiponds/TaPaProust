@@ -3,6 +3,7 @@ package tapaproust.backend.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import tapaproust.backend.entity.Book;
@@ -135,11 +136,11 @@ public class mainController {
     /*************     USERS       *************/
     /*******************************************/
     @PostMapping("/register")
-    public void register(@RequestParam String mail,
-                         @RequestParam String pwd,
-                         @RequestParam String pwdConfirmation,
-                        @RequestParam String phone) {
-        userService.register(mail, pwd, pwdConfirmation, phone);
+    public ResponseEntity register(@RequestParam String mail,
+                                   @RequestParam String pwd,
+                                   @RequestParam String pwdConfirmation,
+                                   @RequestParam String phone) {
+        return userService.register(mail, pwd, pwdConfirmation, phone);
     }
 
     @PostMapping("/admin/addUser")
@@ -148,6 +149,11 @@ public class mainController {
                         @RequestParam String pwdHash,
                         @RequestParam String phone) {
         userService.addUser(mail, pwdHash, phone);
+    }
+
+    @PostMapping("/admin/removeUser")
+    public void removeUser(@RequestParam long userId) {
+        userService.removeUser(userId);
     }
 
     @GetMapping("/api/getAllUsers")

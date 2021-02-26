@@ -38,8 +38,11 @@ class MyTextInput extends React.Component{
   }
 
   _getEmptyMessage(){
+
+            console.log(this.props.emptyInput+" "+this.props.problem)
     if(this.props.emptyInput||this.props.problem){
       const message = (this.props.emptyInput?this.props.emptyInputMessage:"")+(this.props.problem?this.props.problemMessage:"")
+
       return(
         <Text style = {styles.empty_input_text}>
           {message}

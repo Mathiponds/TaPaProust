@@ -74,6 +74,7 @@ class Register extends React.Component{
       if(!this._isInputValid()){
         API.register(this.userMail, this.password, this.passwordBis, this.phone)
         .then(response => this.props.navigation.navigate('Login')).catch(error =>{
+          console.log(error)
           switch (error.message){
             case "passwords don't match" :
               this.setState({

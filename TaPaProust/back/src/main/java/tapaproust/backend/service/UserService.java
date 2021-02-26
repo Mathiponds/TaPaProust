@@ -3,8 +3,10 @@ package tapaproust.backend.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.server.ResponseStatusException;
 import tapaproust.backend.entity.User;
 import tapaproust.backend.repository.UserRepository;
@@ -46,8 +48,10 @@ public class UserService {
      * Username must be unique and that the two hashes match
      * we must store encoded passwords as spring security expects
      */
-    public String register(String mail, String pwd, String pwdBis, String phone) {
-        checkRegisterCondition(mail, pwd,pwdBis,phone);
+    public ResponseEntity register(String mail, String pwd, String pwdBis, String phone) {
+        ResponseEntity re = checkRegisterCondition(mail, pwd,pwdBis,phone);
+        if(re.getStatusCode() == HttpStatus.PRECONDITION_FAILED)
+            return re;
         User user = new User();
         user.setMail(mail);
         user.setPwdHash(passwordEncoder.encode(pwd));
@@ -57,7 +61,7 @@ public class UserService {
         insert(user);
         SSLEmail sslEmail = new SSLEmail(user.getMail(),user.getToken(),user.getId());
         sslEmail.send();
-        return "user with mail : " + mail + " has been created";
+        return ResponseEntity.status(HttpStatus.CREATED).body("user with mail : " + mail + " has been created");
     }
 
     public User getUserByMail(String mail){
@@ -100,21 +104,30 @@ public class UserService {
     }
 
 
-    private void checkRegisterCondition(String mail, String pwd, String pwdBis, String phone) {
+    private ResponseEntity checkRegisterCondition(String mail, String pwd, String pwdBis, String phone) {
+        String message = "";
         if (!pwdBis.equals(pwd)) {
-            throw new ResponseStatusException(HttpStatus.PRECONDITION_FAILED, "passwords don't match");
+            message +="passwords don't match \n";
         }
             // if the username is new
         Optional<User> ou = userRepository.findByMail(mail);
         if (ou.isPresent()) {
-            throw new ResponseStatusException(HttpStatus.PRECONDITION_FAILED,"user already exists");
+            message += "user already exists \n";
         }
         if(!mail.endsWith("@edu.ge.ch")) {
-            throw new ResponseStatusException(HttpStatus.PRECONDITION_FAILED, "Mail of user is not ending with \"@edu.ge.ch\"");
+            message += "UserMail not edu\n";
         }
         if(!phone.startsWith("+")){
-            throw new ResponseStatusException(HttpStatus.PRECONDITION_FAILED, "phone should start with +");
+            message += "phone don't start with +\n";
+        }
+        if(message.equals("")){
+            return ResponseEntity.status(HttpStatus.ACCEPTED).body("");
+        }else{
+            return ResponseEntity.status(HttpStatus.PRECONDITION_FAILED).body(message);
         }
     }
 
+    public void removeUser(long userId) {
+        userRepository.deleteById(userId);
+    }
 }
