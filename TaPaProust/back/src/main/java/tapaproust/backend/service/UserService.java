@@ -50,7 +50,7 @@ public class UserService {
      */
     public ResponseEntity register(String mail, String pwd, String pwdBis, String phone) {
         ResponseEntity re = checkRegisterCondition(mail, pwd,pwdBis,phone);
-        if(re.getStatusCode() == HttpStatus.OK)
+        if(re.getStatusCode() == HttpStatus.PRECONDITION_FAILED)
             return re;
         User user = new User();
         user.setMail(mail);
@@ -123,7 +123,7 @@ public class UserService {
         if(message.equals("")){
             return ResponseEntity.status(HttpStatus.ACCEPTED).body("");
         }else{
-            return ResponseEntity.status(HttpStatus.OK).body(message);
+            return ResponseEntity.status(HttpStatus.PRECONDITION_FAILED).body(message);
         }
     }
 
