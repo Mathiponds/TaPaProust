@@ -10,6 +10,7 @@ Front
 - [x] regarder l'état dans le modifier livre et dans verfication 
 - [x] regarder comment recharger les livres après la modification
 - [x] api pour register
+- [x] envoyer un mail après la registration
 - [ ] verifier toutes les input pour le register
 - [ ] bouton pour quand on a vendu le livre
 - [ ] ajout photo dans la db
