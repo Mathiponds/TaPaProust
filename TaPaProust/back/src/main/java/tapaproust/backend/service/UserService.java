@@ -47,26 +47,17 @@ public class UserService {
      * we must store encoded passwords as spring security expects
      */
     public String register(String mail, String pwd, String pwdBis, String phone) {
-        //if passwords match
-        if (pwdBis.equals(pwd)) {
-            // if the username is new
-            if (!userRepository.findByMail(mail).isPresent()) {
-                User user = new User();
-                user.setMail(mail);
-                user.setPwdHash(passwordEncoder.encode(pwd));
-                user.setPhone(phone);
-                user.setEnabled(false);
-                user.setToken(generateString());
-                insert(user);
-                SSLEmail sslEmail = new SSLEmail(user.getMail(),user.getToken(),user.getId());
-                sslEmail.send();
-                return "user with mail : " + mail + " has been created";
-            } else {
-                throw new ResponseStatusException(HttpStatus.CONFLICT,"user with mail : " + mail + " already exists");
-            }
-        } else {
-            throw new ResponseStatusException(HttpStatus.EXPECTATION_FAILED, "passwords don't match");
-        }
+        checkRegisterCondition(mail, pwd,pwdBis,phone);
+        User user = new User();
+        user.setMail(mail);
+        user.setPwdHash(passwordEncoder.encode(pwd));
+        user.setPhone(phone);
+        user.setEnabled(false);
+        user.setToken(generateString());
+        insert(user);
+        SSLEmail sslEmail = new SSLEmail(user.getMail(),user.getToken(),user.getId());
+        sslEmail.send();
+        return "user with mail : " + mail + " has been created";
     }
 
     public User getUserByMail(String mail){
@@ -107,4 +98,23 @@ public class UserService {
         }
         return "Ce lien n'est pas valide" ;
     }
+
+
+    private void checkRegisterCondition(String mail, String pwd, String pwdBis, String phone) {
+        if (!pwdBis.equals(pwd)) {
+            throw new ResponseStatusException(HttpStatus.PRECONDITION_FAILED, "passwords don't match");
+        }
+            // if the username is new
+        Optional<User> ou = userRepository.findByMail(mail);
+        if (ou.isPresent()) {
+            throw new ResponseStatusException(HttpStatus.PRECONDITION_FAILED,"user already exists");
+        }
+        if(!mail.endsWith("@edu.ge.ch")) {
+            throw new ResponseStatusException(HttpStatus.PRECONDITION_FAILED, "Mail of user is not ending with \"@edu.ge.ch\"");
+        }
+        if(!phone.startsWith("+")){
+            throw new ResponseStatusException(HttpStatus.PRECONDITION_FAILED, "phone should start with +");
+        }
+    }
+
 }

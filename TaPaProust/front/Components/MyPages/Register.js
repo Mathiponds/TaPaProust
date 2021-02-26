@@ -14,17 +14,19 @@ class Register extends React.Component{
     this.userMail = "@edu.ge.ch"
     this.password = ""
     this.passwordBis = ""
-    this.phone = ""
+    this.phone = "+"
 
     this.firstTime = true
     this.state = {
+      isMailAlreadyUsed : false,
       isMailEmpty : true,
       isMailNotEdu : true,
       isPWEmpty : true,
       isPW2Empty : true,
       arePWNotSame : false,
       isPhoneEmpty : true,
-      isPhoneNotNumeric :true
+      isPhoneNotNumeric :true,
+      phoneNotStartWithPlus : false
     }
     this._register = this._register.bind(this)
     this._onChangedInput = this._onChangedInput.bind(this)
@@ -61,7 +63,7 @@ class Register extends React.Component{
         isPW2Empty : this.passwordBis === "",
         arePWNotSame : this.password !== this.passwordBis,
         isPhoneEmpty : this.phone === "",
-        isPhoneNotNumeric : ! /^-?\d+$/.test(this.phone)
+        isPhoneNotNumeric : ! /^-?\d+$/.test(this.phone.substring(1))
       })
       return this.userMail === "" || this.password === "" || this.passwordBis === "" ||
       this.password !== this.passwordBis||
@@ -71,7 +73,30 @@ class Register extends React.Component{
       this.firstTime = false
       if(!this._isInputValid()){
         API.register(this.userMail, this.password, this.passwordBis, this.phone)
-        this.props.navigation.navigate('Login')
+        .then(response => this.props.navigation.navigate('Login')).catch(error =>{
+          switch (error.message){
+            case "passwords don't match" :
+              this.setState({
+                arePWNotSame : true
+              })
+            break;
+            case "user already exists":
+              this.setState({
+                isMailAlreadyUsed : true
+              })
+            break;
+            case "Mail of user is not ending with \"@edu.ge.ch\"":
+              this.setState({
+                isMailNotEdu : true
+              })
+            break;
+            case "phone should start with +":
+              this.setState({
+                phoneNotStartWithPlus : true
+              })
+            break;
+          }
+        })
       }
   }
 
@@ -84,6 +109,7 @@ class Register extends React.Component{
           precision ={'Votre mail doit être le mail edu finissant par @edu.ge.ch'}
           emptyInput = {!this.firstTime && (this.state.isMailEmpty || this.state.isMailNotEdu)}
           emptyInputMessage = {"Votre mail ne peut pas être vide et doit finir par @edu.ge.ch"}
+          problem ={this.state.isMailAlreadyUsed} problemMessage = {"Email déjà utilisé. Checkez votre boîte mail pour confirmer votre email."}
           />
         <MyTextInput
           title = {'Mot de passe '} placeholder = {'Mot de passe'} input = {inputs.PASSWORD}
@@ -104,6 +130,7 @@ class Register extends React.Component{
           precision ={'Le numéro de téléphone avec lequel vos potentiels acheteur pourront vous contacter'}
           emptyInput = {!this.firstTime && (this.state.isPhoneEmpty || this.state.isPhoneNotNumeric)}
           emptyInputMessage = {"Votre numéro de téléphone ne peut pas être vide et doit être numeric"}
+          problem ={this.state.phoneNotStartWithPlus} problemMessage ={"Le numéro de téléphone doit commencer par + et l'indicateur national"}
           />
         <MyButton
           onPress = {() => this._register()}

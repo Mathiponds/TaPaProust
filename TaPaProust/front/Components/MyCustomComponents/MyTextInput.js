@@ -11,7 +11,7 @@ class MyTextInput extends React.Component{
   _getTextInput(){
     return (
       <TextInput
-        style = {[styles.text_input, this.props.emptyInput?styles.empty_input:{}]}
+        style = {[styles.text_input, this.props.emptyInput||this.props.problem?styles.empty_input:{}]}
         defaultValue = {this.props.defaultValue}
         placeholder = {this.props.placeholder}
         keyboardType = {this.props.keyboardType}
@@ -38,10 +38,11 @@ class MyTextInput extends React.Component{
   }
 
   _getEmptyMessage(){
-    if(this.props.emptyInput){
+    if(this.props.emptyInput||this.props.problem){
+      const message = (this.props.emptyInput?this.props.emptyInputMessage:"")+(this.props.problem?this.props.problemMessage:"")
       return(
         <Text style = {styles.empty_input_text}>
-          {this.props.emptyInputMessage}
+          {message}
         </Text>
       )
     }
