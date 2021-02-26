@@ -52,7 +52,7 @@ public class UserService {
      */
     public ResponseEntity<List<String>> register(String mail, String pwd, String pwdBis, String phone) {
         ResponseEntity<List<String>> re = checkRegisterCondition(mail, pwd,pwdBis,phone);
-        if(re.getStatusCode() == HttpStatus.OK)
+        if(re.getStatusCode() == HttpStatus.ACCEPTED)
             return re;
         User user = new User();
         user.setMail(mail);

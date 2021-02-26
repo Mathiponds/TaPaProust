@@ -18,15 +18,10 @@ class Register extends React.Component{
 
     this.firstTime = true
     this.state = {
-      isMailAlreadyUsed : false,
-      isMailEmpty : true,
-      isMailNotEdu : true,
-      isPWEmpty : true,
-      isPW2Empty : true,
-      arePWNotSame : false,
-      isPhoneEmpty : true,
-      isPhoneNotNumeric :true,
-      phoneNotStartWithPlus : false
+      mailMess : "",
+      pwMess : "",
+      pwMess : "",
+      phoneMess : "",
     }
     this._register = this._register.bind(this)
     this._onChangedInput = this._onChangedInput.bind(this)
@@ -55,52 +50,25 @@ class Register extends React.Component{
         break;
     }
   }
-  _isInputValid(){
-      this.setState({
-        isMailEmpty : this.userMail.startsWith('@'),
-        isMailNotEdu : !this.userMail.endsWith("@edu.ge.ch"),
-        isPWEmpty : this.password === "",
-        isPW2Empty : this.passwordBis === "",
-        arePWNotSame : this.password !== this.passwordBis,
-        isPhoneEmpty : this.phone === "",
-        isPhoneNotNumeric : ! /^-?\d+$/.test(this.phone.substring(1))
-      })
-      return this.userMail === "" || this.password === "" || this.passwordBis === "" ||
-      this.password !== this.passwordBis||
-        this.phone === "" || !this.userMail.endsWith("@edu.ge.ch") || !/^-?\d+$/.test(this.phone)
-  }
+
   _register(){
       this.firstTime = false
-      if(!this._isInputValid()){
         API.register(this.userMail, this.password, this.passwordBis, this.phone)
         .then(response => {
-          if(response.status === 202){
+          console.log(response.data)
+          if(response.status === 200){
             this.props.navigation.navigate('Login')
           }else{
-            if(response.data.includes("passwords don't match")){
-                this.setState({
-                  arePWNotSame : true
-                })
-            }
-            if(response.data.includes("user already exists")){
-                this.setState({
-                  isMailAlreadyUsed : true
-                })
-            }
-            if(response.data.includes("Mail of user is not ending with \"@edu.ge.ch\"")){
-                this.setState({
-                  isMailNotEdu : true
-                })
-            }
-            if(response.data.includes("phone should start with +")){
-                this.setState({
-                  arePWNotSame : true
-                })
-            }
+            this.setState({
+              mailMess : response.data[0],
+              pwMess : response.data[1],
+              pwMess : response.data[2],
+              phoneMess : response.data[3],
+            })
           }
         })
         .catch(error => console.log(error))
-      }
+
   }
 
   _registerItemBox(){
@@ -110,9 +78,7 @@ class Register extends React.Component{
           title = {'Mail'} defaultValue = {'@edu.ge.ch'} input = {inputs.USER_MAIL}
           onChangedInput = {this._onChangedInput} onFocus = {()=> {}}
           precision ={'Votre mail doit être le mail edu finissant par @edu.ge.ch'}
-          emptyInput = {!this.firstTime && (this.state.isMailEmpty || this.state.isMailNotEdu)}
-          emptyInputMessage = {"Votre mail ne peut pas être vide et doit finir par @edu.ge.ch"}
-          problem ={this.state.isMailAlreadyUsed} problemMessage = {"Email déjà utilisé. Checkez votre boîte mail pour confirmer votre email."}
+          errorMessage = {this.state.mailMess}
           />
         <MyTextInput
           title = {'Mot de passe '} placeholder = {'Mot de passe'} input = {inputs.PASSWORD}
