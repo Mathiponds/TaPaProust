@@ -138,12 +138,12 @@ public class UserService {
         if(!validatePhone(phone)){
             messagePhone += "Votre numéro doit commencer par '+' doit être composé que de chiffre \n";
         }
-        messagePhone = messagePhone.substring(0,messagePhone.length()-1);
+        messagePhone = messagePhone.substring(0,Math.max(0,messagePhone.length()-1));
         l.add(messagePhone);
         if(messagePhone.equals("") && messageMail.equals("") && messagePW.equals("") && messagePWBIS.equals("")){
-            return ResponseEntity.status(HttpStatus.ACCEPTED).body(new ArrayList<String>());
+            return ResponseEntity.status(HttpStatus.OK).body(new ArrayList<String>());
         }else{
-            return ResponseEntity.status(HttpStatus.OK).body(l);
+            return ResponseEntity.status(HttpStatus.ACCEPTED).body(l);
         }
     }
     private static final String EMAIL_PATTERN = "[_A-Za-z-+]+(.[_A-Za-z-]+)*@" + "edu.ge.ch";
