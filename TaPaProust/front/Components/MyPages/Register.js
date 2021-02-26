@@ -74,31 +74,30 @@ class Register extends React.Component{
       if(!this._isInputValid()){
         API.register(this.userMail, this.password, this.passwordBis, this.phone)
         .then(response => {
-          console.log("e2")
-          console.log(response)
-          switch (error.message){
-            case "passwords don't match" :
-              this.setState({
-                arePWNotSame : true
-              })
-            break;
-            case "user already exists":
-              this.setState({
-                isMailAlreadyUsed : true
-              })
-            break;
-            case "Mail of user is not ending with \"@edu.ge.ch\"":
-              this.setState({
-                isMailNotEdu : true
-              })
-            break;
-            case "phone should start with +":
-              this.setState({
-                phoneNotStartWithPlus : true
-              })
-            break;
+          if(response.status === 202){
+            this.props.navigation.navigate('Login')
+          }else{
+            if(response.data.includes("passwords don't match")){
+                this.setState({
+                  arePWNotSame : true
+                })
+            }
+            if(response.data.includes("user already exists")){
+                this.setState({
+                  isMailAlreadyUsed : true
+                })
+            }
+            if(response.data.includes("Mail of user is not ending with \"@edu.ge.ch\"")){
+                this.setState({
+                  isMailNotEdu : true
+                })
+            }
+            if(response.data.includes("phone should start with +")){
+                this.setState({
+                  arePWNotSame : true
+                })
+            }
           }
-          this.props.navigation.navigate('Login')
         })
         .catch(error => console.log(error))
       }
