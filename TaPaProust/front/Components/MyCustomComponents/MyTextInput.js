@@ -11,7 +11,7 @@ class MyTextInput extends React.Component{
   _getTextInput(){
     return (
       <TextInput
-        style = {[styles.text_input, this.props.errorMessage?styles.empty_input:{}]}
+        style = {[styles.text_input, this.props.errorMessage||this.props.emptyInput?styles.empty_input:{}]}
         defaultValue = {this.props.defaultValue}
         placeholder = {this.props.placeholder}
         keyboardType = {this.props.keyboardType}
@@ -38,6 +38,16 @@ class MyTextInput extends React.Component{
   }
 
   _getEmptyMessage(){
+    if(this.props.emptyInput){
+      return(
+        <Text style = {styles.empty_input_text}>
+          {this.props.emptyInputMessage}
+        </Text>
+      )
+    }
+  }
+
+  _getErrorMessage(){
     if(this.props.errorMessage){
       return(
         <Text style = {styles.empty_input_text}>
@@ -56,6 +66,7 @@ class MyTextInput extends React.Component{
           {this._getPrecision()}
           {this._getTextInput()}
           {this._getEmptyMessage()}
+          {this._getErrorMessage()}
         </View>
       )
   }
