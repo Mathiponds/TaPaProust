@@ -22,7 +22,7 @@ public class MyUserDetailsService implements UserDetailsService {
     //
     public UserDetails loadUserByUsername(String mail) {
         User user = userService.getUserByMail(mail);
-        boolean enabled =true ;
+        boolean enabled = user.isEnabled() ;
         boolean accountNonExpired = true;
         boolean credentialsNonExpired = true;
         boolean accountNonLocked = true;

@@ -44,15 +44,10 @@ public class mainController {
         return "Logout is successful";
     }
 
-    @PostMapping("/confirm_token")
+    @GetMapping("/confirm_token")
     public String confirmToken(@RequestParam String email, @RequestParam String token){
-        User u = userService.getUserByMail(email);
-        if(u.getToken().equals(token)){
-            u.setEnabled(true);
-            return "Merci d'avoir confirmé votre compte \n" +
-                    "Vous pouvez maintenant retourner sur l'application et vous connecter";
-        }
-        return "Ce lien n'est pas valide" ;
+        return userService.confirmToken(email, token);
+
     }
 
     /**

@@ -13,11 +13,16 @@ public class SSLEmail {
      Use Authentication: Yes
      Port for SSL: 465
      */
+    private String fromEmail = "tapaproust@gmail.com";
+    private String password = "YVP1tvI7JKejFstjNOch";
+    private String toEmail;
+    private String token;
     public SSLEmail(String toEmail, String token) {
-        final String fromEmail = "tapaproust@gmail.com"; //requires valid gmail id
-        final String password = "YVP1tvI7JKejFstjNOch"; // correct password for gmail id
+        this.toEmail = toEmail;
+        this.token = token;
+    }
 
-        System.out.println("SSLEmail Start");
+    public String send(){
         Properties props = new Properties();
         props.put("mail.smtp.host", "smtp.gmail.com"); //SMTP Host
         props.put("mail.smtp.socketFactory.port", "465"); //SSL Port
@@ -34,11 +39,11 @@ public class SSLEmail {
         };
 
         Session session = Session.getDefaultInstance(props, auth);
-        System.out.println("Session created");
         EmailUtils.sendEmail(session, toEmail,"TaPaProust : Email confirmation",
                 "Veuillez confirmer votre email pour utiliser TaPaProust et pouvoir acheter ou vendre des livres en appuyant sur ce lien\n" +
-                        "https://tapaproust.herokuapp.com/confirmToken/"+token);
+                        "https://tapaproust.herokuapp.com/confirm_token?email="+toEmail+"&token="+token);
 
+        return "Email sended";
     }
 
 }

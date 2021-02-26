@@ -8,9 +8,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 import tapaproust.backend.entity.User;
 import tapaproust.backend.repository.UserRepository;
+import tapaproust.backend.utils.SSLEmail;
 
+import java.nio.charset.Charset;
 import java.util.List;
 import java.util.Optional;
+import java.util.Random;
 
 @Service
 public class UserService {
@@ -52,8 +55,11 @@ public class UserService {
                 user.setMail(mail);
                 user.setPwdHash(passwordEncoder.encode(pwd));
                 user.setPhone(phone);
-
+                user.setEnabled(false);
+                user.setToken(generateString());
                 insert(user);
+                SSLEmail sslEmail = new SSLEmail(user.getMail(),user.getToken());
+                sslEmail.send();
                 return "user with mail : " + mail + " has been created";
             } else {
                 throw new ResponseStatusException(HttpStatus.CONFLICT,"user with mail : " + mail + " already exists");
@@ -75,5 +81,30 @@ public class UserService {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "user with "+name+" : " + value + " not found");
         }
         return ou.get();
+    }
+    private String generateString() {
+        int leftLimit = 48; // numeral '0'
+        int rightLimit = 122; // letter 'z'
+        int targetStringLength = 10;
+        Random random = new Random();
+
+        String generatedString = random.ints(leftLimit, rightLimit + 1)
+                .filter(i -> (i <= 57 || i >= 65) && (i <= 90 || i >= 97))
+                .limit(targetStringLength)
+                .collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append)
+                .toString();
+
+        return generatedString;
+    }
+
+    public String confirmToken(String email, String token) {
+        User u = getUserByMail(email);
+        if(u.getToken().equals(token)){
+            u.setEnabled(true);
+            userRepository.save(u);
+            return "Merci d'avoir confirmé votre compte \n" +
+                    "Vous pouvez maintenant retourner sur l'application et vous connecter";
+        }
+        return "Ce lien n'est pas valide" ;
     }
 }
