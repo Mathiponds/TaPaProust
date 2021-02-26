@@ -1,5 +1,5 @@
 import React from 'react'
-import {View, Text, StyleSheet, TextInput, ScrollView} from 'react-native'
+import {View, Text, StyleSheet, TextInput, ScrollView, Keyboard, TouchableWithoutFeedback} from 'react-native'
 
 import MyTextInput from '../MyCustomComponents/MyTextInput'
 import MyButton from '../MyCustomComponents/MyButton'
@@ -22,6 +22,9 @@ class Register extends React.Component{
       pwMess : "",
       phoneMess : "",
     }
+    this.myTextInput = {}
+
+    this.focusNextTextInput = this.focusNextTextInput.bind(this)
     this._register = this._register.bind(this)
     this._onChangedInput = this._onChangedInput.bind(this)
   }
@@ -54,7 +57,6 @@ class Register extends React.Component{
       this.firstTime = false
       API.register(this.userMail, this.password, this.passwordBis, this.phone)
       .then(response => {
-        console.log(response.data)
         if(response.status === 200){
           this.props.navigation.navigate('Login')
         }else{
@@ -70,50 +72,73 @@ class Register extends React.Component{
       .catch(error => console.log(error))
   }
 
+  focusNextTextInput(id) {
+   this.myTextInput[id].focus();
+  }
+
   _registerItemBox(){
-    console.log(this.state)
     return (
-      <ScrollView style = { styles.login_item_container}>
+      <View style = { styles.login_item_container}>
         <MyTextInput
           title = {'Mail'} placeholder = {'prenom.nom@edu.ge.ch'} input = {inputs.USER_MAIL}
           onChangedInput = {this._onChangedInput} onFocus = {()=> {}}
           precision ={'Votre mail doit être le mail edu finissant par @edu.ge.ch'}
           errorMessage = {!this.firstTime && this.state.mailMess}
+          keyboardType = 'email-address'
+          returnKeyType = {"next"}
+          onSubmitEditing = {() => this.focusNextTextInput("two")}
+          blurOnSubmit={false}
+          ref={input => {this.myTextInput["one"] = input;}}
           />
         <MyTextInput
           title = {'Mot de passe '} placeholder = {'Mot de passe'} input = {inputs.PASSWORD}
           secureTextEntry = {true} onChangedInput = {this._onChangedInput} onFocus = {()=> {}}
           errorMessage = {!this.firstTime && this.state.pwMess}
+          returnKeyType = {"next"}
+          onSubmitEditing = {() => this.focusNextTextInput("three")}
+          blurOnSubmit={false}
+          ref={input => {this.myTextInput["two"] = input;}}
           />
         <MyTextInput
           title = {'Mot de passe'} placeholder = {'Mot de passe'} input = {inputs.PASSWORD_BIS}
           secureTextEntry = {true} onChangedInput = {this._onChangedInput} onFocus = {()=> {}}
           precision ={'Confirmation de votre mot de passe'}
           errorMessage = {!this.firstTime && this.state.pwBisMess}
+          returnKeyType = {"next"}
+          onSubmitEditing = {() => this.focusNextTextInput("four")}
+          blurOnSubmit={false}
+          ref={input => {this.myTextInput["three"] = input;}}
           />
         <MyTextInput
           title = {'Téléphone'} placeholder = {'+41770001122'} input = {inputs.PHONE}
           onChangedInput = {this._onChangedInput} onFocus = {()=> {}}
           precision ={'Le numéro de téléphone avec lequel vos potentiels acheteur pourront vous contacter'}
           errorMessage = {!this.firstTime && this.state.phoneMess}
+          keyboardType = 'phone-pad'
+          returnKeyType = {"go"}
+          onSubmitEditing = {() => this._register()}
+          blurOnSubmit={false}
+          ref={input => {this.myTextInput["four"] = input;}}
           />
         <MyButton
           onPress = {() => this._register()}
           title = {'Créer votre compte'}/>
-      </ScrollView>
+      </View>
     )
   }
 
   render(){
     return (
-      <View style = {styles.main_container}>
+      <TouchableWithoutFeedback onPress={() => {Keyboard.dismiss()}}>
+      <ScrollView style = {styles.main_container}>
         <View style = { styles.title_box}>
           <Text style = {styles.title}>
             TaPaProust
           </Text>
         </View>
         {this._registerItemBox()}
-      </View>
+      </ScrollView>
+    </TouchableWithoutFeedback>
     )
   }
 }
