@@ -65,7 +65,7 @@ public class UserService {
         sslEmail.send();
         ArrayList<String> a = new ArrayList<>();
         a.add("user with mail : " + mail + " has been created");
-        return ResponseEntity.status(HttpStatus.CREATED).body(a);
+        return ResponseEntity.status(HttpStatus.OK).body(a);
     }
 
     public User getUserByMail(String mail){
@@ -115,7 +115,7 @@ public class UserService {
         String messagePWBIS = "";
         String messagePhone = "";
         //MAIL
-        if (mail.startsWith("@")) {
+        if (mail.equals("")) {
             messageMail += "Veuillez rentrer un email.";
         } else if (userRepository.findByMail(mail).isPresent()) {
             messageMail += "Cet email a déjà été enregistré. Vous avez reçu un mail pour le confirmer";
@@ -125,18 +125,18 @@ public class UserService {
         l.add(messageMail);
         //PW
         if(pwd.length() < 6) {
-            messagePW += "Votre mot de passe doit avoir au moins 6 caractères";
+            messagePW += "Votre mot de passe doit avoir au moins 6 caractères.";
         }
         l.add(messagePW);
         if(!pwd.equals(pwdBis)){
-            messagePWBIS += "Vos deux mot de passe doivent concorder";
+            messagePWBIS += "Vos deux mot de passe doivent concorder.";
         }
         l.add(messagePWBIS);
         if(phone.equals("")){
-            messagePhone += "Votre message ne doit pas être vide \n";
+            messagePhone += "Votre numéro ne doit pas être vide.\n";
         }
         if(!validatePhone(phone)){
-            messagePhone += "Votre numéro doit commencer par '+' doit être composé que de chiffre \n";
+            messagePhone += "Votre numéro doit commencer par '+' doit être composé que de chiffre.\n";
         }
         messagePhone = messagePhone.substring(0,Math.max(0,messagePhone.length()-1));
         l.add(messagePhone);
