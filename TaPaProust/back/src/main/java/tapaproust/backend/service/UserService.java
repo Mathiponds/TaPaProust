@@ -58,7 +58,7 @@ public class UserService {
                 user.setEnabled(false);
                 user.setToken(generateString());
                 insert(user);
-                SSLEmail sslEmail = new SSLEmail(user.getMail(),user.getToken());
+                SSLEmail sslEmail = new SSLEmail(user.getMail(),user.getToken(),user.getId());
                 sslEmail.send();
                 return "user with mail : " + mail + " has been created";
             } else {
@@ -85,7 +85,7 @@ public class UserService {
     private String generateString() {
         int leftLimit = 48; // numeral '0'
         int rightLimit = 122; // letter 'z'
-        int targetStringLength = 10;
+        int targetStringLength = 20;
         Random random = new Random();
 
         String generatedString = random.ints(leftLimit, rightLimit + 1)
@@ -97,8 +97,8 @@ public class UserService {
         return generatedString;
     }
 
-    public String confirmToken(String email, String token) {
-        User u = getUserByMail(email);
+    public String confirmToken(long id, String token) {
+        User u = getUserById(id);
         if(u.getToken().equals(token)){
             u.setEnabled(true);
             userRepository.save(u);

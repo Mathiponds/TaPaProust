@@ -45,8 +45,8 @@ public class mainController {
     }
 
     @GetMapping("/confirm_token")
-    public String confirmToken(@RequestParam String email, @RequestParam String token){
-        return userService.confirmToken(email, token);
+    public String confirmToken(@RequestParam long id, @RequestParam String token){
+        return userService.confirmToken(id, token);
 
     }
 

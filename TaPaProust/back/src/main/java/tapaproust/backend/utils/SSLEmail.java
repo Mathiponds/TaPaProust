@@ -17,9 +17,12 @@ public class SSLEmail {
     private String password = "YVP1tvI7JKejFstjNOch";
     private String toEmail;
     private String token;
-    public SSLEmail(String toEmail, String token) {
+    private long id;
+
+    public SSLEmail(String toEmail, String token, long id) {
         this.toEmail = toEmail;
         this.token = token;
+        this.id = id;
     }
 
     public String send(){
@@ -41,7 +44,7 @@ public class SSLEmail {
         Session session = Session.getDefaultInstance(props, auth);
         EmailUtils.sendEmail(session, toEmail,"TaPaProust : Email confirmation",
                 "Veuillez confirmer votre email pour utiliser TaPaProust et pouvoir acheter ou vendre des livres en appuyant sur ce lien\n" +
-                        "https://tapaproust.herokuapp.com/confirm_token?email="+toEmail+"&token="+token);
+                        "https://tapaproust.herokuapp.com/confirm_token?id="+this.id+"&token="+this.token);
 
         return "Email sended";
     }
