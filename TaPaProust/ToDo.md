@@ -11,8 +11,9 @@ Front
 - [x] regarder comment recharger les livres après la modification
 - [x] api pour register
 - [x] envoyer un mail après la registration
-- [ ] verifier toutes les input pour le register
+- [x] verifier toutes les input pour le register
 - [ ] bouton pour quand on a vendu le livre
+- [ ] refaire message What's app
 - [ ] ajout photo dans la db
 - [x] restructurer les fichiers
 - [x] faire en sorte que quand on appuie à coté dans le login ça enlève le clavier

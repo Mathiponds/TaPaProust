@@ -187,8 +187,15 @@ public class mainController {
 
     //ToDo
     // lien pour enlever le livre dans le message
-    @GetMapping("/api/bookSold")
-    public void bookSold(@RequestParam long bookId, @RequestParam long secureBookId){}
+    @PostMapping("/api/bookSold")
+    public ResponseEntity<Book> bookSold(@RequestParam long bookId, @RequestParam String token){
+        return bookService.bookSold(bookId, token);
+    }
+
+    @PostMapping("/api/bookUnsold")
+    public ResponseEntity<Book> bookUnsold(@RequestParam long bookId, @RequestParam String token){
+        return bookService.bookUnsold(bookId, token);
+    }
 
     //ToDo
     @PostMapping("/api/modifyUserNumber")

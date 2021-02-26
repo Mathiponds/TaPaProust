@@ -31,6 +31,14 @@ public class Book {
     @Column(nullable = false)
     private String price;
 
+    @Column(columnDefinition = "boolean default false", nullable = false)
+    private boolean sold;
+
+    @Column(columnDefinition = "varchar(255) default 'token'", nullable = false)
+    private String token;
+
+
+
 
     ///////////////////////////////////////
     //////////     Methodes      //////////
@@ -81,6 +89,13 @@ public class Book {
         return soldById;
     }
 
+    public String getToken() {
+        return token;
+    }
+
+    public boolean isSold() {
+        return sold;
+    }
     ///////////////////////////////////////
     //////////      Setters      //////////
     ///////////////////////////////////////
@@ -115,5 +130,13 @@ public class Book {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
+
+    public void setSold(boolean sold) {
+        this.sold = sold;
     }
 }
