@@ -147,6 +147,17 @@ public class UserService {
         userRepository.deleteById(userId);
     }
 
+    /**
+     *
+     * @param userMail
+     * @return a string with a '+' in front (ex. +41774834486)
+     */
+    public ResponseEntity<String> getUserPhone(String userMail) {
+        User u = getUserByMail(userMail);
+        return ResponseEntity.status(HttpStatus.OK).body(u.getPhone());
+    }
+
+
     private String generateString() {
         int leftLimit = 48; // numeral '0'
         int rightLimit = 122; // letter 'z'
@@ -161,4 +172,6 @@ public class UserService {
 
         return generatedString;
     }
+
+
 }

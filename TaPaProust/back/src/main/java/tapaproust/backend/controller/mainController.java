@@ -156,9 +156,14 @@ public class mainController {
         userService.removeUser(userId);
     }
 
-    @GetMapping("/api/getAllUsers")
+    @GetMapping("/admin/getAllUsers")
     public List<User> getAllUsers(){
         return userService.getAllUsers();
+    }
+
+    @GetMapping("/api/getUserPhone")
+    public ResponseEntity<String> getUserPhone(Principal principal){
+        return userService.getUserPhone(principal.getName());
     }
 
     /*******************************************/
@@ -185,8 +190,7 @@ public class mainController {
 
 
 
-    //ToDo
-    // lien pour enlever le livre dans le message
+
     @PostMapping("/api/bookSold")
     public ResponseEntity<Book> bookSold(@RequestParam long bookId, @RequestParam String token){
         return bookService.bookSold(bookId, token);

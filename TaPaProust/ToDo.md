@@ -12,7 +12,7 @@ Front
 - [x] api pour register
 - [x] envoyer un mail après la registration
 - [x] verifier toutes les input pour le register
-- [ ] bouton pour quand on a vendu le livre
+- [x] bouton pour quand on a vendu le livre
 - [ ] refaire message What's app
 - [ ] ajout photo dans la db
 - [x] restructurer les fichiers
@@ -20,6 +20,7 @@ Front
 - [ ] s'occuper des erreur de l'API
 - [ ] regarder si dans l'API on peut utiliser application/x-www-form-urlencoded
 - [ ] enlever le bottomtab quand le clavier monte
+- [ ] bloquer les /admin
 
 API
 
