@@ -35,21 +35,24 @@ class BookDetails extends React.Component{
   }
 
   _contactSeller(){
-    const whatsAppMsg = 'Message envoyé depuis *TaPaProust* \n' +
-                    'Bonjour! \n Je serais intéressé par le livre _' +this.book.title+ '_ de _' +this.book.author+ '_.\n'+
-                    'Est-il toujours disponible? Si oui, pourrions nous nous rencontrez pour l\'échange?'
+    API.getUserPhone().then(response => {
+      console.log(response)
+      const whatsAppMsg = 'Message envoyé depuis *TaPaProust* \n' +
+                      'Bonjour! \n Je serais intéressé par le livre _' +this.book.title+ '_ de _' +this.book.author+ '_.\n'+
+                      'Est-il toujours disponible? Si oui, pourrions nous nous rencontrez pour l\'échange?'
 
-    const mobileNumber = '41794351907'
-    let url =
-      'whatsapp://send?text=' +
-       whatsAppMsg +
-      '&phone=' + mobileNumber;
-    Linking.openURL(url)
-      .catch(() => {
-        alert('Make sure Whatsapp installed on your device');
-      });
-
+      const mobileNumber = response.data.substring(1)
+      let url =
+        'whatsapp://send?text=' +
+         whatsAppMsg +
+        '&phone=' + mobileNumber;
+      Linking.openURL(url)
+        .catch(() => {
+          alert("Vous avez besoin d'avoir installé whatsapp");
+        });
+    }).catch(err => console.log(err))
   }
+
   _toggleFavorite() {
     const action = { type: "TOGGLE_FAVORITE", value: this.book }
     this.props.dispatch(action)

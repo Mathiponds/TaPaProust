@@ -100,6 +100,13 @@ export default  {
       'data' : bodyFormData,
       'headers' : { 'content-type':'multipart/form-data'}
     })},
+    
+  getUserPhone : () =>
+    instance({
+      'method':'GET',
+      'url':'/api/getUserPhone'
+  })
+  ,
 
   addToFav : (bookId) => {
     var bodyFormData = new FormData();

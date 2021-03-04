@@ -189,8 +189,6 @@ public class mainController {
     }
 
 
-
-
     @PostMapping("/api/bookSold")
     public ResponseEntity<Book> bookSold(@RequestParam long bookId, @RequestParam String token){
         return bookService.bookSold(bookId, token);
