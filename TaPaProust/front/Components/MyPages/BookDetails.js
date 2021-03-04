@@ -4,6 +4,8 @@ import {View, Text, Image, StyleSheet, Button, TouchableOpacity, Linking} from '
 import MyButton from '../MyCustomComponents/MyButton'
 import PhotoRendering from '../MyCustomComponents/PhotoRendering'
 
+import API from '../../API/BooksAPI'
+
 import {screens} from '../../Helpers/global'
 import {connect} from 'react-redux'
 
@@ -15,6 +17,11 @@ class BookDetails extends React.Component{
 
     this._contactSeller = this._contactSeller.bind(this)
     this._modify = this._modify.bind(this)
+    this._sold = this._sold.bind(this)
+
+    this.state = {
+      sold : this.book.sold
+    }
   }
   async componentDidMount() {
     if(this.lastScreen === screens.RESULT_OF_SEARCH ||
@@ -67,6 +74,48 @@ class BookDetails extends React.Component{
       {book : this.book})
 
   }
+  _getOpacity(){
+    if(this.state.sold){
+      return (
+        <View style = {styles.book_sold}>
+          <Image style = {styles.vendu}
+          source={require('../../Images/vendu.png')}/>
+        </View>
+      )
+    }
+  }
+
+  _sold() {
+    if(this.book.sold){
+      API.bookUnsold(this.book.id, this.book.token).then(response => {
+          action = {
+            type : 'MODIFY_BOOK',
+            value : {
+              book : response.data
+            }
+          }
+          this.props.dispatch(action)
+          this.setState({
+            sold : false
+          })
+          this.book = response.data
+      }).catch(err => console.log(err))
+    }else{
+      API.bookSold(this.book.id, this.book.token).then(response => {
+          action = {
+            type : 'MODIFY_BOOK',
+            value : {
+              book : response.data
+            }
+          }
+          this.props.dispatch(action)
+          this.setState({
+            sold : true
+          })
+          this.book = response.data
+      }).catch(err => console.log(err))
+    }
+  }
 
 
   _getButton(){
@@ -77,14 +126,21 @@ class BookDetails extends React.Component{
         onPress = {() => {this._contactSeller()}}/>)
     }else{
       return(
-        <MyButton title = {'Modifier'}
-        onPress = {() => {this._modify()}}/>)
+        <View>
+          <MyButton title = {'Modifier'}
+          onPress = {() => {this._modify()}}/>
+          <MyButton longText = {true}
+          title = {this.state.sold ? 'Marquez ce livre comme invendu':'Marquer ce livre comme vendu'}
+          onPress = {() => {this._sold()}}/>
+        </View>
+      )
     }
   }
   render(){
     return (
       <View style = {styles.main_container}>
         <View style = {styles.image_box}>
+        {this._getOpacity()}
           <Image style = {styles.image}></Image>
         </View>
         <TouchableOpacity
@@ -161,6 +217,22 @@ const styles = StyleSheet.create({
   favorite_image: {
     width: 40,
     height: 40
+  },
+  book_sold : {
+    position: 'absolute',
+    left: 0,
+    right: 0,
+    top: 0,
+    bottom: 0,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor : 'white',
+    zIndex : 1000,
+    opacity : 0.7
+  },
+  vendu : {
+    height : 150,
+    resizeMode : 'center',
   }
 })
 

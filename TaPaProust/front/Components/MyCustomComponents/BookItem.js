@@ -12,12 +12,23 @@ class BookItem extends React.Component{
       />
     }
   }
+  _getOpacity(){
+    if(this.props.book.sold){
+      return (
+        <View style = {styles.book_sold}>
+          <Image style = {styles.vendu}
+          source={require('../../Images/vendu.png')}/>
+        </View>
+      )
+    }
+  }
   render(){
     const book = this.props.book
     return (
       <TouchableOpacity
        style={styles.main_container}
        onPress={() => this.props.displayDetailForBook(book)}>
+       {this._getOpacity()}
         <View style = {styles.image_box}>
           <Image style = {styles.image}></Image>
           <Text style = {styles.price}>{book.price} frs</Text>
@@ -49,7 +60,7 @@ const styles = StyleSheet.create({
   },
   image : {
     backgroundColor : 'grey',
-    flex :1
+    flex :1,
   },
   price : {
     borderWidth : 1,
@@ -83,6 +94,22 @@ const styles = StyleSheet.create({
     height : 35,
     width : 35,
     marginRight: 5
+  },
+  book_sold : {
+    position: 'absolute',
+    left: 0,
+    right: 0,
+    top: 0,
+    bottom: 0,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor : 'white',
+    zIndex : 1000,
+    opacity : 0.7
+  },
+  vendu : {
+    height : 150,
+    resizeMode : 'center',
   }
 })
 

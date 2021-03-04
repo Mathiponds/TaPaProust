@@ -113,6 +113,7 @@ public class BookService {
         Book b = getBookById(bookId);
         if(b.getToken().equals(token)){
             b.setSold(true);
+            //Nouveau token
             b.setToken(generateString());
             bookRepository.save(b);
             return ResponseEntity.status(HttpStatus.OK).body(b);

@@ -124,4 +124,25 @@ export default  {
       'method':'GET',
       'url':'/api/getMyFavBooks'
   }),
+
+  bookSold : (bookId, token) => {
+    var bodyFormData = new FormData();
+    bodyFormData.append('bookId', bookId);
+    bodyFormData.append('token', token);
+    return instance({
+      'method':'POST',
+      'url':'/api/bookSold',
+      'data' : bodyFormData,
+      'headers' : { 'content-type':'multipart/form-data'}
+  })},
+  bookUnsold : (bookId, token) => {
+    var bodyFormData = new FormData();
+    bodyFormData.append('bookId', bookId);
+    bodyFormData.append('token', token);
+    return instance({
+      'method':'POST',
+      'url':'/api/bookUnsold',
+      'data' : bodyFormData,
+      'headers' : { 'content-type':'multipart/form-data'}
+  })},
 }
