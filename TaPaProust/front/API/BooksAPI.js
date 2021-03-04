@@ -104,7 +104,7 @@ export default  {
   getUserPhone : (id) =>
     instance({
       'method':'GET',
-      'url':'/api/getBooks',
+      'url':'/api/getUserPhone',
       'params' : {
         bookId : id
       },

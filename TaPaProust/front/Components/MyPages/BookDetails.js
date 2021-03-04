@@ -35,8 +35,7 @@ class BookDetails extends React.Component{
   }
 
   _contactSeller(){
-    API.getUserPhone().then(response => {
-      console.log(response)
+    API.getUserPhone(this.book.id).then(response => {
       const whatsAppMsg = 'Message envoyé depuis *TaPaProust* \n' +
                       'Bonjour! \n Je serais intéressé par le livre _' +this.book.title+ '_ de _' +this.book.author+ '_.\n'+
                       'Est-il toujours disponible? Si oui, pourrions nous nous rencontrez pour l\'échange?'
