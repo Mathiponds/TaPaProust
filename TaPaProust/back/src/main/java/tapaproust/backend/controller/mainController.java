@@ -162,8 +162,8 @@ public class mainController {
     }
 
     @GetMapping("/api/getUserPhone")
-    public ResponseEntity<String> getUserPhone(Principal principal){
-        return userService.getUserPhone(principal.getName());
+    public ResponseEntity<String> getUserPhone(@RequestParam long bookId){
+        return userService.getUserPhone(bookId);
     }
 
     /*******************************************/

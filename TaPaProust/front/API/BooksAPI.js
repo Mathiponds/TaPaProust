@@ -100,11 +100,16 @@ export default  {
       'data' : bodyFormData,
       'headers' : { 'content-type':'multipart/form-data'}
     })},
-    
-  getUserPhone : () =>
+
+  getUserPhone : (id) =>
     instance({
       'method':'GET',
-      'url':'/api/getUserPhone'
+      'url':'/api/getBooks',
+      'params' : {
+        bookId : id
+      },
+      'headers' : { 'content-type':'application/octet-stream' // override instance defaults
+            }
   })
   ,
 

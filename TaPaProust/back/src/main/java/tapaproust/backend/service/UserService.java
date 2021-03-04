@@ -24,6 +24,8 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
     @Autowired
+    private BookService bookService;
+    @Autowired
     private PasswordEncoder passwordEncoder;
 
     public List<User> getAllUsers(){
@@ -149,11 +151,11 @@ public class UserService {
 
     /**
      *
-     * @param userMail
+     * @param bookId
      * @return a string with a '+' in front (ex. +41774834486)
      */
-    public ResponseEntity<String> getUserPhone(String userMail) {
-        User u = getUserByMail(userMail);
+    public ResponseEntity<String> getUserPhone(long bookId) {
+        User u = getUserById(bookService.getBookById(bookId).getSoldById());
         return ResponseEntity.status(HttpStatus.OK).body(u.getPhone());
     }
 
