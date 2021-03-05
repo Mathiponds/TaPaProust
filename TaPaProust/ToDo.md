@@ -13,7 +13,7 @@ Front
 - [x] envoyer un mail après la registration
 - [x] verifier toutes les input pour le register
 - [x] bouton pour quand on a vendu le livre
-- [ ] refaire message What's app
+- [x] refaire message What's app
 - [ ] ajout photo dans la db
 - [x] restructurer les fichiers
 - [x] faire en sorte que quand on appuie à coté dans le login ça enlève le clavier

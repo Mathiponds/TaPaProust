@@ -30,6 +30,9 @@ public class MyUserDetailsService implements UserDetailsService {
 
         List<GrantedAuthority> auths = new ArrayList<GrantedAuthority>();
         auths.add(new SimpleGrantedAuthority("USER"));
+        if(user.getMail().equals("admin@tapaproust.ch")) {
+            auths.add(new SimpleGrantedAuthority("ADMIN"));
+        }
         return new org.springframework.security.core.userdetails.User
                 (user.getMail(), user.getPwdHash(),
 

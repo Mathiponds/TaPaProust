@@ -35,7 +35,7 @@ public class UserService {
     //Should use register
     public void addUser(String mail, String pwdHash, String phone){
         User u = new User();
-        u.setMail(mail); u.setPhone(phone);u.setPwdHash(passwordEncoder.encode(pwdHash));
+        u.setMail(mail); u.setPhone(phone);u.setPwdHash(passwordEncoder.encode(pwdHash));u.setEnabled(true);u.setToken(generateString());
         insert(u);
     }
     public void insert(User user){
@@ -174,6 +174,4 @@ public class UserService {
 
         return generatedString;
     }
-
-
 }
