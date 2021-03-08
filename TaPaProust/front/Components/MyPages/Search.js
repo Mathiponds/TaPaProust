@@ -27,9 +27,12 @@ class Search extends React.Component{
       API.getMyFavBooks().then(response => {
         action = {type : 'INIT_FAVORITE', value : response.data}
         this.props.dispatch(action)
+      }).catch(error => console.log(error))
+
+      API.getMyBooks().then(response => {
+        action = {type : 'INIT_MY_BOOKS', value : response.data}
+        this.props.dispatch(action)
       })
-
-
 
       this.state = {
         isLoading : false,
@@ -178,7 +181,7 @@ const styles = StyleSheet.create({
 })
 const mapStateToProps = (state) => {
   return {
-    favoritesBook: state.favoritesBook
+    favoritesBook: state.toggleFavorite.favoritesBook
   }
 }
 export default connect(mapStateToProps)(Search)

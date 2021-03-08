@@ -4,10 +4,12 @@ package tapaproust.backend.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import tapaproust.backend.entity.Book;
 import tapaproust.backend.entity.User;
+import tapaproust.backend.repository.UserRepository;
 import tapaproust.backend.service.BookService;
 import tapaproust.backend.service.FavoriteService;
 import tapaproust.backend.service.UserService;
@@ -33,24 +35,26 @@ public class mainController {
     }
 
     @GetMapping("/login_successful")
-    public String loginSucess(){ //Ajouter ?name=Votreprenom à la fin de l'URL
+    public String loginSucess(){
         return "Login is successful";
     }
 
     @GetMapping("/login_failure")
-    public String loginFailure(){ //Ajouter ?name=Votreprenom à la fin de l'URL
+    public String loginFailure(){
         return "Login is failure";
     }
 
     @GetMapping("/logout_successful")
-    public String logoutSucess(){ //Ajouter ?name=Votreprenom à la fin de l'URL
+    public String logoutSucess(){
         return "Logout is successful";
     }
 
-    @PostMapping("/sendArray")
-    public void sendArray(@RequestParam List<String> ls){
-        System.out.println(ls);
+    @GetMapping("/confirm_token")
+    public String confirmToken(@RequestParam long id, @RequestParam String token){
+        return userService.confirmToken(id, token);
+
     }
+
     /**
      * Returns all the books with a certain author title and edition that are each optional
      * @param title
@@ -89,7 +93,7 @@ public class mainController {
      * @param price
      */
     @PostMapping("/api/addBook")
-    public void addBook(Principal principal,
+    public Book addBook(Principal principal,
                         @RequestParam String title,
                         @RequestParam String author,
                         @RequestParam String edition,
@@ -97,8 +101,8 @@ public class mainController {
                         @RequestParam String language,
                         @RequestParam String price,
                         @RequestParam String photos) {
-        bookService.addBook(title, author, edition, state,
-                principal.getName(), language, price, photos);
+        return bookService.addBook(title, author, edition, state,
+                principal.getName(), language, price,photos);
     }
 
     /**
@@ -138,11 +142,11 @@ public class mainController {
     /*************     USERS       *************/
     /*******************************************/
     @PostMapping("/register")
-    public void register(@RequestParam String mail,
-                         @RequestParam String pwd,
-                         @RequestParam String pwdConfirmation,
-                        @RequestParam String phone) {
-        userService.register(mail, pwd, pwdConfirmation, phone);
+    public ResponseEntity register(@RequestParam String mail,
+                                   @RequestParam String pwd,
+                                   @RequestParam String pwdConfirmation,
+                                   @RequestParam String phone) {
+        return userService.register(mail, pwd, pwdConfirmation, phone);
     }
 
     @PostMapping("/admin/addUser")
@@ -153,9 +157,19 @@ public class mainController {
         userService.addUser(mail, pwdHash, phone);
     }
 
-    @GetMapping("/api/getAllUsers")
+    @PostMapping("/admin/removeUser")
+    public void removeUser(@RequestParam long userId) {
+        userService.removeUser(userId);
+    }
+
+    @GetMapping("/admin/getAllUsers")
     public List<User> getAllUsers(){
         return userService.getAllUsers();
+    }
+
+    @GetMapping("/api/getUserPhone")
+    public ResponseEntity<String> getUserPhone(@RequestParam long bookId){
+        return userService.getUserPhone(bookId);
     }
 
     /*******************************************/
@@ -207,11 +221,15 @@ public class mainController {
 
 
 
+    @PostMapping("/api/bookSold")
+    public ResponseEntity<Book> bookSold(@RequestParam long bookId, @RequestParam String token){
+        return bookService.bookSold(bookId, token);
+    }
 
-    //ToDo
-    // lien pour enlever le livre dans le message
-    @GetMapping("/api/bookSold")
-    public void bookSold(@RequestParam long bookId, @RequestParam long secureBookId){}
+    @PostMapping("/api/bookUnsold")
+    public ResponseEntity<Book> bookUnsold(@RequestParam long bookId, @RequestParam String token){
+        return bookService.bookUnsold(bookId, token);
+    }
 
     //ToDo
     @PostMapping("/api/modifyUserNumber")

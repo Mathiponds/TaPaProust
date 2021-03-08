@@ -14,7 +14,12 @@ public class User {
     @Column(nullable = false)
     private String pwdHash;
 
+    @Column
+    private boolean enabled;
+
     private String phone;
+
+    private String token;
 
     public long getId() {
         return Id;
@@ -46,5 +51,21 @@ public class User {
 
     public void setPwdHash(String pwdHash) {
         this.pwdHash = pwdHash;
+    }
+
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
     }
 }

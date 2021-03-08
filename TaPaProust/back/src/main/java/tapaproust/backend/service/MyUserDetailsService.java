@@ -22,21 +22,23 @@ public class MyUserDetailsService implements UserDetailsService {
     //
     public UserDetails loadUserByUsername(String mail) {
         User user = userService.getUserByMail(mail);
-        /*
-        boolean enabled = true;
+        boolean enabled = user.isEnabled() ;
         boolean accountNonExpired = true;
         boolean credentialsNonExpired = true;
         boolean accountNonLocked = true;
-         */
+
 
         List<GrantedAuthority> auths = new ArrayList<GrantedAuthority>();
         auths.add(new SimpleGrantedAuthority("USER"));
+        if(user.getMail().equals("admin@tapaproust.ch")) {
+            auths.add(new SimpleGrantedAuthority("ADMIN"));
+        }
         return new org.springframework.security.core.userdetails.User
                 (user.getMail(), user.getPwdHash(),
-                        /*
+
                         enabled, accountNonExpired,
                         credentialsNonExpired, accountNonLocked,
-                         */
+
                         auths);
     }
 

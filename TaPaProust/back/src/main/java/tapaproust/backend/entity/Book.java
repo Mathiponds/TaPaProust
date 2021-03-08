@@ -41,6 +41,15 @@ public class Book {
     @ElementCollection(targetClass=String.class)
     private List<String> photos;
 
+    @Column(columnDefinition = "boolean default false", nullable = false)
+    private boolean sold;
+
+    @Column(columnDefinition = "varchar(255) default 'token'", nullable = false)
+    private String token;
+
+
+
+
     ///////////////////////////////////////
     //////////     Methodes      //////////
     ///////////////////////////////////////
@@ -100,6 +109,13 @@ public class Book {
         return photos;
     }
 
+    public String getToken() {
+        return token;
+    }
+
+    public boolean isSold() {
+        return sold;
+    }
     ///////////////////////////////////////
     //////////      Setters      //////////
     ///////////////////////////////////////
@@ -154,5 +170,13 @@ public class Book {
             }
             this.photos.add(destinationPath);
         }
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
+
+    public void setSold(boolean sold) {
+        this.sold = sold;
     }
 }

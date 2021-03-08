@@ -1,5 +1,5 @@
 import React from 'react'
-import {View, Text, StyleSheet, TextInput, ScrollView} from 'react-native'
+import {View, Text, StyleSheet, TextInput, ScrollView, Keyboard, TouchableWithoutFeedback} from 'react-native'
 
 import MyTextInput from '../MyCustomComponents/MyTextInput'
 import MyButton from '../MyCustomComponents/MyButton'
@@ -11,21 +11,20 @@ import {inputs} from '../../Helpers/global.js'
 class Register extends React.Component{
   constructor(props){
     super(props)
-    this.userMail = "@edu.ge.ch"
+    this.userMail = ""
     this.password = ""
     this.passwordBis = ""
-    this.phone = ""
 
     this.firstTime = true
     this.state = {
-      isMailEmpty : true,
-      isMailNotEdu : true,
-      isPWEmpty : true,
-      isPW2Empty : true,
-      arePWNotSame : false,
-      isPhoneEmpty : true,
-      isPhoneNotNumeric :true
+      mailMess : "",
+      pwMess : "",
+      pwMess : "",
+      phoneMess : "",
     }
+    this.myTextInput = {}
+
+    this.focusNextTextInput = this.focusNextTextInput.bind(this)
     this._register = this._register.bind(this)
     this._onChangedInput = this._onChangedInput.bind(this)
   }
@@ -53,75 +52,93 @@ class Register extends React.Component{
         break;
     }
   }
-  _isInputValid(){
-      this.setState({
-        isMailEmpty : this.userMail.startsWith('@'),
-        isMailNotEdu : !this.userMail.endsWith("@edu.ge.ch"),
-        isPWEmpty : this.password === "",
-        isPW2Empty : this.passwordBis === "",
-        arePWNotSame : this.password !== this.passwordBis,
-        isPhoneEmpty : this.phone === "",
-        isPhoneNotNumeric : ! /^-?\d+$/.test(this.phone)
-      })
-      return this.userMail === "" || this.password === "" || this.passwordBis === "" ||
-      this.password !== this.passwordBis||
-        this.phone === "" || !this.userMail.endsWith("@edu.ge.ch") || !/^-?\d+$/.test(this.phone)
-  }
+
   _register(){
       this.firstTime = false
-      if(!this._isInputValid()){
-        API.register(this.userMail, this.password, this.passwordBis, this.phone)
-        this.props.navigation.navigate('Login')
-      }
+      API.register(this.userMail, this.password, this.passwordBis, this.phone)
+      .then(response => {
+        if(response.status === 200){
+          this.props.navigation.navigate('Login')
+        }else{
+          this.setState({
+            ...this.state,
+            mailMess : response.data[0],
+            pwMess : response.data[1],
+            pwBisMess : response.data[2],
+            phoneMess : response.data[3],
+          })
+        }
+      })
+      .catch(error => console.log(error))
+  }
+
+  focusNextTextInput(id) {
+   this.myTextInput[id].focus();
   }
 
   _registerItemBox(){
     return (
-      <ScrollView style = { styles.login_item_container}>
+      <View style = { styles.login_item_container}>
         <MyTextInput
-          title = {'Mail'} defaultValue = {'@edu.ge.ch'} input = {inputs.USER_MAIL}
+          title = {'Mail'} placeholder = {'prenom.nom@edu.ge.ch'} input = {inputs.USER_MAIL}
           onChangedInput = {this._onChangedInput} onFocus = {()=> {}}
           precision ={'Votre mail doit être le mail edu finissant par @edu.ge.ch'}
-          emptyInput = {!this.firstTime && (this.state.isMailEmpty || this.state.isMailNotEdu)}
-          emptyInputMessage = {"Votre mail ne peut pas être vide et doit finir par @edu.ge.ch"}
+          errorMessage = {!this.firstTime && this.state.mailMess}
+          keyboardType = 'email-address'
+          returnKeyType = {"next"}
+          onSubmitEditing = {() => this.focusNextTextInput("two")}
+          blurOnSubmit={false}
+          ref={input => {this.myTextInput["one"] = input;}}
           />
         <MyTextInput
           title = {'Mot de passe '} placeholder = {'Mot de passe'} input = {inputs.PASSWORD}
           secureTextEntry = {true} onChangedInput = {this._onChangedInput} onFocus = {()=> {}}
-          emptyInput = {!this.firstTime && this.state.isPWEmpty}
-          emptyInputMessage = {"Votre mot de passe ne peut pas être vide"}
+          errorMessage = {!this.firstTime && this.state.pwMess}
+          returnKeyType = {"next"}
+          onSubmitEditing = {() => this.focusNextTextInput("three")}
+          blurOnSubmit={false}
+          ref={input => {this.myTextInput["two"] = input;}}
           />
         <MyTextInput
           title = {'Mot de passe'} placeholder = {'Mot de passe'} input = {inputs.PASSWORD_BIS}
           secureTextEntry = {true} onChangedInput = {this._onChangedInput} onFocus = {()=> {}}
-          emptyInput = {this.state.arePWNotSame}
-          emptyInputMessage = {"Votre mot de passe doit être identique au premier"}
           precision ={'Confirmation de votre mot de passe'}
+          errorMessage = {!this.firstTime && this.state.pwBisMess}
+          returnKeyType = {"next"}
+          onSubmitEditing = {() => this.focusNextTextInput("four")}
+          blurOnSubmit={false}
+          ref={input => {this.myTextInput["three"] = input;}}
           />
         <MyTextInput
-          title = {'Téléphone'} placeholder = {'Téléphone'} input = {inputs.PHONE}
+          title = {'Téléphone'} placeholder = {'+41770001122'} input = {inputs.PHONE}
           onChangedInput = {this._onChangedInput} onFocus = {()=> {}}
           precision ={'Le numéro de téléphone avec lequel vos potentiels acheteur pourront vous contacter'}
-          emptyInput = {!this.firstTime && (this.state.isPhoneEmpty || this.state.isPhoneNotNumeric)}
-          emptyInputMessage = {"Votre numéro de téléphone ne peut pas être vide et doit être numeric"}
+          errorMessage = {!this.firstTime && this.state.phoneMess}
+          keyboardType = 'phone-pad'
+          returnKeyType = {"go"}
+          onSubmitEditing = {() => this._register()}
+          blurOnSubmit={false}
+          ref={input => {this.myTextInput["four"] = input;}}
           />
         <MyButton
           onPress = {() => this._register()}
           title = {'Créer votre compte'}/>
-      </ScrollView>
+      </View>
     )
   }
 
   render(){
     return (
-      <View style = {styles.main_container}>
+      <TouchableWithoutFeedback onPress={() => {Keyboard.dismiss()}}>
+      <ScrollView style = {styles.main_container}>
         <View style = { styles.title_box}>
           <Text style = {styles.title}>
             TaPaProust
           </Text>
         </View>
         {this._registerItemBox()}
-      </View>
+      </ScrollView>
+    </TouchableWithoutFeedback>
     )
   }
 }

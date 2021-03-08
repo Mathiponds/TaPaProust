@@ -5,11 +5,13 @@ import MyButton from '../MyCustomComponents/MyButton'
 import PhotoRendering from '../MyCustomComponents/PhotoRendering'
 
 import API from '../../API/BooksAPI'
+import {connect} from 'react-redux'
 
 class VerifyBook extends React.Component{
   constructor(props){
     super(props)
     this._confirmBook = this._confirmBook.bind(this)
+    this.book = this.props.route.params.book
     this.modify = this.props.route.params.modify
 
     this.photosInBase64 = []
@@ -20,6 +22,7 @@ class VerifyBook extends React.Component{
     this.setState({ assetsLoaded: true });
   }
 
+
   _reducePhotosToString(){
     var out = ''
     for(let s of this.props.route.params.photos.map(item => item.base64)){
@@ -28,17 +31,29 @@ class VerifyBook extends React.Component{
     return out
   }
 
-  async  _confirmBook(){
+  _confirmBook(){
+    // TODO: Send the book to the backend
     if(!this.modify){
-      await API.postBook(this.props.route.params.title, this.props.route.params.author,
-        this.props.route.params.edition, this.props.route.params.language,
-        this.props.route.params.price, this.props.route.params.bookState,
-        this._reducePhotosToString())
+      API.postBook(this.book).then(response => {
+        action = {
+          type : 'POST_BOOK',
+          value : {
+            book : response.data
+          }
+        }
+        this.props.dispatch(action)
+      }).catch(error => console.log(error))
     }else{
-      await API.modifyBook(this.props.route.params.id, this.props.route.params.title, this.props.route.params.author,
-        this.props.route.params.edition, this.props.route.params.language,
-        this.props.route.params.price, this.props.route.params.bookState,
-        this._reducePhotosToString())
+      API.modifyBook(this.book).then(response => {
+        action = {
+          type : 'MODIFY_BOOK',
+          value : {
+            book : this.book
+          }
+        }
+        this.props.dispatch(action)
+      }).catch(error => console.log(error))
+
     }
     const text = this.modify ?  "Votre livre a bien été modifié" :"Votre livre a bien été ajouté"
     Alert.alert(
@@ -50,11 +65,12 @@ class VerifyBook extends React.Component{
       { cancelable: true }
     );
     if(this.modify){
-      this.props.navigation.navigate('Mes livres')
+      this.props.navigation.replace('Mes livres')
     }else{
-      this.props.navigation.navigate('Ajouter un livre')
+      this.props.navigation.replace('Ajouter un livre')
     }
   }
+  
   render(){
       return (
         <ScrollView style = {styles.main_container}>
@@ -62,15 +78,15 @@ class VerifyBook extends React.Component{
             <Text style = {styles.header_text}>Veuillez vérifier les informations que vous venez de rentrer:</Text>
           </View>
           <View style = {styles.text_box}>
-            <Text style = {styles.text}><Text style = {styles.entry_text}>Title: </Text>{this.props.route.params.title}</Text>
-            <Text style = {styles.text}><Text style = {styles.entry_text}>Author: </Text>{this.props.route.params.author}</Text>
-            <Text style = {styles.text}><Text style = {styles.entry_text}>Edition: </Text>{this.props.route.params.edition}</Text>
-            <Text style = {styles.text}><Text style = {styles.entry_text}>Langue: </Text>{this.props.route.params.language}</Text>
-            <Text style = {styles.text}><Text style = {styles.entry_text}>Prix: </Text>{this.props.route.params.price}</Text>
-            <Text style = {styles.text}><Text style = {styles.entry_text}>Etat: </Text>{this.props.route.params.bookState}</Text>
+            <Text style = {styles.text}><Text style = {styles.entry_text}>Title: </Text>{this.book.title}</Text>
+            <Text style = {styles.text}><Text style = {styles.entry_text}>Author: </Text>{this.book.author}</Text>
+            <Text style = {styles.text}><Text style = {styles.entry_text}>Edition: </Text>{this.book.edition}</Text>
+            <Text style = {styles.text}><Text style = {styles.entry_text}>Langue: </Text>{this.book.language}</Text>
+            <Text style = {styles.text}><Text style = {styles.entry_text}>Prix: </Text>{this.book.price}</Text>
+            <Text style = {styles.text}><Text style = {styles.entry_text}>Etat: </Text>{this.book.state}</Text>
             <Text style = {styles.entry_text}>Photos: </Text>
             <PhotoRendering withButton = {false} withDelete = {false}
-              photos = {this.props.route.params.photos}/>
+              photos = {this.book.photos}/>
           </View>
           <MyButton onPress = {this._confirmBook} title = {'Confirmer'}/>
         </ScrollView>
@@ -112,5 +128,9 @@ const styles = StyleSheet.create({
     width: 90
   }
 })
-
-export default VerifyBook
+const mapStateToProps = (state) => {
+  return {
+    myBooks: state.toggleMyBooks.myBooks
+  }
+}
+export default connect(mapStateToProps)(VerifyBook)

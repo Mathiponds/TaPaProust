@@ -16,6 +16,11 @@ class BookDetails extends React.Component{
 
     this._contactSeller = this._contactSeller.bind(this)
     this._modify = this._modify.bind(this)
+    this._sold = this._sold.bind(this)
+
+    this.state = {
+      sold : this.book.sold
+    }
   }
   async componentDidMount() {
     if(this.lastScreen === screens.RESULT_OF_SEARCH ||
@@ -29,21 +34,23 @@ class BookDetails extends React.Component{
   }
 
   _contactSeller(){
-    const whatsAppMsg = 'Message envoyé depuis *TaPaProust* \n' +
-                    'Bonjour! \n Je serais intéressé par le livre _' +this.book.title+ '_ de _' +this.book.author+ '_.\n'+
-                    'Est-il toujours disponible? Si oui, pourrions nous nous rencontrez pour l\'échange?'
+    API.getUserPhone(this.book.id).then(response => {
+      const whatsAppMsg = 'Message envoyé depuis *TaPaProust* \n' +
+                      'Bonjour! \n Je serais intéressé par le livre _' +this.book.title+ '_ de _' +this.book.author+ '_.\n'+
+                      'Est-il toujours disponible? Si oui, pourrions nous nous rencontrez pour l\'échange?'
 
-    const mobileNumber = '41794351907'
-    let url =
-      'whatsapp://send?text=' +
-       whatsAppMsg +
-      '&phone=' + mobileNumber;
-    Linking.openURL(url)
-      .catch(() => {
-        alert('Make sure Whatsapp installed on your device');
-      });
-
+      const mobileNumber = response.data.substring(1)
+      let url =
+        'whatsapp://send?text=' +
+         whatsAppMsg +
+        '&phone=' + mobileNumber;
+      Linking.openURL(url)
+        .catch(() => {
+          alert("Vous avez besoin d'avoir installé whatsapp");
+        });
+    }).catch(err => console.log(err))
   }
+
   _toggleFavorite() {
     const action = { type: "TOGGLE_FAVORITE", value: this.book }
     this.props.dispatch(action)
@@ -65,10 +72,50 @@ class BookDetails extends React.Component{
 
   _modify(){
     this.props.navigation.navigate('Modifier un livre',// Link à addBook
-      {title :this.book.title, author : this.book.author, edition : this.book.edition,
-        language : this.book.language, price : this.book.price, bookState : this.book.state,
-        id : this.book.id})
+      {book : this.book})
 
+  }
+  _getOpacity(){
+    if(this.state.sold){
+      return (
+        <View style = {styles.book_sold}>
+          <Image style = {styles.vendu}
+          source={require('../../Images/vendu.png')}/>
+        </View>
+      )
+    }
+  }
+
+  _sold() {
+    if(this.book.sold){
+      API.bookUnsold(this.book.id, this.book.token).then(response => {
+          action = {
+            type : 'MODIFY_BOOK',
+            value : {
+              book : response.data
+            }
+          }
+          this.props.dispatch(action)
+          this.setState({
+            sold : false
+          })
+          this.book = response.data
+      }).catch(err => console.log(err))
+    }else{
+      API.bookSold(this.book.id, this.book.token).then(response => {
+          action = {
+            type : 'MODIFY_BOOK',
+            value : {
+              book : response.data
+            }
+          }
+          this.props.dispatch(action)
+          this.setState({
+            sold : true
+          })
+          this.book = response.data
+      }).catch(err => console.log(err))
+    }
   }
 
 
@@ -80,8 +127,14 @@ class BookDetails extends React.Component{
         onPress = {() => {this._contactSeller()}}/>)
     }else{
       return(
-        <MyButton title = {'Modifier'}
-        onPress = {() => {this._modify()}}/>)
+        <View>
+          <MyButton title = {'Modifier'}
+          onPress = {() => {this._modify()}}/>
+          <MyButton longText = {true}
+          title = {this.state.sold ? 'Marquez ce livre comme invendu':'Marquer ce livre comme vendu'}
+          onPress = {() => {this._sold()}}/>
+        </View>
+      )
     }
   }
 
@@ -96,7 +149,7 @@ class BookDetails extends React.Component{
     }else{
       return (
       <View style = {styles.image_box}>
-        <Image style = {styles.image}></Image>
+        {this._getOpacity()}<Image style = {styles.image}></Image>
       </View>)
     }
 
@@ -105,7 +158,10 @@ class BookDetails extends React.Component{
   render(){
     return (
       <View style = {styles.main_container}>
-        {this._getImages()}
+        <View style = {styles.image_box}>
+            {this._getOpacity()}
+            {this._getImages()}
+        </View>
         <TouchableOpacity
             style={styles.favorite_container}
             onPress={() => this._toggleFavorite()}>
@@ -184,6 +240,22 @@ const styles = StyleSheet.create({
   favorite_image: {
     width: 40,
     height: 40
+  },
+  book_sold : {
+    position: 'absolute',
+    left: 0,
+    right: 0,
+    top: 0,
+    bottom: 0,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor : 'white',
+    zIndex : 1000,
+    opacity : 0.7
+  },
+  vendu : {
+    height : 150,
+    resizeMode : 'center',
   }
 })
 

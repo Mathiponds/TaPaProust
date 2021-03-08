@@ -2,6 +2,7 @@ package tapaproust.backend.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.server.ResponseStatusException;
@@ -12,6 +13,7 @@ import tapaproust.backend.repository.UserRepository;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Random;
 
 @Service
 public class BookService {
@@ -42,7 +44,7 @@ public class BookService {
         bookRepository.save(b);
     }
 
-    public void addBook(String title, String author, String edition, String state,
+    public Book addBook(String title, String author, String edition, String state,
                         String mailOfOwner, String language, String price, String photos) {
         Book book = new Book();
         book.setTitle(title);
@@ -54,6 +56,7 @@ public class BookService {
         book.setSoldById(userRepository.findByMail(mailOfOwner).get().getId());
         book.setPhotos(photos);
         bookRepository.save(book);
+        return book;
     }
 
     public List<Book> getBooks(String title, String author, String edition) {
@@ -98,6 +101,30 @@ public class BookService {
         bookRepository.deleteById(bookId);
     }
 
+    public ResponseEntity<Book> bookUnsold(long bookId, String token) {
+        Book b = getBookById(bookId);
+        if(b.getToken().equals(token)){
+            b.setSold(false);
+            b.setToken(generateString());
+            bookRepository.save(b);
+            return ResponseEntity.status(HttpStatus.OK).body(b);
+        }else{
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+        }
+    }
+
+    public ResponseEntity<Book> bookSold(long bookId, String token) {
+        Book b = getBookById(bookId);
+        if(b.getToken().equals(token)){
+            b.setSold(true);
+            //Nouveau token
+            b.setToken(generateString());
+            bookRepository.save(b);
+            return ResponseEntity.status(HttpStatus.OK).body(b);
+        }else{
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+        }
+    }
 
     private Book checkBookExists(Optional<Book> ou, String name, String value){
         if(!ou.isPresent()){
@@ -105,5 +132,16 @@ public class BookService {
         }
         return ou.get();
     }
-
+    private String generateString() {
+        int leftLimit = 48; // numeral '0'
+        int rightLimit = 122; // letter 'z'
+        int targetStringLength = 20;
+        Random random = new Random();
+        String generatedString = random.ints(leftLimit, rightLimit + 1)
+                .filter(i -> (i <= 57 || i >= 65) && (i <= 90 || i >= 97))
+                .limit(targetStringLength)
+                .collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append)
+                .toString();
+        return generatedString;
+    }
 }

@@ -10,17 +10,19 @@
 - [x] Regarder comment mettre l'appli sur internet
 - [ ] l'app cherche directement dès le début _> gérer mieux les font
 - [x] regarder l'état dans le modifier livre et dans verfication 
-- [ ] regarder comment recharger les livres après la modification
+- [x] regarder comment recharger les livres après la modification
 - [x] api pour register
-- [ ] verifier toutes les input pour le register
-- [ ] mettre en place une vérification d'email
-- [ ] bouton pour quand on a vendu le livre
+- [x] envoyer un mail après la registration
+- [x] verifier toutes les input pour le register
+- [x] bouton pour quand on a vendu le livre
+- [x] refaire message What's app
 - [ ] ajout photo dans la db
 - [x] restructurer les fichiers
-- [ ] faire en sorte que quand on appuie à coté dans le login ça enlève le clavier
+- [x] faire en sorte que quand on appuie à coté dans le login ça enlève le clavier
 - [ ] s'occuper des erreur de l'API
 - [ ] regarder si dans l'API on peut utiliser application/x-www-form-urlencoded
 - [ ] enlever le bottomtab quand le clavier monte
+- [x] bloquer les /admin
 
 ###API
 
