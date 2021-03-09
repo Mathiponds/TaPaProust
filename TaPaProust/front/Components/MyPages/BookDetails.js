@@ -139,19 +139,24 @@ class BookDetails extends React.Component{
   }
 
   _getImages(){
-    if(this.book.photos.length === 1){
-      console.log(API.getImage("resources/Images/322_717727.jpg"))
-      return (
-        <View style = {styles.image_box}>
-          <Image style = {styles.image2}
-          source = {{uri : 'https://tapaproust.herokuapp.com/api/getImage?path=resources/Images/add_book.png'}}/>
-        </View>)
-    }else{
-      return (
+    return (
       <View style = {styles.image_box}>
-        {this._getOpacity()}<Image style = {styles.image}></Image>
+        <Image style = {styles.image2}
+          source = {{uri : "https://tapaproust.herokuapp.com/api/getImage?path=resources/Images/add_book.png"}}/>
       </View>)
-    }
+    // if(this.book.photos.length === 0){
+    //   console.log(API.getImage("resources/Images/322_717727.jpg"))
+    //   return (
+    //     <View style = {styles.image_box}>
+    //       <Image style = {styles.image2}
+    //         source = {{uri : "https://reactnativecode.com/wp-content/uploads/2018/01/Image_Load_Done_Android.png"}}/>
+    //     </View>)
+    // }else{
+    //   return (
+    //   <View style = {styles.image_box}>
+    //     {this._getOpacity()}<Image style = {styles.image}></Image>
+    //   </View>)
+    // }
 
   }
 
@@ -194,7 +199,7 @@ const styles = StyleSheet.create({
   },
   image : {
     flex :1,
-    backgroundColor : 'grey',
+    backgroundColor : 'blue',
   },
   image2 : {
     flex :1,
@@ -262,7 +267,7 @@ const styles = StyleSheet.create({
 //state ici est le state global
 const mapStateToProps = (state) => {
   return {
-    favoritesBook: state.favoritesBook
+    favoritesBook: state.toggleFavorite.favoritesBook
   }
 }
 

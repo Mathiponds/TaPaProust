@@ -34,7 +34,7 @@ class VerifyBook extends React.Component{
   _confirmBook(){
     // TODO: Send the book to the backend
     if(!this.modify){
-      API.postBook(this.book).then(response => {
+      API.postBook({...this.book, photos : this._reducePhotosToString(this.book.photos)}).then(response => {
         action = {
           type : 'POST_BOOK',
           value : {
@@ -44,7 +44,7 @@ class VerifyBook extends React.Component{
         this.props.dispatch(action)
       }).catch(error => console.log(error))
     }else{
-      API.modifyBook(this.book).then(response => {
+      API.modifyBook({...this.book, photos : this._reducePhotosToString(this.book.photos)}).then(response => {
         action = {
           type : 'MODIFY_BOOK',
           value : {
@@ -70,7 +70,7 @@ class VerifyBook extends React.Component{
       this.props.navigation.replace('Ajouter un livre')
     }
   }
-  
+
   render(){
       return (
         <ScrollView style = {styles.main_container}>

@@ -1,6 +1,7 @@
 {
   "expo": {
     "name": "TaPaProust",
+    "description" : "This app is for the use of student to sell and buy books to others",
     "slug": "front",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -23,7 +24,8 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
-      }
+      },
+      "package": "com.tapaproust.front"
     },
     "web": {
       "favicon": "./assets/favicon.png"

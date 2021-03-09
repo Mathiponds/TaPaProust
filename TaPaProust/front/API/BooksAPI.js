@@ -88,16 +88,6 @@ export default  {
       'data' : bodyFormData,
       'headers' : { 'content-type':'multipart/form-data'}
   })},
-  sendArray : (ls) => {
-    var bodyFormData = new FormData();
-    bodyFormData.append('ls', ls)
-    console.log("e")
-    return instance({
-      'method':'POST',
-      'url':'/sendArray',
-      'data' : bodyFormData,
-      'headers' : { 'content-type':'multipart/form-data'}
-  })},
 
   addUser : (mail, password, passwordBis, phone) => {
     var bodyFormData = new FormData();
