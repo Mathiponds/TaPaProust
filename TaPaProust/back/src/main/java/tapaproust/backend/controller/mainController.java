@@ -207,10 +207,9 @@ public class mainController {
      */
     @GetMapping(
             value = "/api/getImage",
-            produces = MediaType.IMAGE_JPEG_VALUE
+            produces = MediaType.IMAGE_PNG_VALUE
     )
-    public @ResponseBody
-    byte[] getJPG(@RequestParam String path) throws IOException {
+    public byte[] getImage(@RequestParam String path) throws IOException {
         if(path.contains("resources/")){
             return Files.readAllBytes(Paths.get("src/main/"+path));
         }
