@@ -155,9 +155,9 @@ public class Book {
     public void setPhotos(String photos) {
         List<String> photosBase64 = stringToList(photos);
         this.photos = new ArrayList<>();
-        Random rn = new Random(); int rand = rn.nextInt(900000)+100000;
 
         for(String imgBase64 : photosBase64){
+            Random rn = new Random(); int rand = rn.nextInt(900000)+100000;
             String destinationPath = "resources/Images/"
                     + Long.toString(getId()) + "_" + rand
                     + ".jpg";
