@@ -1,5 +1,5 @@
 import React from 'react'
-import {View, Text, Image, StyleSheet, Button, TouchableOpacity, Linking} from 'react-native'
+import {View, Text, Image, StyleSheet, Button, TouchableOpacity, Linking,ScrollView} from 'react-native'
 
 import MyButton from '../MyCustomComponents/MyButton'
 import PhotoRendering from '../MyCustomComponents/PhotoRendering'
@@ -139,30 +139,25 @@ class BookDetails extends React.Component{
   }
 
   _getImages(){
-    return (
+    if(this.book.photos.length !== 0){
+      return (
+        <View style = {styles.image_box}>
+          {this._getOpacity()}
+          <Image style = {styles.image2}
+              source = {{uri :API.getImage('resources/Images/322_169726.jpg')}}/>
+        </View>)
+    }else{
+      return (
       <View style = {styles.image_box}>
-        <Image style = {styles.image2}
-          source = {{uri : "https://tapaproust.herokuapp.com/api/getImage?path=resources/Images/add_book.png"}}/>
+        {this._getOpacity()}
+        <Image style = {styles.image}></Image>
       </View>)
-    // if(this.book.photos.length === 0){
-    //   console.log(API.getImage("resources/Images/322_717727.jpg"))
-    //   return (
-    //     <View style = {styles.image_box}>
-    //       <Image style = {styles.image2}
-    //         source = {{uri : "https://reactnativecode.com/wp-content/uploads/2018/01/Image_Load_Done_Android.png"}}/>
-    //     </View>)
-    // }else{
-    //   return (
-    //   <View style = {styles.image_box}>
-    //     {this._getOpacity()}<Image style = {styles.image}></Image>
-    //   </View>)
-    // }
-
+    }
   }
 
   render(){
     return (
-      <View style = {styles.main_container}>
+      <ScrollView style = {styles.main_container}>
         <View style = {styles.image_box}>
             {this._getOpacity()}
             {this._getImages()}
@@ -183,7 +178,7 @@ class BookDetails extends React.Component{
           <Text style = {styles.text}><Text style = {styles.entry_text}>Langue: </Text>{this.book.language}</Text>
           {this._getButton()}
         </View>
-      </View>
+      </ScrollView>
     )
   }
 }
@@ -194,16 +189,18 @@ const styles = StyleSheet.create({
     padding : 5,
   },
   image_box : {
-    height : 180,
+    alignItems : "center",
+    height : 300,
     marginBottom :10
   },
   image : {
     flex :1,
-    backgroundColor : 'blue',
+    backgroundColor : 'grey'
   },
   image2 : {
-    flex :1,
-    backgroundColor : 'red',
+    resizeMode : 'contain',
+    height : 270,
+    width : 200,
   },
   price_box:{
     alignItems : 'center',

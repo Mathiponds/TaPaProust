@@ -25,7 +25,7 @@ class VerifyBook extends React.Component{
 
   _reducePhotosToString(){
     var out = ''
-    for(let s of this.props.route.params.photos.map(item => item.base64)){
+    for(let s of this.book.photos.map(item => item.base64)){
       out = out + s +';'
     }
     return out
