@@ -203,13 +203,34 @@ public class mainController {
      * @param path : should start with 'resources/'
      * @return the image data as byte array
      * @throws IOException
+     * @use ip:8080/static/image/png?<path> where <path> was received from a previous query
+     */
+    @GetMapping(
+            value = "/api/getImagePng",
+            produces = MediaType.IMAGE_PNG_VALUE
+    )
+    public byte[] getImagePng(@RequestParam String path) throws IOException {
+        if(path.contains("resources/")){
+            return Files.readAllBytes(Paths.get("src/main/"+path));
+        }
+        else {
+            return new byte[]{};
+        }
+    }
+
+    /**
+     * Get an image from path
+     *
+     * @param path : should start with 'resources/'
+     * @return the image data as byte array
+     * @throws IOException
      * @use ip:8080/static/image/jpg?<path> where <path> was received from a previous query
      */
     @GetMapping(
-            value = "/api/getImage",
-            produces = MediaType.IMAGE_PNG_VALUE
+            value = "/api/getImageJpg",
+            produces = MediaType.IMAGE_JPEG_VALUE
     )
-    public byte[] getImage(@RequestParam String path) throws IOException {
+    public byte[] getImageJpg(@RequestParam String path) throws IOException {
         if(path.contains("resources/")){
             return Files.readAllBytes(Paths.get("src/main/"+path));
         }
