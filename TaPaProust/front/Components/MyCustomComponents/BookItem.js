@@ -22,6 +22,17 @@ class BookItem extends React.Component{
       )
     }
   }
+  _getImage(){
+    if(this.props.book.photos.length !== 0){
+      return(
+        <Image style = {styles.image} source = {API.getImageJpg(this.props.book.photos[0])}></Image>
+      )
+    }else{
+      return (
+        <Image style = {styles.image}></Image>
+      )
+    }
+  }
   render(){
     const book = this.props.book
     return (
