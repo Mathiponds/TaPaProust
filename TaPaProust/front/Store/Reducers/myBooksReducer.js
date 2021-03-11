@@ -18,6 +18,7 @@ function toggleMyBooks(state = initialState, action) {
         myBooks : [...state.myBooks, action.value.book]
       }
       return nextState || state
+    break;
     case 'MODIFY_BOOK' :
       const myBookIndex = state.myBooks.findIndex(item => item.id === action.value.book.id)
       let nextMyBooks = [...state.myBooks]

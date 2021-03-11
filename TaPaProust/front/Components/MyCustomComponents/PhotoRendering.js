@@ -26,8 +26,8 @@ class PhotoRendering extends React.Component {
       <View
       key = {i}>
         <Image
-          style={styles.image}
-          source={{ uri: item.uri }}
+          style={this.props.big ? styles.image_big :styles.image}
+          source={{ uri: this.props.big ? item :item.uri }}
         />
         {this._ifDeletion(i)}
 
@@ -70,6 +70,12 @@ const styles = StyleSheet.create({
     marginRight : 2,
     height: 120,
     width: 90
+  },
+  image_big : {
+      marginLeft : 2,
+      marginRight : 2,
+      height: 200,
+      width: 200
   },
   search_item_text : {
     fontFamily : 'LobsterTwo-Italic',

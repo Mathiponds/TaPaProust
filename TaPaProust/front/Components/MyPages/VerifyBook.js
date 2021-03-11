@@ -35,6 +35,7 @@ class VerifyBook extends React.Component{
     // TODO: Send the book to the backend
     if(!this.modify){
       API.postBook({...this.book, photos : this._reducePhotosToString(this.book.photos)}).then(response => {
+
         action = {
           type : 'POST_BOOK',
           value : {
@@ -45,6 +46,7 @@ class VerifyBook extends React.Component{
       }).catch(error => console.log(error))
     }else{
       API.modifyBook({...this.book, photos : this._reducePhotosToString(this.book.photos)}).then(response => {
+        console.log("r"+response.data)
         action = {
           type : 'MODIFY_BOOK',
           value : {

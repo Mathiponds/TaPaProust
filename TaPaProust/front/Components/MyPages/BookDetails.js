@@ -139,13 +139,10 @@ class BookDetails extends React.Component{
   }
 
   _getImages(){
-    console.log(this.book)
     if(this.book.photos.length !== 0){
       return (
-          <Image
-            style = {styles.image2}
-            source = {{uri : API.getImagePng("resources/Images/322_597859.jpg")}}/>
-          )
+        <PhotoRendering withButton = {false} withDelete = {false} big = {true}
+          photos = {this.book.photos}/>)
     }else{
       return (
         <Image style = {styles.image}></Image>)
@@ -187,16 +184,13 @@ const styles = StyleSheet.create({
   image_box : {
     alignItems : "center",
     justifyContent : 'center',
-    backgroundColor : 'yellow',
     height : 300,
     width : 350,
     marginBottom :10
   },
   image : {
     flex :1,
-    height : 270,
-    width : 200,
-    backgroundColor : 'red'
+    backgroundColor : 'grey'
   },
   image2 : {
     resizeMode : 'contain',
