@@ -138,7 +138,9 @@ export default  {
       'url':'/api/getMyFavBooks'
   }),
 
-  getImage : (path) => HOST+'/api/getImage?path='+path
+  getImagePng : (path) => HOST+'/api/getImagePng?path='+path
+  ,
+  getImageJpg : (path) => HOST+'/api/getImageJpg?path='+path
   ,
 
   bookSold : (bookId, token) => {

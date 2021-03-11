@@ -48,7 +48,7 @@ class VerifyBook extends React.Component{
         action = {
           type : 'MODIFY_BOOK',
           value : {
-            book : this.book
+            book : response.data
           }
         }
         this.props.dispatch(action)

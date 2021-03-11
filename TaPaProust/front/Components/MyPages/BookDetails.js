@@ -139,19 +139,16 @@ class BookDetails extends React.Component{
   }
 
   _getImages(){
+    console.log(this.book)
     if(this.book.photos.length !== 0){
       return (
-        <View style = {styles.image_box}>
-          {this._getOpacity()}
-          <Image style = {styles.image2}
-              source = {{uri :API.getImage('resources/Images/322_169726.jpg')}}/>
-        </View>)
+          <Image
+            style = {styles.image2}
+            source = {{uri : API.getImagePng("resources/Images/322_597859.jpg")}}/>
+          )
     }else{
       return (
-      <View style = {styles.image_box}>
-        {this._getOpacity()}
-        <Image style = {styles.image}></Image>
-      </View>)
+        <Image style = {styles.image}></Image>)
     }
   }
 
@@ -159,7 +156,6 @@ class BookDetails extends React.Component{
     return (
       <ScrollView style = {styles.main_container}>
         <View style = {styles.image_box}>
-            {this._getOpacity()}
             {this._getImages()}
         </View>
         <TouchableOpacity
@@ -190,17 +186,23 @@ const styles = StyleSheet.create({
   },
   image_box : {
     alignItems : "center",
+    justifyContent : 'center',
+    backgroundColor : 'yellow',
     height : 300,
+    width : 350,
     marginBottom :10
   },
   image : {
     flex :1,
-    backgroundColor : 'grey'
+    height : 270,
+    width : 200,
+    backgroundColor : 'red'
   },
   image2 : {
     resizeMode : 'contain',
     height : 270,
     width : 200,
+    backgroundColor : 'blue'
   },
   price_box:{
     alignItems : 'center',
